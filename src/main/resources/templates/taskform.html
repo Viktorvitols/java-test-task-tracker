@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<div id="taskBtn">
+    <button>CREATE<br>A NEW TASK!!!</button>
+</div>
+
+<div id="createTask" class="modal">
+    <form action="#" th:action="@{/taskform}" th:object="${taskform}" method="post">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Create new task</h2>
+            </div>
+            <div class="modal-body">
+                <p>Project: </p><input type="text"/>
+                <p>Summary: </p><input class="summary" type="text"/>
+                <p>Assignee: </p><input type="text"/>
+                <p>Description: </p><textarea class="descr"></textarea>
+            </div>
+            <div class="modal-footer">
+                <span><input id="createBtn" type="submit" value="Create"/></span>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
