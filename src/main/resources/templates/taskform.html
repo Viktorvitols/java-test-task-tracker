@@ -19,10 +19,10 @@
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
-                <p>Project: </p><input type="text"/>
-                <p>Summary: </p><input class="summary" type="text"/>
-                <p>Assignee: </p><input type="text"/>
-                <p>Description: </p><textarea class="descr"></textarea>
+                <p>Project: </p><input type="text" th:field="*{project}"/>
+                <p>Summary: </p><input class="summary" type="text" th:field="*{summary}"/>
+                <p>Assignee: </p><input type="text" th:field="*{assignee}"/>
+                <p>Description: </p><textarea class="descr" th:field="*{description}"></textarea>
             </div>
             <div class="modal-footer">
                 <span><input id="createBtn" type="submit" value="Create"/></span>
