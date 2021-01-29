@@ -31,11 +31,11 @@ public class TestFormController {
         return "invalid";
     }
 
-
     @PostMapping("/taskform")
     public String submitNewTask(@ModelAttribute TaskForm taskForm, Model model) {
         model.addAttribute("taskform", taskForm);
         if (taskFormService.validateTaskData(taskForm) == true) {
+            taskFormService.storeTask(taskForm);
             return "redirect:/success";
         }
         return "redirect:/invalid";

@@ -1,6 +1,8 @@
 package com.app.services;
 
+import com.app.dao.TaskFormDao;
 import com.app.model.TaskForm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +32,12 @@ public class TaskFormService {
             break;
         }
         return isValid;
+    }
+
+    @Autowired
+    private TaskFormDao taskFormDao;
+
+    public void storeTask(TaskForm task) {
+        taskFormDao.storeTask(task);
     }
 }
