@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class TaskFormService {
 
     public boolean validateTaskData(TaskForm taskForm) {
-//        taskForm = new TaskForm();
+
         boolean isValid = true;
 
         while (isValid = true) {
