@@ -1,6 +1,6 @@
 package com.app.controllers;
 
-import com.app.model.TaskForm;
+import com.app.model.Task;
 import com.app.services.TaskFormService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ public class TestFormController {
 
     @GetMapping("/taskform")
     public String getTaskForm(Model model) {
-        model.addAttribute("taskform", new TaskForm());
+        model.addAttribute("taskform", new Task());
         return "taskform";
     }
 
@@ -32,10 +32,10 @@ public class TestFormController {
     }
 
     @PostMapping("/taskform")
-    public String submitNewTask(@ModelAttribute TaskForm taskForm, Model model) {
-        model.addAttribute("taskform", taskForm);
-        if (taskFormService.validateTaskData(taskForm) == true) {
-            taskFormService.storeTask(taskForm);
+    public String submitNewTask(@ModelAttribute Task task, Model model) {
+        model.addAttribute("taskform", task);
+        if (taskFormService.validateTaskData(task) == true) {
+            taskFormService.storeTask(task);
             return "redirect:/success";
         }
         return "redirect:/invalid";

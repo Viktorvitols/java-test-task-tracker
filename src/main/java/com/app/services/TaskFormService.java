@@ -1,31 +1,31 @@
 package com.app.services;
 
 import com.app.dao.TaskFormDao;
-import com.app.model.TaskForm;
+import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TaskFormService {
 
-    public boolean validateTaskData(TaskForm taskForm) {
+    public boolean validateTaskData(Task task) {
 
         boolean isValid = true;
 
         while (isValid = true) {
-            if (taskForm.getProject().isEmpty()) {
+            if (task.getProject().isEmpty()) {
                 isValid = false;
             }
 
-            if (taskForm.getSummary().isEmpty()) {
+            if (task.getSummary().isEmpty()) {
                 isValid = false;
             }
 
-            if (taskForm.getSummary().length() > 100) {
+            if (task.getSummary().length() > 100) {
                 isValid = false;
             }
 
-            if (taskForm.getDescription().length() > 4000) {
+            if (task.getDescription().length() > 4000) {
                 isValid = false;
             }
 
@@ -37,7 +37,7 @@ public class TaskFormService {
     @Autowired
     private TaskFormDao taskFormDao;
 
-    public void storeTask(TaskForm task) {
+    public void storeTask(Task task) {
         taskFormDao.storeTask(task);
     }
 }

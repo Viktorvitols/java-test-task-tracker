@@ -7,10 +7,17 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-<div id="taskBtn">
-    <button>CREATE<br>A NEW TASK!!!</button>
-</div>
+<div class="menu">
+    <div id="taskBtn">
+        <button>CREATE<br>A NEW TASK</button>
+    </div>
 
+    <div id="tasklistBtn">
+        <a href="/tasklist">
+            <button>GET A<br>TASKLIST</button>
+        </a>
+    </div>
+</div>
 <div id="createTask" class="modal">
     <form action="#" th:action="@{/taskform}" th:object="${taskform}" method="post">
         <div class="modal-content">

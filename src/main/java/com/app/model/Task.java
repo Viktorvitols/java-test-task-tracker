@@ -1,11 +1,12 @@
 package com.app.model;
 
-public class TaskForm {
+public class Task {
 
     private String project;
     private String summary;
     private String assignee;
     private String description;
+    private String assigneeName;
 
     public String getProject() {
         return project;
@@ -37,5 +38,13 @@ public class TaskForm {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAssigneeName() {
+        return assigneeName;
+    }
+
+    public void setAssigneeName(String assigneeName) {
+        this.assigneeName = assigneeName;
     }
 }
