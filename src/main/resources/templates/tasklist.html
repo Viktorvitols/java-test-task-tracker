@@ -10,13 +10,21 @@
 <div>
     <th:block th:each="task : ${tasklist}">
         <div class="row">
+            <a href="/edittask"></a>
+            <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
+            <div class="taskID" th:text="${task.id}"></div>
             <div class="cell project" th:text="${task.project}"></div>
             <div class="cell summary" th:text="${task.summary}"></div>
             <div class="cell assignee" th:text="${task.assigneeName}"></div>
             <div class="cell description" th:text="${task.description}"></div>
         </div>
     </th:block>
+
+    <a href="/taskform">
+        <button>Back</button>
+    </a>
 </div>
+
 
 <script src="/js/main.js"></script>
 </body>
