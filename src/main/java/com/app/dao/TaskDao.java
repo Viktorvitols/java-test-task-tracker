@@ -11,10 +11,21 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class TaskListDao {
+public class TaskDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+
+    public void storeTask(Task task) throws NullPointerException {
+        jdbcTemplate.update("INSERT INTO tickets (project_name, summary, assignee_name, description) VALUES (?, ?, ?, ?)",
+                task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription());
+    }
+
+    public List<Task> getTaskById(Integer id) throws SQLException {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?", rowMapper, id);
+    }
 
     public List<Task> getTaskList() {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
@@ -27,8 +38,11 @@ public class TaskListDao {
         task.setId(resultSet.getInt("id"));
         task.setProject(resultSet.getString("project_name"));
         task.setSummary(resultSet.getString("summary"));
+//        task.setCreated(resultSet.getDate("created"));
+//        task.setReporter(resultSet.getString("reporter"));
         task.setAssigneeName(resultSet.getString("assignee_name"));
         task.setDescription(resultSet.getString("description"));
+//        task.setAttachmentId(resultSet.getInt("attachment_id"));
 
         return task;
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class TestFormController {
+public class TaskFormController {
 
     @Autowired
     private TaskFormService taskFormService;
@@ -19,6 +19,11 @@ public class TestFormController {
     public String getTaskForm(Model model) {
         model.addAttribute("taskform", new Task());
         return "taskform";
+    }
+
+    @GetMapping("/edittask")
+    public String getTaskById(Integer id) {
+        return "edittask";
     }
 
     @GetMapping("/success")
@@ -30,6 +35,7 @@ public class TestFormController {
     public String getInvalidForm() {
         return "invalid";
     }
+    
 
     @PostMapping("/taskform")
     public String submitNewTask(@ModelAttribute Task task, Model model) {

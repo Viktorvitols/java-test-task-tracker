@@ -1,6 +1,6 @@
 package com.app.services;
 
-import com.app.dao.TaskFormDao;
+import com.app.dao.TaskDao;
 import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +35,9 @@ public class TaskFormService {
     }
 
     @Autowired
-    private TaskFormDao taskFormDao;
+    private TaskDao taskDao;
 
     public void storeTask(Task task) {
-        taskFormDao.storeTask(task);
+        taskDao.storeTask(task);
     }
 }

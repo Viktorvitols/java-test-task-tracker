@@ -7,18 +7,7 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-<div class="menu">
-    <div id="taskBtn">
-        <button class="bigbtn">CREATE<br>A NEW TASK</button>
-    </div>
-
-    <div id="tasklistBtn">
-        <a href="/tasklist">
-            <button class="bigbtn">GET A<br>TASKLIST</button>
-        </a>
-    </div>
-</div>
-<div id="createTask" class="modal">
+<div id="edittask" class="editform">
     <form action="#" th:action="@{/taskform}" th:object="${taskform}" method="post">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,7 +27,5 @@
     </form>
 
 </div>
-
-<script src="/js/main.js"></script>
 </body>
 </html>

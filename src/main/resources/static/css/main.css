@@ -11,7 +11,7 @@ flex-direction: row;
   margin: 50px;
 }
 
-button{
+.bigbtn{
   background-color: #35f335;
   color: red;
   height: 300px;
@@ -20,6 +20,9 @@ button{
   font-size: 50px;
 }
 
+button {
+  margin: 5px;
+}
 button:hover {
   cursor: pointer;
 }
@@ -118,6 +121,16 @@ flex-direction: row;
 margin: 5px;
 border-style: solid;
 border-width: 1px;
+}
+
+.editicon {
+height: 18px;
+margin: 5px;
+cursor: pointer;
+}
+
+.taskID {
+display: none;
 }
 
 .project {
