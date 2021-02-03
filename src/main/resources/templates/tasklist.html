@@ -10,8 +10,9 @@
 <div>
     <th:block th:each="task : ${tasklist}">
         <div class="row">
-            <a href="/edittask"></a>
+            <a href="/edittask">
             <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
+            </a>
             <div class="taskID" th:text="${task.id}"></div>
             <div class="cell project" th:text="${task.project}"></div>
             <div class="cell summary" th:text="${task.summary}"></div>

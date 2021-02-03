@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -21,9 +22,12 @@ public class TaskFormController {
         return "taskform";
     }
 
-    @GetMapping("/edittask")
-    public String getTaskById(Integer id) {
-        return "edittask";
+    @GetMapping("/edittask/{taskId}")
+    public String getTaskById(@PathVariable(value = "taskId") Integer id) {
+        Task task = new Task();
+        id = 5;
+        task.setId(id);
+        return "edittask/";
     }
 
     @GetMapping("/success")

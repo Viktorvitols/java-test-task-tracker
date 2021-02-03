@@ -1,6 +1,5 @@
 package com.app.model;
 
-import java.math.BigInteger;
 import java.sql.Date;
 
 public class Task {
