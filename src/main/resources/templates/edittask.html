@@ -5,27 +5,33 @@
     <title>Task hacker</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/js/taskValidation.js"></script>
+    <script src="/js/jquery.validate.js"></script>
 </head>
 <body>
-<div id="edittask" class="editform">
-    <form action="#" th:action="@{/taskform}" th:object="${taskform}" method="post">
+<div id="edittaskform" class="modal">
+    <form action="#" th:action="@{/edittask/' + ${task.id}}" th:object="${task}" method="post">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
-                <p>Project: </p><input type="text" th:field="*{project}"/>
-                <p>Summary: </p><input class="summary" type="text" th:field="*{summary}"/>
-                <p>Assignee: </p><input type="text" th:field="*{assignee}"/>
-                <p>Description: </p><textarea class="descr" th:field="*{description}"></textarea>
+                <p>Task ID: </p>
+                <div name="id" class="taskID" th:value="${task.id}"></div>
+                <p>Project: </p><input name="project" type="text" th:value="${task.project}"/>
+                <p>Summary: </p><input name="summary" class="summary" type="text" th:value="${task.summary}"/>
+                <p>Assignee: </p><input name="assignee" type="text" th:value="${task.assignee}"/>
+                <p>Description: </p><textarea name="description" class="descr" th:value="${task.description}"></textarea>
             </div>
             <div class="modal-footer">
-                <span><input id="createBtn" type="submit" value="Create"/></span>
+                <span><input id="createBtn" type="submit" value="Save"/></span>
             </div>
         </div>
     </form>
 
 </div>
+<script src="/js/main.js"></script>
 </body>
 </html>

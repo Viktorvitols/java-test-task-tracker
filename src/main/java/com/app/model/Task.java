@@ -15,6 +15,14 @@ public class Task {
     private Integer attachmentId;
     private String assigneeName;
 
+    public Task(Integer id) {
+        this.id = id;
+    }
+
+    public Task() {
+
+    }
+
     public Integer getId() {
         return id;
     }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.SQLException;
+
 @Controller
 public class TaskFormController {
 
@@ -23,11 +25,10 @@ public class TaskFormController {
     }
 
     @GetMapping("/edittask/{taskId}")
-    public String getTaskById(@PathVariable(value = "taskId") Integer id) {
-        Task task = new Task();
-        id = 5;
-        task.setId(id);
-        return "edittask/";
+    public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
+
+        model.addAttribute("task", taskFormService.getTaskById(id));
+        return "edittask";
     }
 
     @GetMapping("/success")
@@ -50,4 +51,15 @@ public class TaskFormController {
         }
         return "redirect:/invalid";
     }
+
+    @PostMapping("/edittask/{taskId}")
+    public String updateTask(@ModelAttribute Task task, Model model) throws SQLException {
+        model.addAttribute("task", task);
+        if (taskFormService.validateTaskData(task) == true) {
+            taskFormService.updateTask(task);
+            return "redirect:/success";
+        }
+        return "redirect:/invalid";
+    }
+
 }

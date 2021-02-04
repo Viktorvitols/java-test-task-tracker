@@ -22,14 +22,19 @@ public class TaskDao {
                 task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription());
     }
 
-    public List<Task> getTaskById(Integer id) throws SQLException {
+    public void updateTask(Task task) throws NullPointerException {
+        jdbcTemplate.update("UPDATE tickets SET project_name = ?, summary = ?, assignee_name = ?, description = ? WHERE id = ?",
+                task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
+    }
+
+    public Task getTaskById(Integer id) throws SQLException {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?", rowMapper, id);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?", rowMapper, id).get(0);
     }
 
     public List<Task> getTaskList() {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT id, project_name, summary, assignee_name, description FROM tickets", rowMapper);
+        return jdbcTemplate.query("SELECT id, project_name, summary, assignee_name, description FROM tickets ORDER BY id", rowMapper);
     }
 
     private Task mapTask(ResultSet resultSet) throws SQLException {

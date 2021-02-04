@@ -10,7 +10,7 @@
 <div>
     <th:block th:each="task : ${tasklist}">
         <div class="row">
-            <a href="/edittask">
+            <a th:href="'/edittask/' + ${task.id}" id="edittask">
             <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
             </a>
             <div class="taskID" th:text="${task.id}"></div>
@@ -25,8 +25,6 @@
         <button>Back</button>
     </a>
 </div>
-
-
 <script src="/js/main.js"></script>
 </body>
 </html>

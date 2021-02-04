@@ -44,7 +44,11 @@ public class TaskFormService {
         taskDao.storeTask(task);
     }
 
-    public List<Task> getTaskById(Integer id) throws SQLException {
+    public void updateTask(Task task) throws SQLException {
+        taskDao.updateTask(task);
+    }
+
+    public Task getTaskById(Integer id) throws SQLException {
         return taskDao.getTaskById(id);
     }
 }
