@@ -11,22 +11,26 @@
 </head>
 <body>
 <div id="edittaskform" class="modal">
-    <form action="#" th:action="@{/edittask/' + ${task.id}}" th:object="${task}" method="post">
+    <form th:action="@{'/edittask/' + ${task.id}}" th:object="${task}" method="get">
         <div class="modal-content">
             <div class="modal-header">
+                <a href="/">
                 <span class="close">&times;</span>
+                </a>
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
                 <p>Task ID: </p>
-                <div name="id" class="taskID" th:value="${task.id}"></div>
+                <div name="id" class="hidTaskID" th:value="${task.id}"></div>
                 <p>Project: </p><input name="project" type="text" th:value="${task.project}"/>
                 <p>Summary: </p><input name="summary" class="summary" type="text" th:value="${task.summary}"/>
-                <p>Assignee: </p><input name="assignee" type="text" th:value="${task.assignee}"/>
-                <p>Description: </p><textarea name="description" class="descr" th:value="${task.description}"></textarea>
+                <p>Assignee: </p><input name="assignee" type="text" th:value="${task.assigneeName}"/>
+                <p>Description: </p><textarea name="description" class="descr" th:inline="text">[[${task.description}]]</textarea>
             </div>
             <div class="modal-footer">
+                <form method="post" th:action="@{'/edittask/' + ${task.id} + '/post'}">
                 <span><input id="createBtn" type="submit" value="Save"/></span>
+                </form>
             </div>
         </div>
     </form>

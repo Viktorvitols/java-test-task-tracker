@@ -8,10 +8,6 @@ btn.onclick = function() {
 }
 
 span.onclick = function() {
-  edittask.style.display = "block";
-}
-
-span.onclick = function() {
   modal.style.display = "none";
 }
 

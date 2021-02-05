@@ -10,22 +10,11 @@
     <script src="/js/jquery.validate.js"></script>
 </head>
 <body>
-<div class="menu">
-    <div id="taskBtn">
-        <button class="bigbtn">CREATE<br>A NEW TASK</button>
-    </div>
 
-    <div id="tasklistBtn">
-        <a href="/tasklist">
-            <button class="bigbtn">GET A<br>TASKLIST</button>
-        </a>
-    </div>
-</div>
 <div id="createTask" class="modal">
     <form th:action="@{/taskform}" th:object="${taskform}" method="post" id="taskform">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="close">&times;</span>
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
@@ -40,10 +29,6 @@
         </div>
     </form>
 </div>
-
-<!--<script>-->
-<!--    $("#taskform").validate();-->
-<!--</script>-->
 <script src="/js/main.js"></script>
 </body>
 </html>

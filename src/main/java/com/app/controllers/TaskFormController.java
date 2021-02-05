@@ -18,6 +18,11 @@ public class TaskFormController {
     @Autowired
     private TaskFormService taskFormService;
 
+    @GetMapping("/")
+    public String indexPage() {
+        return "index";
+    }
+
     @GetMapping("/taskform")
     public String getTaskForm(Model model) {
         model.addAttribute("taskform", new Task());
@@ -52,7 +57,7 @@ public class TaskFormController {
         return "redirect:/invalid";
     }
 
-    @PostMapping("/edittask/{taskId}")
+    @PostMapping("/edittask/{taskId}/post")
     public String updateTask(@ModelAttribute Task task, Model model) throws SQLException {
         model.addAttribute("task", task);
         if (taskFormService.validateTaskData(task) == true) {
