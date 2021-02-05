@@ -20,4 +20,8 @@ public class TaskListService {
     public Task getTaskById(Integer id) throws SQLException {
         return taskDao.getTaskById(id);
     }
+
+    public List<Task> getDetailedTaskList() {
+        return taskDao.getDetailedTaskList();
+    }
 }
