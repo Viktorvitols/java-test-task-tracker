@@ -24,4 +24,9 @@ public class TaskListService {
     public List<Task> getDetailedTaskList() {
         return taskDao.getDetailedTaskList();
     }
+
+    public List<Task> getFilteredTaskList(String project) {
+        return taskDao.getFilteredTaskList(project);
+    }
+
 }

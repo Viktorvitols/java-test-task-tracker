@@ -41,6 +41,11 @@ public class TaskDao {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         return jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
     }
+    public List<Task> getFilteredTaskList(String project) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
+    }
+
 
     private Task mapTask(ResultSet resultSet) throws SQLException {
         Task task = new Task();

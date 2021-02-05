@@ -3,9 +3,7 @@ package com.app.controllers;
 import com.app.model.Task;
 import com.app.services.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +17,10 @@ public class RestTaskListController {
     @GetMapping("/detailedtasklist")
     public List<Task> getDetailedTaskList() {
         return taskListService.getDetailedTaskList();
+    }
+
+    @GetMapping("/detailedtasklist/{project}")
+    public List<Task> getFilteredTaskList(@PathVariable(value = "project") String project) {
+        return taskListService.getFilteredTaskList(project);
     }
 }
