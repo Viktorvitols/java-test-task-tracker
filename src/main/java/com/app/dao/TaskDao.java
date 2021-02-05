@@ -27,6 +27,12 @@ public class TaskDao {
                 task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
+    public void changeAssignee(Task task) throws NullPointerException {
+        jdbcTemplate.update("UPDATE tickets SET assignee_name = (" +
+                "SELECT name FROM users WHERE name = ? AND is_active = true) WHERE id = ? ",
+                task.getAssigneeName(), task.getId());
+    }
+
     public Task getTaskById(Integer id) throws SQLException {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?", rowMapper, id).get(0);

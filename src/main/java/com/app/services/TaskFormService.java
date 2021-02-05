@@ -51,4 +51,8 @@ public class TaskFormService {
     public Task getTaskById(Integer id) throws SQLException {
         return taskDao.getTaskById(id);
     }
+
+    public void changeAssignee(Task task) {
+        return taskDao.changeAssignee(task);
+    }
 }
