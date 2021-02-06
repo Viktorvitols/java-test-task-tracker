@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+</head>
+<body>
+<form th:action="@{'/task/' + ${task.id}}" th:object="${task}" method="get">
+    <div>
+        <div>
+            <div class="cell"><p>Task ID: </p>
+                <div name="id" th:text="${task.id}"></div>
+            </div>
+            <div class="cell"><p>Project: </p>
+                <p name="project" type="text" th:text="${task.project}"/></div>
+            <div class="cell"><p>Summary: </p>
+                <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
+            <div class="cell"><p>Assignee: </p>
+                <p name="assignee" type="text" th:text="${task.assigneeName}"/>
+            </div>
+            <div class="cell"><p>Description: </p>
+                <p name="description" class="descr" th:text="${task.description}"></p></div>
+        </div>
+        <div>
+            <a href="/edittask/${task.id}">
+                <button>Edit</button>
+            </a>
+        </div>
+    </div>
+</form>
+<form th:block th:each="user : ${users}">
+    <div>
+        <select name="assignees" id="assignees">
+            <option class="user">[[${user}]]</option>
+        </select>
+    </div>
+</form>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

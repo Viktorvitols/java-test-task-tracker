@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -23,6 +24,16 @@ public class UserDao {
             return true;
         }
     }
+
+    public List<User> getUserList() {
+        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
+        return jdbcTemplate.query("SELECT * FROM users ORDER BY name", rowMapper);
+    }
+
+//    public List<String> getUserNames() {
+//        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
+//        return jdbcTemplate.query("SELECT name FROM users", rowMapper);
+//    }
 
     private User mapUser(ResultSet resultSet) throws SQLException {
         User user = new User();
