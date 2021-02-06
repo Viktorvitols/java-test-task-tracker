@@ -1,7 +1,7 @@
 package com.app.controllers;
 
 import com.app.model.Task;
-import com.app.services.TaskFormService;
+import com.app.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.sql.SQLException;
 
 @Controller
-public class TaskFormController {
+public class TaskController {
 
     @Autowired
-    private TaskFormService taskFormService;
+    private TaskService taskService;
 
     @GetMapping("/")
     public String indexPage() {
@@ -32,7 +32,7 @@ public class TaskFormController {
     @GetMapping("/edittask/{taskId}")
     public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
 
-        model.addAttribute("task", taskFormService.getTaskById(id));
+        model.addAttribute("task", taskService.getTaskById(id));
         return "edittask";
     }
 
@@ -50,8 +50,8 @@ public class TaskFormController {
     @PostMapping("/taskform")
     public String submitNewTask(@ModelAttribute Task task, Model model) {
         model.addAttribute("taskform", task);
-        if (taskFormService.validateTaskData(task) == true) {
-            taskFormService.storeTask(task);
+        if (taskService.validateTaskData(task) == true) {
+            taskService.storeTask(task);
             return "redirect:/success";
         }
         return "redirect:/invalid";
@@ -60,8 +60,8 @@ public class TaskFormController {
     @PostMapping("/edittask/{taskId}/post")
     public String updateTask(@ModelAttribute Task task, Model model) throws SQLException {
         model.addAttribute("task", task);
-        if (taskFormService.validateTaskData(task) == true) {
-            taskFormService.updateTask(task);
+        if (taskService.validateTaskData(task) == true) {
+            taskService.updateTask(task);
             return "redirect:/success";
         }
         return "redirect:/invalid";

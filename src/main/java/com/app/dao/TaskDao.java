@@ -27,10 +27,13 @@ public class TaskDao {
                 task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
-    public void changeAssignee(Task task) throws NullPointerException {
-        jdbcTemplate.update("UPDATE tickets SET assignee_name = (" +
-                "SELECT name FROM users WHERE name = ? AND is_active = true) WHERE id = ? ",
-                task.getAssigneeName(), task.getId());
+    public void changeAssignee(int taskId, int userId) throws NullPointerException {
+        jdbcTemplate.update("UPDATE tickets " +
+                        "SET assignee = (" +
+                        "SELECT id FROM users WHERE id = ? AND is_active = true), " +
+                        "assignee_name = (" +
+                        "SELECT name FROM users WHERE id = ? AND is_active = true) WHERE id = ?",
+                userId, userId, taskId);
     }
 
     public Task getTaskById(Integer id) throws SQLException {
@@ -47,6 +50,7 @@ public class TaskDao {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         return jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
     }
+
     public List<Task> getFilteredTaskList(String project) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         return jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);

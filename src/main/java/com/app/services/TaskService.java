@@ -1,18 +1,25 @@
 package com.app.services;
 
+import com.app.controllers.TaskController;
 import com.app.dao.TaskDao;
+import com.app.dao.UserDao;
 import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @Service
-public class TaskFormService {
+public class TaskService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private TaskController taskController;
 
     public boolean validateTaskData(Task task) {
 
@@ -52,7 +59,11 @@ public class TaskFormService {
         return taskDao.getTaskById(id);
     }
 
-    public void changeAssignee(Task task) {
-        return taskDao.changeAssignee(task);
+    public void changeAssignee(Integer taskId, Integer userId) {
+        if (userDao.isUserActive(userId) == true) {
+            taskDao.changeAssignee(taskId, userId);
+        } else {
+            taskController.getInvalidForm();
+        }
     }
 }
