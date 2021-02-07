@@ -57,9 +57,10 @@ public class TaskFormController {
         return "redirect:/invalid";
     }
 
-    @PostMapping("/edittask/{taskId}/post")
-    public String updateTask(@ModelAttribute Task task, Model model) throws SQLException {
-        model.addAttribute("task", task);
+    @PostMapping("/edittask/{taskId}")
+    public String updateTask(@ModelAttribute Task task, @PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
+//        model.addAttribute("task", task);
+        task.setId(id);
         if (taskFormService.validateTaskData(task) == true) {
             taskFormService.updateTask(task);
             return "redirect:/success";

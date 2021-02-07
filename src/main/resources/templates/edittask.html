@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="edittaskform" class="modal">
-    <form th:action="@{'/edittask/' + ${task.id}}" th:object="${task}" method="get">
+    <form th:action="@{'/edittask/' + ${task.id}}" th:object="${task}" method="post">
         <div class="modal-content">
             <div class="modal-header">
                 <a href="/">
@@ -28,9 +28,7 @@
                 <p>Description: </p><textarea name="description" class="descr" th:inline="text">[[${task.description}]]</textarea>
             </div>
             <div class="modal-footer">
-                <form method="post" th:action="@{'/edittask/' + ${task.id} + '/post'}">
                 <span><input id="createBtn" type="submit" value="Save"/></span>
-                </form>
             </div>
         </div>
     </form>
