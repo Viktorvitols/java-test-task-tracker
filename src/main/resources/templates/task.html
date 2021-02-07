@@ -31,10 +31,10 @@
         </div>
     </div>
 </form>
-<form th:block th:each="user : ${users}">
+<form>
     <div>
         <select name="assignees" id="assignees">
-            <option class="user">[[${user}]]</option>
+            <option class="user" th:block th:each="user : ${users}">[[${user}]]</option>
         </select>
     </div>
 </form>
