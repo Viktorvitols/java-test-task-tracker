@@ -19,6 +19,11 @@
             <div class="cell"><p>Summary: </p>
                 <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
             <div class="cell"><p>Assignee: </p>
+                <select name="assignees" id="assignees">
+                    <option class="user" th:block th:each="user : ${users}" selected="${user}">[[${user}]]</option>
+                </select>
+                <button th:action="@{/setAssignee}" th:object="${user}" method="post">Save</button>
+
                 <p name="assignee" type="text" th:text="${task.assigneeName}"/>
             </div>
             <div class="cell"><p>Description: </p>
@@ -31,14 +36,6 @@
         </div>
     </div>
 </form>
-<form>
-    <div>
-        <select name="assignees" id="assignees">
-            <option class="user" th:block th:each="user : ${users}">[[${user}]]</option>
-        </select>
-    </div>
-</form>
-
 <script src="/js/main.js"></script>
 </body>
 </html>

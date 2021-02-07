@@ -68,9 +68,8 @@ public class TaskController {
         return "redirect:/invalid";
     }
 
-    @PostMapping("/edittask/{taskId}/post")
+    @PostMapping("/edittask/{taskId}")
     public String updateTask(@ModelAttribute Task task, Model model) throws SQLException {
-        model.addAttribute("task", task);
         if (taskService.validateTaskData(task) == true) {
             taskService.updateTask(task);
             return "redirect:/success";
