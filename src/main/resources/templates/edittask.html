@@ -29,7 +29,6 @@
                                               th:inline="text">[[${task.description}]]</textarea>
             </div>
             <div class="modal-footer">
-                <form method="post" th:action="@{'/edittask/' + ${task.id} + '/post'}">
                 <span><input id="createBtn" type="submit" value="Save"/></span>
             </div>
         </div>
