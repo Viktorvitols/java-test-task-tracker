@@ -5,12 +5,10 @@ import com.app.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class TaskController {
@@ -35,6 +33,12 @@ public class TaskController {
         model.addAttribute("task", taskService.getTaskById(id));
         return "edittask";
     }
+
+    @GetMapping("/search")
+    public String getSearchResults(@ModelAttribute List<Task> taskList, Model model) {
+            model.addAttribute("tasklist", taskList);
+            return "search";
+        }
 
     @GetMapping("/success")
     public String getSuccessForm() {
@@ -67,4 +71,10 @@ public class TaskController {
         return "redirect:/invalid";
     }
 
+    @RequestMapping("/")
+    public String searchTask(@RequestBody String varSummary, Model model) {
+        List<Task> searchResult = taskService.searchTask(varSummary);
+        model.addAttribute("searchList", searchResult);
+        return "redirect:/search";
+    }
 }

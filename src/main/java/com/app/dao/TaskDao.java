@@ -56,6 +56,12 @@ public class TaskDao {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
     }
 
+    public List<Task> searchTaskBySummary(String varSummary) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
+        String likeSummary = "%" + varSummary.substring(2) + "%";
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE summary LIKE ?", rowMapper, likeSummary);
+    }
+
 
     private Task mapTask(ResultSet resultSet) throws SQLException {
         Task task = new Task();

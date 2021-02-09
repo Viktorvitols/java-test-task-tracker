@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Search results</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+</head>
+<body>
+<div>
+    <th:block th:each="task : ${searchList}">
+        <div class="row">
+            <a th:href="'/edittask/' + ${task.id}" id="edittask">
+                <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
+            </a>
+            <div class="taskID" th:text="${task.id}"></div>
+            <div class="cell project" th:text="${task.project}"></div>
+            <div class="cell summary" th:text="${task.summary}"></div>
+            <div class="cell assignee" th:text="${task.assigneeName}"></div>
+            <div class="cell description" th:text="${task.description}"></div>
+        </div>
+    </th:block>
+
+    <a href="/">
+        <button>Go home</button>
+    </a>
+</div>
+<script src="/js/main.js"></script>
+</body>
+</html>

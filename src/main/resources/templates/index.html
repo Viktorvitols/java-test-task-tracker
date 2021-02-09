@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Hacker tracker</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+<div>
+    <div class="searchbar">
+        <form method="post">
+            <input th:object="${varSummary}" class="searchbox" type="search" name="q" placeholder="Find in summary..">
+            <button class="searchbtn" type="submit"></button>
+        </form>
+    </div>
+</div>
 <div class="menu">
     <div id="taskBtn">
         <a href="/taskform">
-        <button class="bigbtn">CREATE<br>A NEW TASK</button>
+            <button class="bigbtn">CREATE<br>A NEW TASK</button>
         </a>
     </div>
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class TaskService {
@@ -65,5 +66,9 @@ public class TaskService {
         } else {
             taskController.getInvalidForm();
         }
+    }
+
+    public List<Task> searchTask(String searchString) {
+        return taskDao.searchTaskBySummary(searchString);
     }
 }
