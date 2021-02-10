@@ -121,12 +121,28 @@ flex-direction: row;
 margin: 5px;
 border-style: solid;
 border-width: 1px;
+padding: 3px;
+padding-left: 5px;
+}
+
+.colname {
+margin: 5px;
+padding: 3px;
+padding-left: 5px;
 }
 
 .editicon {
 height: 18px;
 margin: 5px;
 cursor: pointer;
+}
+
+.taskID {
+margin: 5px;
+width: 25px;
+height: 18px;
+padding: 3px;
+padding-left: 5px;
 }
 
 .hidTaskID {
@@ -147,4 +163,8 @@ width: 150px;
 
 .description {
 width: 500px;
+}
+
+.searchbar{
+margin: 25px;
 }

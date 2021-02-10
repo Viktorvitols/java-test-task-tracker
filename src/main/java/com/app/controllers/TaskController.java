@@ -86,10 +86,10 @@ public class TaskController {
         taskService.changeAssignee(taskId, userId);
         return "redirect:/";
     }
-    @RequestMapping("/")
+    @RequestMapping("/tasklist")
     public String searchTask(@RequestBody String varSummary, Model model) {
         List<Task> searchResult = taskService.searchTask(varSummary);
-        model.addAttribute("searchList", searchResult);
-        return "/search";
+        model.addAttribute("tasklist", searchResult);
+        return "/tasklist";
     }
 }

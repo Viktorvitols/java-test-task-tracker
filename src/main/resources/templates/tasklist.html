@@ -8,25 +8,42 @@
 </head>
 <body>
 <div>
-    <th:block th:each="task : ${tasklist}">
-        <div class="row">
-            <a th:href="'/edittask/' + ${task.id}" id="edittask">
-            <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
-            </a>
-            <a th:href="'/task/' + ${task.id}">
-            <div class="taskID" th:text="${task.id}"></div>
-            </a>
-            <div class="cell project" th:text="${task.project}"></div>
-            <div class="cell summary" th:text="${task.summary}"></div>
-            <div class="cell assignee" th:text="${task.assigneeName}"></div>
-            <div class="cell description" th:text="${task.description}"></div>
+    <div>
+        <div class="searchbar">
+            <form th:object="${searchList}" th:method="post">
+                <input class="searchbox" type="search" name="q" placeholder="Find by text..">
+                <button class="searchbtn" type="submit">Find</button>
+            </form>
         </div>
-    </th:block>
+    </div>
+    <div>
+        <div class="row">
+            <div class="editicon" style="margin-left: 30px">  </div>
+            <div class="taskID">ID</div>
+            <div class="colname project">Project</div>
+            <div class="colname summary">Summary</div>
+            <div class="colname assignee">Assignee</div>
+            <div class="colname description">Description</div>
+        </div>
+        <th:block th:each="task : ${tasklist}">
+            <div class="row">
+                <a th:href="'/edittask/' + ${task.id}" id="edittask">
+                    <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
+                </a>
+                <a th:href="'/task/' + ${task.id}">
+                    <div class="taskID" th:text="${task.id}"></div>
+                </a>
+                <div class="cell project" th:text="${task.project}"></div>
+                <div class="cell summary" th:text="${task.summary}"></div>
+                <div class="cell assignee" th:text="${task.assigneeName}"></div>
+                <div class="cell description" th:text="${task.description}"></div>
+            </div>
+        </th:block>
 
-    <a href="/">
-        <button>Go home</button>
-    </a>
-</div>
-<script src="/js/main.js"></script>
+        <a href="/">
+            <button>Go home</button>
+        </a>
+    </div>
+    <script src="/js/main.js"></script>
 </body>
 </html>
