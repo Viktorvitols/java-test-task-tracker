@@ -58,8 +58,8 @@ public class TaskDao {
 
     public List<Task> searchTaskBySummary(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        String likeSummary = "%" + varSummary.substring(2) + "%";
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE summary LIKE ?", rowMapper, likeSummary);
+        String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ?", rowMapper, likeSummary);
     }
 
 

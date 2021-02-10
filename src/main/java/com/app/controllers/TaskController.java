@@ -36,9 +36,9 @@ public class TaskController {
 
     @GetMapping("/search")
     public String getSearchResults(@ModelAttribute List<Task> taskList, Model model) {
-            model.addAttribute("tasklist", taskList);
-            return "search";
-        }
+        model.addAttribute("tasklist", taskList);
+        return "search";
+    }
 
     @GetMapping("/success")
     public String getSuccessForm() {
@@ -49,7 +49,7 @@ public class TaskController {
     public String getInvalidForm() {
         return "invalid";
     }
-    
+
 
     @PostMapping("/taskform")
     public String submitNewTask(@ModelAttribute Task task, Model model) {
@@ -75,6 +75,6 @@ public class TaskController {
     public String searchTask(@RequestBody String varSummary, Model model) {
         List<Task> searchResult = taskService.searchTask(varSummary);
         model.addAttribute("searchList", searchResult);
-        return "redirect:/search";
+        return "/search";
     }
 }

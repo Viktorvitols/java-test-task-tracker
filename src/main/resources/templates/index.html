@@ -8,9 +8,9 @@
 <body>
 <div>
     <div class="searchbar">
-        <form method="post">
-            <input th:object="${varSummary}" class="searchbox" type="search" name="q" placeholder="Find in summary..">
-            <button class="searchbtn" type="submit"></button>
+        <form th:object="${searchList}" th:method="post">
+            <input class="searchbox" type="search" name="q" placeholder="Find in summary..">
+            <button class="searchbtn" type="submit">Find</button>
         </form>
     </div>
 </div>
