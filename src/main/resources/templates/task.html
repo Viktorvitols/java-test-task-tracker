@@ -8,7 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 </head>
 <body>
-<form th:action="@{'/task/' + ${task.id}}" th:object="${task}" method="get">
+
     <div>
         <div>
             <div class="cell"><p>Task ID: </p>
@@ -19,10 +19,12 @@
             <div class="cell"><p>Summary: </p>
                 <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
             <div class="cell"><p>Assignee: </p>
-                <select name="assignees" id="assignees">
-                    <option class="user" th:block th:each="user : ${users}" selected="${user}">[[${user}]]</option>
-                </select>
-                <button th:action="@{/setAssignee}" th:object="${user}" method="post">Save</button>
+                <form th:action="@{'/task/' + ${task.id}}" th:object="${task}" method="post">
+                    <select name="assignees" id="assignees">
+                        <option class="user" th:block th:each="user : ${users}" selected="${user}">[[${user}]]</option>
+                    </select>
+                    <input type="submit">Save</input>
+                </form>
 
                 <p name="assignee" type="text" th:text="${task.assigneeName}"/>
             </div>
@@ -35,7 +37,7 @@
             </a>
         </div>
     </div>
-</form>
+
 <script src="/js/main.js"></script>
 </body>
 </html>
