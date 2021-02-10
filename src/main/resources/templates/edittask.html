@@ -20,8 +20,7 @@
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
-                <p>Task ID: </p>
-                <input disabled name="id" th:value="${task.id}"/>
+                <p>Task ID: </p><input readonly name="id" th:value="${task.id}"/>
                 <p>Project: </p><input name="project" type="text" th:value="${task.project}"/>
                 <p>Summary: </p><input name="summary" class="summary" type="text" th:value="${task.summary}"/>
                 <p>Assignee: </p><input name="assignee" type="text" th:value="${task.assigneeName}"/>
