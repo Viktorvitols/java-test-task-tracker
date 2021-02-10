@@ -11,8 +11,8 @@ public class RestTaskController {
     @Autowired
     TaskService taskService;
 
-    @PostMapping("/setAssignee")
-    public void changeAssignee(int taskId, int userId) {
+    @PostMapping("/restSetAssignee")
+    public void restSetAssignee(int taskId, int userId) {
         taskService.changeAssignee(taskId, userId);
     }
 }

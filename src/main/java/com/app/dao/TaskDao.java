@@ -68,7 +68,6 @@ public class TaskDao {
         task.setAssigneeName(resultSet.getString("assignee_name"));
         task.setDescription(resultSet.getString("description"));
 //        task.setAttachmentId(resultSet.getInt("attachment_id"));
-
         return task;
     }
 }
