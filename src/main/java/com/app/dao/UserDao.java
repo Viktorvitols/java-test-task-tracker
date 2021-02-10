@@ -30,11 +30,6 @@ public class UserDao {
         return jdbcTemplate.query("SELECT * FROM users ORDER BY name", rowMapper);
     }
 
-//    public List<String> getUserNames() {
-//        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
-//        return jdbcTemplate.query("SELECT name FROM users", rowMapper);
-//    }
-
     private User mapUser(ResultSet resultSet) throws SQLException {
         User user = new User();
 

@@ -34,7 +34,7 @@ public class TaskController {
     @GetMapping("/task/{taskId}")
     public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
         model.addAttribute("task", taskService.getTaskById(id));
-        model.addAttribute("users", userService.getUserNames());
+        model.addAttribute("users", userService.getUserList());
         return "task";
     }
 
@@ -81,6 +81,11 @@ public class TaskController {
         return "redirect:/invalid";
     }
 
+    @PostMapping("/setAssignee")
+    public String changeAssignee(int taskId, int userId) {
+        taskService.changeAssignee(taskId, userId);
+        return "redirect:/";
+    }
     @RequestMapping("/")
     public String searchTask(@RequestBody String varSummary, Model model) {
         List<Task> searchResult = taskService.searchTask(varSummary);

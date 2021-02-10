@@ -9,34 +9,36 @@
 </head>
 <body>
 
+<div>
     <div>
-        <div>
-            <div class="cell"><p>Task ID: </p>
-                <div name="id" th:text="${task.id}"></div>
-            </div>
-            <div class="cell"><p>Project: </p>
-                <p name="project" type="text" th:text="${task.project}"/></div>
-            <div class="cell"><p>Summary: </p>
-                <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
-            <div class="cell"><p>Assignee: </p>
-                <form th:action="@{'/task/' + ${task.id}}" th:object="${task}" method="post">
-                    <select name="assignees" id="assignees">
-                        <option class="user" th:block th:each="user : ${users}" selected="${user}">[[${user}]]</option>
-                    </select>
-                    <input type="submit">Save</input>
-                </form>
-
-                <p name="assignee" type="text" th:text="${task.assigneeName}"/>
-            </div>
-            <div class="cell"><p>Description: </p>
-                <p name="description" class="descr" th:text="${task.description}"></p></div>
+        <div class="cell"><p>Task ID: </p>
+            <div name="id" th:text="${task.id}"></div>
         </div>
-        <div>
-            <a href="/edittask/${task.id}">
-                <button>Edit</button>
-            </a>
+        <div class="cell"><p>Project: </p>
+            <p name="project" type="text" th:text="${task.project}"/></div>
+        <div class="cell"><p>Summary: </p>
+            <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
+        <div class="cell"><p>Assignee: </p>
+            <form th:action="@{/setAssignee}" th:object="${task}" method="post">
+                <select name="userId" id="userId">
+                    <option class="user" th:block th:each="user : ${users}" th:value="${user.id}"
+                            th:selected="${user.name==task.assigneeName}">[[${user.name}]]
+                    </option>
+                </select>
+                <input name="taskId" th:value="${task.id}" hidden>
+                <input type="submit">
+            </form>
+            <p name="assignee" type="text" th:text="${task.assigneeName}"/>
         </div>
+        <div class="cell"><p>Description: </p>
+            <p name="description" class="descr" th:text="${task.description}"></p></div>
     </div>
+    <div>
+        <a th:href="'/edittask/' + ${task.id}">
+            <button>Edit</button>
+        </a>
+    </div>
+</div>
 
 <script src="/js/main.js"></script>
 </body>
