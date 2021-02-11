@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.model.Registration;
 import com.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,6 +26,22 @@ public class UserDao {
         }
     }
 
+    public void registerUser(Registration registration) {
+        jdbcTemplate.update("INSERT INTO users (name, email, pass_hash) VALUES (?, ?, ?)",
+                registration.getName(), registration.getEmail(), registration.getPassword());
+    }
+
+    public boolean checkEmail(String email) {
+        RowMapper<Registration> rowMapper = (resultSet, rowNumber) -> mapRegistration(resultSet);
+        return jdbcTemplate.query("SELECT * FROM users WHERE email = ?", rowMapper, email).isEmpty();
+    }
+
+    public List<User> loginUser(String email, String passHash) {
+        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
+        return jdbcTemplate.query("SELECT * FROM users WHERE email = ? AND pass_hash = ?", rowMapper, email, passHash);
+    }
+
+
     public List<User> getUserList() {
         RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
         return jdbcTemplate.query("SELECT * FROM users ORDER BY name", rowMapper);
@@ -39,5 +56,15 @@ public class UserDao {
         user.setActive(resultSet.getBoolean("is_active"));
 
         return user;
+    }
+
+    private Registration mapRegistration(ResultSet resultSet) throws SQLException {
+        Registration registration = new Registration();
+
+        registration.setName(resultSet.getString("name"));
+        registration.setEmail(resultSet.getString("email"));
+        registration.setPassword(resultSet.getString("pass_hash"));
+
+        return registration;
     }
 }

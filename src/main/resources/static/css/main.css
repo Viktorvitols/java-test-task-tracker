@@ -168,3 +168,13 @@ width: 500px;
 .searchbar{
 margin: 25px;
 }
+
+.registration {
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+
+.userfield {
+text-align: end;
+}

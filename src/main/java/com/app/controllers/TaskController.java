@@ -20,7 +20,7 @@ public class TaskController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/menu")
     public String indexPage() {
         return "index";
     }
@@ -43,12 +43,6 @@ public class TaskController {
 
         model.addAttribute("task", taskService.getTaskById(id));
         return "edittask";
-    }
-
-    @GetMapping("/search")
-    public String getSearchResults(@ModelAttribute List<Task> taskList, Model model) {
-        model.addAttribute("tasklist", taskList);
-        return "search";
     }
 
     @GetMapping("/success")
@@ -86,6 +80,7 @@ public class TaskController {
         taskService.changeAssignee(taskId, userId);
         return "redirect:/";
     }
+
     @RequestMapping("/tasklist")
     public String searchTask(@RequestBody String varSummary, Model model) {
         List<Task> searchResult = taskService.searchTask(varSummary);
