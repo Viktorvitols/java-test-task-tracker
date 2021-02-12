@@ -17,6 +17,7 @@ public class TaskListService {
     public List<Task> getTaskList() {
         return taskDao.getTaskList();
     }
+
     public Task getTaskById(Integer id) throws SQLException {
         return taskDao.getTaskById(id);
     }
@@ -28,5 +29,4 @@ public class TaskListService {
     public List<Task> getFilteredTaskList(String project) {
         return taskDao.getFilteredTaskList(project);
     }
-
 }

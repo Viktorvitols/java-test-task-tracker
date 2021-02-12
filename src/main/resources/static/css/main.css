@@ -3,15 +3,8 @@ display: flex;
 flex-direction: row;
 }
 
-#taskBtn {
-  margin: 50px;
-}
-
-#tasklistBtn {
-  margin: 50px;
-}
-
 .bigbtn{
+  margin: 50px;
   background-color: #35f335;
   color: red;
   height: 300px;
@@ -95,7 +88,7 @@ button:hover {
   color: white;
 }
 
-#createBtn{
+.submitBtn{
   float: right;
   margin-top: 20px;
   margin-right: 10px;
@@ -170,6 +163,12 @@ margin: 25px;
 }
 
 .registration {
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+
+.login {
     display: flex;
     justify-content: center;
     margin: 100px;

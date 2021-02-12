@@ -21,8 +21,8 @@ public class TaskController {
     private UserService userService;
 
     @GetMapping("/menu")
-    public String indexPage() {
-        return "index";
+    public String menuPage() {
+        return "menu";
     }
 
     @GetMapping("/taskform")
@@ -82,9 +82,9 @@ public class TaskController {
     }
 
     @RequestMapping("/tasklist")
-    public String searchTask(@RequestBody String varSummary, Model model) {
-        List<Task> searchResult = taskService.searchTask(varSummary);
-        model.addAttribute("tasklist", searchResult);
+    public String searchTask(@RequestBody String searchText, Model model) {
+        List<Task> searchResult = taskService.searchTask(searchText);
+        model.addAttribute("searchResult", searchResult);
         return "/tasklist";
     }
 }

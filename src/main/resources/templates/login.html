@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Hacker tracker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+<div>
+    <div class="login">
+        <form th:action="@{/login}" method="post">
+            <p class="userfield">Email: <input required type="text" name="username"/></p>
+            <p class="userfield">Password: <input required type="password" name="password"/></p>
+            <span><input class="submitBtn" type="submit" value="Login"/></span>
+        </form>
+    </div>
+</div>
+</body>
+</html>

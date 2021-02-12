@@ -6,6 +6,7 @@ public class User {
     private String name;
     private String email;
     private boolean isActive;
+    private String passHash;
 
     public Integer getId() {
         return id;
@@ -37,5 +38,13 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getPassHash() {
+        return passHash;
+    }
+
+    public void setPassHash(String passHash) {
+        this.passHash = passHash;
     }
 }

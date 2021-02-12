@@ -25,6 +25,5 @@ public class RegistrationController {
     public String submitRegistrationForm(@ModelAttribute Registration registration, Model model) {
         model.addAttribute("registrationData", registration);
         return userService.registerUser(registration) ? "success" : "redirect:/invalid";
-
     }
 }

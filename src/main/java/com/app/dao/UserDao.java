@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.model.Login;
 import com.app.model.Registration;
 import com.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,22 @@ public class UserDao {
         return jdbcTemplate.query("SELECT * FROM users WHERE email = ?", rowMapper, email).isEmpty();
     }
 
-    public List<User> loginUser(String email, String passHash) {
-        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
-        return jdbcTemplate.query("SELECT * FROM users WHERE email = ? AND pass_hash = ?", rowMapper, email, passHash);
-    }
-
 
     public List<User> getUserList() {
         RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
         return jdbcTemplate.query("SELECT * FROM users ORDER BY name", rowMapper);
     }
+
+    public List<User> loginUser(Login login) {
+        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
+        return jdbcTemplate.query("SELECT * FROM users WHERE email = ? AND pass_hash = ?", rowMapper, login.getEmail(), login.getPassword());
+    }
+
+    public List<User> getUserByUsername(String username) {
+        RowMapper<User> rowMapper = (resultSet, rowNumber) -> mapUser(resultSet);
+        return jdbcTemplate.query("SELECT * FROM users WHERE email = ?", rowMapper, username);
+    }
+
 
     private User mapUser(ResultSet resultSet) throws SQLException {
         User user = new User();
@@ -54,6 +61,7 @@ public class UserDao {
         user.setName(resultSet.getString("name"));
         user.setEmail(resultSet.getString("email"));
         user.setActive(resultSet.getBoolean("is_active"));
+        user.setPassHash(resultSet.getString("pass_hash"));
 
         return user;
     }
@@ -66,5 +74,14 @@ public class UserDao {
         registration.setPassword(resultSet.getString("pass_hash"));
 
         return registration;
+    }
+
+    private Login mapLogin (ResultSet resultSet) throws SQLException {
+        Login login = new Login();
+
+        login.setEmail(resultSet.getString("email"));
+        login.setPassword(resultSet.getString("pass_hash"));
+
+        return login;
     }
 }
