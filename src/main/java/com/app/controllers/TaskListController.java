@@ -25,7 +25,7 @@ public class TaskListController {
     @RequestMapping("/tasklist")
     public String searchTask(@RequestBody String searchText, Model model) {
         List<Task> searchResult = taskListService.searchTask(searchText);
-        model.addAttribute("searchList", searchResult);
-        return "/tasklist";
+        model.addAttribute("taskist", searchResult);
+        return "tasklist";
     }
 }
