@@ -31,6 +31,6 @@ public class TaskListService {
     }
 
     public List<Task> searchTask(String searchString) {
-        return taskDao.searchTaskBySummary(searchString);
+        return taskDao.searchTaskByText(searchString);
     }
 }

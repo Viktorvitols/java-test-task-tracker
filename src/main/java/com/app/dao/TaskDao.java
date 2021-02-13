@@ -56,7 +56,7 @@ public class TaskDao {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
     }
 
-    public List<Task> searchTaskBySummary(String varSummary) {
+    public List<Task> searchTaskByText(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
         return jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
