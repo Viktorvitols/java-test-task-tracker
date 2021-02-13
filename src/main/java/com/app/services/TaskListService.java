@@ -29,4 +29,8 @@ public class TaskListService {
     public List<Task> getFilteredTaskList(String project) {
         return taskDao.getFilteredTaskList(project);
     }
+
+    public List<Task> searchTask(String searchString) {
+        return taskDao.searchTaskBySummary(searchString);
+    }
 }

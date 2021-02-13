@@ -81,10 +81,4 @@ public class TaskController {
         return "redirect:/";
     }
 
-    @RequestMapping("/tasklist")
-    public String searchTask(@RequestBody String searchText, Model model) {
-        List<Task> searchResult = taskService.searchTask(searchText);
-        model.addAttribute("searchResult", searchResult);
-        return "/tasklist";
-    }
 }

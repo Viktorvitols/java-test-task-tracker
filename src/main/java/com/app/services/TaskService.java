@@ -67,8 +67,4 @@ public class TaskService {
             taskController.getInvalidForm();
         }
     }
-
-    public List<Task> searchTask(String searchString) {
-        return taskDao.searchTaskBySummary(searchString);
-    }
 }

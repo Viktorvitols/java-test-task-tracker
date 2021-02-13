@@ -5,9 +5,7 @@ import com.app.services.TaskListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,12 @@ public class TaskListController {
         List<Task> taskList = taskListService.getTaskList();
         model.addAttribute("tasklist", taskList);
         return "tasklist";
+    }
+
+    @RequestMapping("/tasklist")
+    public String searchTask(@RequestBody String searchText, Model model) {
+        List<Task> searchResult = taskListService.searchTask(searchText);
+        model.addAttribute("searchList", searchResult);
+        return "/tasklist";
     }
 }
