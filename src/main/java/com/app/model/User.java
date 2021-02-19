@@ -6,7 +6,7 @@ public class User {
     private String name;
     private String email;
     private boolean isActive;
-    private String passHash;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -40,11 +40,11 @@ public class User {
         isActive = active;
     }
 
-    public String getPassHash() {
-        return passHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassHash(String passHash) {
-        this.passHash = passHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

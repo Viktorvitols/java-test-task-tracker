@@ -61,7 +61,7 @@ public class UserDao {
         user.setName(resultSet.getString("name"));
         user.setEmail(resultSet.getString("email"));
         user.setActive(resultSet.getBoolean("is_active"));
-        user.setPassHash(resultSet.getString("pass_hash"));
+        user.setPassword(resultSet.getString("pass_hash"));
 
         return user;
     }
@@ -76,12 +76,12 @@ public class UserDao {
         return registration;
     }
 
-    private Login mapLogin (ResultSet resultSet) throws SQLException {
-        Login login = new Login();
-
-        login.setEmail(resultSet.getString("email"));
-        login.setPassword(resultSet.getString("pass_hash"));
-
-        return login;
-    }
+//    private Login mapLogin (ResultSet resultSet) throws SQLException {
+//        Login login = new Login();
+//
+//        login.setEmail(resultSet.getString("email"));
+//        login.setPassword(resultSet.getString("pass_hash"));
+//
+//        return login;
+//    }
 }

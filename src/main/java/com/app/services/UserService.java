@@ -1,6 +1,7 @@
 package com.app.services;
 
 import com.app.dao.UserDao;
+import com.app.model.Login;
 import com.app.model.Registration;
 import com.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,4 +41,9 @@ public class UserService {
         }
         return usernames;
     }
+
+    public User loginUser(Login login) {
+        return userDao.loginUser(login).get(0);
+    }
+
 }

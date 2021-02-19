@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.model.Login;
 import com.app.model.Task;
 import com.app.services.TaskService;
 import com.app.services.UserService;
@@ -22,6 +23,7 @@ public class TaskController {
 
     @GetMapping("/menu")
     public String menuPage() {
+//        model.addAttribute("userMainInfo", userService.loginUser(login));
         return "menu";
     }
 

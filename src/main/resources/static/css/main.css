@@ -1,6 +1,11 @@
 .menu {
-display: flex;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: row;
 }
 
 .bigbtn{
@@ -139,11 +144,11 @@ padding-left: 5px;
 }
 
 .hidTaskID {
-display: none;
+  display: none;
 }
 
 .project {
-width: 50px;
+  width: 50px;
 }
 
 .summary {
@@ -151,15 +156,15 @@ width: 300px;
 }
 
 .assignee {
-width: 150px;
+  width: 150px;
 }
 
 .description {
-width: 500px;
+  width: 500px;
 }
 
 .searchbar{
-margin: 25px;
+  margin: 25px;
 }
 
 .registration {
@@ -175,5 +180,5 @@ margin: 25px;
 }
 
 .userfield {
-text-align: end;
+  text-align: end;
 }
