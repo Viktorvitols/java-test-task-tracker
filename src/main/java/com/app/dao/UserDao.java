@@ -75,13 +75,4 @@ public class UserDao {
 
         return registration;
     }
-
-//    private Login mapLogin (ResultSet resultSet) throws SQLException {
-//        Login login = new Login();
-//
-//        login.setEmail(resultSet.getString("email"));
-//        login.setPassword(resultSet.getString("pass_hash"));
-//
-//        return login;
-//    }
 }

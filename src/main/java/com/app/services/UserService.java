@@ -45,5 +45,4 @@ public class UserService {
     public User loginUser(Login login) {
         return userDao.loginUser(login).get(0);
     }
-
 }

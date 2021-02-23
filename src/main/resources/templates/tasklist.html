@@ -5,9 +5,23 @@
     <title>Task list</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
+    <script defer src="/js/main.js"></script>
 </head>
 <body>
 <div>
+    <div class="toolbar_tb">
+        <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+        <div class="tb_user row">
+            <div class="tb_userinfo">
+                <p class="p10" name="email" type="text" th:text="${username}"></p>
+            </div>
+            <div class="tb_logout">
+                <a href="/logout">
+                    <p class="p10">Logout</p>
+                </a>
+            </div>
+        </div>
+    </div>
     <div>
         <div class="searchbar">
             <form th:object="${searchList}" th:method="post">
@@ -18,7 +32,7 @@
     </div>
     <div>
         <div class="row">
-            <div class="editicon" style="margin-left: 30px">  </div>
+            <div class="editicon" style="margin-left: 30px"></div>
             <div class="taskID">ID</div>
             <div class="colname project">Project</div>
             <div class="colname summary">Summary</div>
@@ -44,7 +58,6 @@
             <button class="submitBtn">Go home</button>
         </a>
     </div>
-    <script src="/js/main.js"></script>
-    </div>
+</div>
 </body>
 </html>

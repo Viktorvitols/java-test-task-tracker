@@ -6,26 +6,30 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
-<div class="toolbar">
-    <div class="userinfo">
-
-        <a href="/logout">
-            <button>Logout</button>
-        </a>
-<!--        <p name="email" type="text" th:text="${userMainInfo.email}"></p>-->
+<div class="toolbar_tb">
+    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+    <div class="tb_user row">
+        <div class="tb_userinfo">
+            <p class="p10" name="email" type="text" th:text="${username}"></p>
+        </div>
+        <div class="tb_logout">
+            <a href="/logout">
+                <p class="p10">Logout</p>
+            </a>
+        </div>
     </div>
 </div>
 
-<div class="menu">
+<div class="menu row">
     <div id="taskBtn">
         <a href="/taskform">
-            <button class="bigbtn">CREATE<br>A NEW TASK</button>
+            <button class="bigbtn">NEW TASK</button>
         </a>
     </div>
 
     <div id="tasklistBtn">
         <a href="/tasklist">
-            <button class="bigbtn">GET A<br>TASKLIST</button>
+            <button class="bigbtn">TASKLIST</button>
         </a>
     </div>
 </div>

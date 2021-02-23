@@ -1,29 +1,85 @@
-.menu {
-  display: flex;
-  flex-direction: row;
+.row {
+    display: flex;
+    flex-direction: row;
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: row;
+.toolbar_tb {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1d74c7;
+    border-radius: 3px;
+    font-size: 25px;
+    padding: 5px;
+}
+
+.tb_logo {
+    margin: 5px;
+    margin-left: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.tb_userinfo {
+    margin: 5px 20px 5px 20px;
+}
+
+.tb_logout {
+    margin: 5px 20px 5px 20px;
+}
+
+.p10 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.menu {
+    flex-direction: column;
+    justify-content: center;
 }
 
 .bigbtn{
-  margin: 50px;
-  background-color: #35f335;
-  color: red;
-  height: 300px;
-  width: 300px;
-  border-radius: 150px;
-  font-size: 50px;
+    margin: 35px 40px 5px 40px;
+    background-color: #1d74c7;
+    color: white;
+    width: 160px;
+    border-radius: 3px;
+    font-size: 25px;
+    padding: 5px;
 }
 
 button {
-  margin: 5px;
+    margin: 5px;
 }
 button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
+
+.login {
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+
+.registration {
+    display: flex;
+    justify-content: center;
+    margin: 70px;
+}
+
+.userfield {
+    text-align: end;
+}
+
+.mrgnleft85 {
+    margin-left: 85px;
+    margin-right: 0px;
+}
+
+
+
+
+
 
 .modal {
   display: block;
@@ -94,7 +150,6 @@ button:hover {
 }
 
 .submitBtn{
-  float: right;
   margin-top: 20px;
   margin-right: 10px;
   height: 30px;
@@ -108,11 +163,6 @@ button:hover {
 .descr {
   width: 80%;
   height: 10em;
-}
-
-.row {
-display: flex;
-flex-direction: row;
 }
 
 .cell {
@@ -165,20 +215,4 @@ width: 300px;
 
 .searchbar{
   margin: 25px;
-}
-
-.registration {
-    display: flex;
-    justify-content: center;
-    margin: 100px;
-}
-
-.login {
-    display: flex;
-    justify-content: center;
-    margin: 100px;
-}
-
-.userfield {
-  text-align: end;
 }

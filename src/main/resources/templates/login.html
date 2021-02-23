@@ -7,12 +7,15 @@
     <script src="/js/main.js" defer></script>
 </head>
 <body>
+<div class="toolbar_tb">
+    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+</div>
 <div>
     <div class="login">
         <form th:action="@{/login}" method="post">
             <p class="userfield">Email: <input required type="text" name="username"/></p>
             <p class="userfield">Password: <input required type="password" name="password"/></p>
-            <span><input class="submitBtn" type="submit" value="Login"/></span>
+            <span><input class="bigbtn mrgnleft85" type="submit" value="Log in"/></span>
         </form>
     </div>
 </div>

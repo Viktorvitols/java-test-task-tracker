@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width">
 </head>
 <body>
+<div class="toolbar_tb">
+    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+</div>
 <div>
     <div class="registration">
         <form th:action="@{/registration}" th:object="${registration}" method="post">
             <p class="userfield">Name: <input required type="text" th:field="*{name}"/></p>
             <p class="userfield">Password: <input required type="password" th:field="*{password}"/></p>
             <p class="userfield">Email: <input required type="text" th:field="*{email}"/></p>
-            <span><input class="submitBtn" type="submit" value="Register"/></span>
+            <span><input class="bigbtn mrgnleft85" type="submit" value="Register"/></span>
         </form>
     </div>
 </div>
