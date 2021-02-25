@@ -34,6 +34,7 @@
         <div class="row">
             <div class="taskID">ID</div>
             <div class="colname project">Project</div>
+            <div class="colname status">Status</div>
             <div class="colname summary">Summary</div>
             <div class="colname assignee">Assignee</div>
             <div class="colname description">Description</div>
@@ -44,6 +45,7 @@
                     <div class="taskID" th:text="${task.id}"></div>
                 </a>
                 <div class="cell project" th:text="${task.project}"></div>
+                <div class="cell status" th:text="${task.status}"></div>
                 <div class="cell summary" th:text="${task.summary}"></div>
                 <div class="cell assignee" th:text="${task.assigneeName}"></div>
                 <div class="cell description" th:text="${task.description}"></div>

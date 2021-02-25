@@ -1,6 +1,7 @@
 package com.app.controllers;
 
 import com.app.model.Task;
+import com.app.model.enums.Statuses;
 import com.app.services.TaskService;
 import com.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,13 @@ public class TaskController {
     @PostMapping("/setAssignee")
     public String changeAssignee(int taskId, int userId) {
         taskService.changeAssignee(taskId, userId);
-        return "redirect:/";
+        return "redirect:/tasklist";
+    }
+
+    @PostMapping("/setStatus")
+    public String changeStatus(int taskId, Statuses status) {
+        taskService.changeStatus(taskId, status);
+        return "redirect:/tasklist";
     }
 
 }

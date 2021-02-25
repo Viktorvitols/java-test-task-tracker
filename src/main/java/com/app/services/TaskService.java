@@ -4,6 +4,7 @@ import com.app.controllers.TaskController;
 import com.app.dao.TaskDao;
 import com.app.dao.UserDao;
 import com.app.model.Task;
+import com.app.model.enums.Statuses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,5 +66,9 @@ public class TaskService {
         } else {
             taskController.getInvalidForm();
         }
+    }
+
+    public void changeStatus(int taskId, Statuses status) {
+        taskDao.changeStatus(taskId, status);
     }
 }

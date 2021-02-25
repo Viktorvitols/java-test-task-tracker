@@ -34,6 +34,16 @@
             <div>
                 <p>Task ID: </p><input readonly name="id" th:value="${task.id}"/>
                 <p>Project: </p><input name="project" type="text" th:value="${task.project}"/>
+                <p>Status: </p>
+                <form th:action="@{/edittask/' + ${task.id}}" th:object="${task.status}" method="post">
+                    <select name="status" id="status">
+                        <option class="status" th:block th:each="status : ${T(com.app.model.enums.Statuses).values()}" th:value="${status}"
+                                th:selected="${T(com.app.model.enums.Statuses).values()==task.status}">[[${task.status}]]
+                        </option>
+                    </select>
+                    <input name="taskId" th:value="${task.id}" hidden>
+                    <input type="submit" value="Change">
+                </form>
                 <p>Summary: </p><input name="summary" class="summary" type="text" th:value="${task.summary}"/>
                 <p>Assignee: </p>
 
