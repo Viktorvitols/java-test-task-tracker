@@ -10,11 +10,24 @@
     <script src="/js/jquery.validate.js"></script>
 </head>
 <body>
+<div class="toolbar_tb">
+    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+    <div class="tb_user row">
+        <div class="tb_userinfo">
+            <p class="p10" name="email" type="text" th:text="${username}"></p>
+        </div>
+        <div class="tb_logout">
+            <a class="logoutbtn" href="/logout">
+                <p class="p10">Logout</p>
+            </a>
+        </div>
+    </div>
+</div>
 
-<div id="createTask" class="modal">
+<div>
     <form th:action="@{/taskform}" th:object="${taskform}" method="post" id="taskform">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div>
+            <div>
                 <h2>Create new task</h2>
             </div>
             <div class="modal-body">
@@ -23,7 +36,7 @@
                 <p>Assignee: </p><input name="assignee" th:field="*{assignee}" type="text"/>
                 <p>Description: </p><textarea class="descr" name="description" th:field="*{description}"></textarea>
             </div>
-            <div class="modal-footer">
+            <div>
                 <span><input class="submitBtn" type="submit" value="Create"/></span>
             </div>
         </div>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 
 @Controller
@@ -23,22 +24,25 @@ public class TaskController {
     private UserService userService;
 
     @GetMapping("/taskform")
-    public String getTaskForm(Model model) {
+    public String getTaskForm(Model model, HttpSession session) {
         model.addAttribute("taskform", new Task());
+        model.addAttribute("username", session.getAttribute("username"));
         return "taskform";
     }
 
     @GetMapping("/task/{taskId}")
-    public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
+    public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
         model.addAttribute("task", taskService.getTaskById(id));
-        model.addAttribute("users", userService.getUserList());
+        model.addAttribute("username", session.getAttribute("username"));
+
         return "task";
     }
 
     @GetMapping("/edittask/{taskId}")
-    public String editTaskById(@PathVariable(value = "taskId") Integer id, Model model) throws SQLException {
-
+    public String editTaskById(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
         model.addAttribute("task", taskService.getTaskById(id));
+        model.addAttribute("users", userService.getUserList());
+        model.addAttribute("username", session.getAttribute("username"));
         return "edittask";
     }
 

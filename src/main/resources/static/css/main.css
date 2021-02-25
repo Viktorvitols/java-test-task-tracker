@@ -10,6 +10,7 @@
     border-radius: 3px;
     font-size: 25px;
     padding: 5px;
+    margin-bottom: 15px;
 }
 
 .tb_logo {
@@ -31,6 +32,16 @@
     margin-top: 5px;
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+a.logoutbtn:link, a:visited {
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.logoutbtn:hover, a:active {
+  color: white;
 }
 
 .menu {
@@ -76,78 +87,6 @@ button:hover {
     margin-right: 0px;
 }
 
-
-
-
-
-
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0;
-  border: 1px solid #888;
-  width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-  -webkit-animation-name: animatetop;
-  -webkit-animation-duration: 0.4s;
-  animation-name: animatetop;
-  animation-duration: 0.4s
-}
-
-@-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-  from {top:-300px; opacity:0}
-  to {top:0; opacity:1}
-}
-
-.close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modal-header {
-  padding: 2px 16px;
-  background-color: #1d74c7;
-  color: white;
-}
-
-.modal-body {padding: 2px 16px;}
-
-.modal-footer {
-  height: 60px;
-  padding: 2px 16px;
-  margin-top: 20px;
-  background-color: #1d74c7;
-  color: white;
-}
 
 .submitBtn{
   margin-top: 20px;

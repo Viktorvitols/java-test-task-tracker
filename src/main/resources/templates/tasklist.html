@@ -16,7 +16,7 @@
                 <p class="p10" name="email" type="text" th:text="${username}"></p>
             </div>
             <div class="tb_logout">
-                <a href="/logout">
+                <a class="logoutbtn" href="/logout">
                     <p class="p10">Logout</p>
                 </a>
             </div>
@@ -32,7 +32,6 @@
     </div>
     <div>
         <div class="row">
-            <div class="editicon" style="margin-left: 30px"></div>
             <div class="taskID">ID</div>
             <div class="colname project">Project</div>
             <div class="colname summary">Summary</div>
@@ -41,9 +40,6 @@
         </div>
         <th:block th:each="task : ${tasklist}">
             <div class="row">
-                <a th:href="'/edittask/' + ${task.id}" id="edittask">
-                    <img src="/img/edit-icon.png" height="18px" class="editicon" alt="edit">
-                </a>
                 <a th:href="'/task/' + ${task.id}">
                     <div class="taskID" th:text="${task.id}"></div>
                 </a>
