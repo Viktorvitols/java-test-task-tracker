@@ -1,7 +1,7 @@
 package com.app.dao;
 
+import com.app.model.Status;
 import com.app.model.Task;
-import com.app.model.enums.Statuses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,8 +24,9 @@ public class TaskDao {
     }
 
     public void updateTask(Task task) throws NullPointerException {
-        jdbcTemplate.update("UPDATE tickets SET project_name = ?, status = ?, summary = ?, assignee_name = ?, description = ? WHERE id = ?",
-                task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
+        jdbcTemplate.
+                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee_name = ?, description = ? WHERE id = ?",
+                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
     public void changeAssignee(int taskId, int userId) throws NullPointerException {
@@ -37,7 +38,15 @@ public class TaskDao {
                 userId, userId, taskId);
     }
 
-    public void changeStatus(int taskId, Statuses status) throws NullPointerException {
+    public List<Status> getTaskStatuses() {
+        RowMapper<Status> rowMapper = (resultSet, rowNumber) -> mapStatus(resultSet);
+        return jdbcTemplate.query("SELECT unnest(enum_range(NULL::status))::text AS status", rowMapper);
+//        return jdbcTemplate.query("SELECT unnest(enum_range(NULL::status))");
+
+//        SELECT unnest(enum_range(NULL::status))
+    }
+
+    public void changeStatus(int taskId, String status) throws NullPointerException {
         jdbcTemplate.update("UPDATE tickets SET status = ? WHERE id = ?", status, taskId);
     }
 
@@ -73,7 +82,7 @@ public class TaskDao {
 
         task.setId(resultSet.getInt("id"));
         task.setProject(resultSet.getString("project_name"));
-        task.setStatus(Statuses.valueOf(resultSet.getString("status")));
+        task.setStatus(resultSet.getString("status"));
         task.setSummary(resultSet.getString("summary"));
 //        task.setCreated(resultSet.getDate("created"));
 //        task.setReporter(resultSet.getString("reporter"));
@@ -81,5 +90,11 @@ public class TaskDao {
         task.setDescription(resultSet.getString("description"));
 //        task.setAttachmentId(resultSet.getInt("attachment_id"));
         return task;
+    }
+
+    private Status mapStatus(ResultSet resultSet) throws SQLException {
+        Status status = new Status();
+        status.setStatus(resultSet.getString("status"));
+        return status;
     }
 }

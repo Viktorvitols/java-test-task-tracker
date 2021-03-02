@@ -1,7 +1,7 @@
 package com.app.controllers;
 
+import com.app.model.Status;
 import com.app.model.Task;
-import com.app.model.enums.Statuses;
 import com.app.services.TaskService;
 import com.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TaskController {
@@ -43,6 +45,14 @@ public class TaskController {
     public String editTaskById(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
         model.addAttribute("task", taskService.getTaskById(id));
         model.addAttribute("users", userService.getUserList());
+
+        Status status = new Status();
+        status.setStatus(taskService.getTaskById(id).getStatus());
+        List<String> statusList = new ArrayList<String>();
+        for (Status statusO : taskService.getTaskStatuses()) {
+            statusList.add(statusO.getStatus());
+        }
+        model.addAttribute("statuses", statusList);
         model.addAttribute("username", session.getAttribute("username"));
         return "edittask";
     }
@@ -84,7 +94,7 @@ public class TaskController {
     }
 
     @PostMapping("/setStatus")
-    public String changeStatus(int taskId, Statuses status) {
+    public String changeStatus(int taskId, String status) {
         taskService.changeStatus(taskId, status);
         return "redirect:/tasklist";
     }

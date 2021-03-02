@@ -3,12 +3,13 @@ package com.app.services;
 import com.app.controllers.TaskController;
 import com.app.dao.TaskDao;
 import com.app.dao.UserDao;
+import com.app.model.Status;
 import com.app.model.Task;
-import com.app.model.enums.Statuses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Service
 public class TaskService {
@@ -68,7 +69,11 @@ public class TaskService {
         }
     }
 
-    public void changeStatus(int taskId, Statuses status) {
+    public List<Status> getTaskStatuses() {
+        return taskDao.getTaskStatuses();
+    }
+
+    public void changeStatus(int taskId, String status) {
         taskDao.changeStatus(taskId, status);
     }
 }

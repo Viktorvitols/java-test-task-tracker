@@ -1,8 +1,5 @@
 package com.app.model;
 
-import com.app.model.enums.Roles;
-import com.app.model.enums.Statuses;
-
 import java.sql.Date;
 
 public class Task {
@@ -12,7 +9,7 @@ public class Task {
     private String summary;
     private Date created;
     private String reporter;
-    private Statuses status;
+    private String status;
     private String assignee;
     private String description;
     private Integer attachmentId;
@@ -66,11 +63,11 @@ public class Task {
         this.reporter = reporter;
     }
 
-    public Statuses getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Statuses status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
