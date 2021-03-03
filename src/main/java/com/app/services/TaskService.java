@@ -73,7 +73,23 @@ public class TaskService {
         return taskDao.getTaskStatuses();
     }
 
+    public void addNewAfterStatus(String newStatus, String afterStatus) {
+        newStatus = newStatus.toUpperCase();
+        afterStatus = afterStatus.toUpperCase();
+        taskDao.addNewAfterStatus(newStatus, afterStatus);
+    }
+
+    public void addNewStatus(String newStatus) {
+        newStatus = newStatus.toUpperCase();
+        taskDao.addNewStatus(newStatus);
+    }
+
     public void changeStatus(int taskId, String status) {
         taskDao.changeStatus(taskId, status);
+    }
+
+    public void removeStatus(String oldStatus) {
+        oldStatus = oldStatus.toUpperCase();
+        taskDao.removeStatus(oldStatus);
     }
 }

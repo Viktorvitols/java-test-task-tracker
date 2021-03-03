@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.SplittableRandom;
 
 @Repository
 public class TaskDao {
@@ -49,6 +50,23 @@ public class TaskDao {
     public void changeStatus(int taskId, String status) throws NullPointerException {
         jdbcTemplate.update("UPDATE tickets SET status = ? WHERE id = ?", status, taskId);
     }
+
+    public void addNewAfterStatus(String newStatus, String afterStatus) {
+        final String ADD_TO_STATUS = "ALTER TYPE status ADD VALUE '" + newStatus + "' AFTER '" + afterStatus + "'";
+        jdbcTemplate.execute(ADD_TO_STATUS);
+    }
+
+    public void addNewStatus(String newStatus) {
+        final String ADD_TO_STATUS = "ALTER TYPE status ADD VALUE '" + newStatus + "'";
+        jdbcTemplate.execute(ADD_TO_STATUS);
+    }
+
+    public void removeStatus(String oldStatus) {
+        final String DROP_FROM_STATUS = "DELETE FROM pg_enum WHERE enumlabel = '" + oldStatus + "' AND enumtypid =" +
+                "(SELECT oid FROM pg_type WHERE typname = 'status')";
+        jdbcTemplate.execute(DROP_FROM_STATUS);
+    }
+
 
     public Task getTaskById(Integer id) throws SQLException {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);

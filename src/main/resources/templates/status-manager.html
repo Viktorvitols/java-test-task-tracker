@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/js/taskValidation.js"></script>
+    <script src="/js/jquery.validate.js"></script>
+    <script defer src="/js/main.js"></script>
+</head>
+<body>
+<div class="toolbar_tb">
+    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
+    <div class="tb_user row">
+        <div class="tb_userinfo">
+            <p class="p10" name="email" type="text" th:text="${username}"></p>
+        </div>
+        <div class="tb_logout">
+            <a class="logoutbtn" href="/logout">
+                <p class="p10">Logout</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="statusManager">
+    <div>
+        <div>
+            <h1>Status manager</h1>
+        </div>
+        <div>
+            <h2>Statuses: </h2>
+            <th:block th:each="status : ${statuses}" th:value="${status}">
+                <div class="status" th:text="${status.status}"></div>
+            </th:block>
+
+            <h3>Add new status</h3>
+            <form th:action="@{/add-status}" th:object="${addStatus}" method="post">
+                <input name="newStatus" placeholder="New status">
+                <input name="afterStatus" placeholder="set after this">
+                <input type="submit" value="Add status">
+            </form>
+
+            <h3>Remove status</h3>
+            <form th:action="@{/remove-status}"th:object="${removeStatus}" method="post">
+                <input name="oldStatus" placeholder="status to remove">
+                <input type="submit" value="Remove status">
+            </form>
+
+        </div>
+        <div>
+            <a href="javascript:history.back()">Go Back</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
