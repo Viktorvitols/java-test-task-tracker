@@ -159,3 +159,17 @@ width: 300px;
 .searchbar{
   margin: 25px;
 }
+
+.header {
+    margin: 10px;
+    width: -webkit-fill-available;
+    font-weight: bold;
+    text-align: center;
+    border: ridge;
+    padding: 5px;
+    }
+
+.board_space {
+    display: flex;
+    justify-content: space-evenly;
+    }

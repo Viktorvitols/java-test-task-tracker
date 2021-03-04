@@ -42,9 +42,6 @@ public class TaskDao {
     public List<Status> getTaskStatuses() {
         RowMapper<Status> rowMapper = (resultSet, rowNumber) -> mapStatus(resultSet);
         return jdbcTemplate.query("SELECT unnest(enum_range(NULL::status))::text AS status", rowMapper);
-//        return jdbcTemplate.query("SELECT unnest(enum_range(NULL::status))");
-
-//        SELECT unnest(enum_range(NULL::status))
     }
 
     public void changeStatus(int taskId, String status) throws NullPointerException {

@@ -49,6 +49,10 @@ public class TaskService {
         return isValid;
     }
 
+    public List<Task> getTaskList() {
+        return taskDao.getTaskList();
+    }
+
     public void storeTask(Task task) {
         taskDao.storeTask(task);
     }
