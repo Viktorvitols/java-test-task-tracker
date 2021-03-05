@@ -23,11 +23,11 @@ public class KanbanBoardService {
         return taskDao.getTaskStatuses();
     }
 
-    public HashMap<Status, List<Task>> getTasksByStatus() {
-        HashMap<Status, List<Task>> tasksByStatus = new HashMap<Status, List<Task>>();
+    public HashMap<String, List<Task>> getTasksByStatus() {
+        HashMap<String, List<Task>> tasksByStatus = new HashMap<String, List<Task>>();
         List<Status> statusList = taskDao.getTaskStatuses();
-        for(Status status : statusList) {
-            tasksByStatus.put(status, kanbanBoardDao.getTasksByStatus(status.getStatus()));
+        for (Status status : statusList) {
+            tasksByStatus.put(status.getStatus(), kanbanBoardDao.getTasksByStatus(status.getStatus()));
         }
         return tasksByStatus;
     }

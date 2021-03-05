@@ -1,7 +1,5 @@
 package com.app.controllers;
 
-import com.app.model.Status;
-import com.app.model.Task;
 import com.app.services.KanbanBoardService;
 import com.app.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 public class kanbanBoardController {
@@ -28,5 +25,4 @@ public class kanbanBoardController {
         model.addAttribute("tasksByStatus", kanbanBoardService.getTasksByStatus());
         return "kanban-board";
     }
-
 }

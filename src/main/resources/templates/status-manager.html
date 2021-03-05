@@ -6,8 +6,6 @@
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="/js/taskValidation.js"></script>
-    <script src="/js/jquery.validate.js"></script>
     <script defer src="/js/main.js"></script>
 </head>
 <body>
@@ -44,7 +42,7 @@
             </form>
 
             <h3>Remove status</h3>
-            <form th:action="@{/remove-status}"th:object="${removeStatus}" method="post">
+            <form th:action="@{/remove-status}" th:object="${removeStatus}" method="post">
                 <input name="oldStatus" placeholder="status to remove">
                 <input type="submit" value="Remove status">
             </form>

@@ -6,12 +6,10 @@
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="/js/taskValidation.js"></script>
-    <script src="/js/jquery.validate.js"></script>
     <script defer src="/js/main.js"></script>
 </head>
 <body>
-<div class="toolbar_tb">
+<div class="toolbar_tb" id="toolbar_tb">
     <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
     <div class="tb_user row">
         <div class="tb_userinfo">
@@ -27,18 +25,19 @@
 
 <div class="board_space row">
     <th:block th:each="status : ${statuslist}">
-        <div class="header" th:text="${status.status}">
-            <div>
-                <th:block th:each="status, tasklist : ${tasksByStatus}">
-                    <div class="taskblock" th:each="task : ${tasklist}">
+        <div>
+            <div class="header" th:text="${status.status}"></div>
+            <div th:block th:each="statusWithTasks : ${tasksByStatus.values()}">
+                <div th:each="task : ${statusWithTasks}">
+                    <div class="taskblock" th:if="${status.status} == ${task.status}">
                         <div class="taskId" th:text="${task.id}"></div>
-                        <div class="taskName" th:text="${task.summary}"></div>
-                        <div class="description" th:text="${task.description}"></div>
+                        <div class="taskName" th:text="${task.project}"></div>
+                        <div class="description" th:text="${task.summary}"></div>
+                        <div class="description" th:text="${task.status}"></div>
                     </div>
-                </th:block>
+                </div>
             </div>
         </div>
     </th:block>
 </div>
-
 </body>
