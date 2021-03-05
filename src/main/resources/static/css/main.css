@@ -20,6 +20,10 @@
     color: white;
 }
 
+.tb_menubtn {
+    margin: 5px 20px 5px 20px;
+}
+
 .tb_userinfo {
     margin: 5px 20px 5px 20px;
 }
@@ -32,6 +36,16 @@
     margin-top: 5px;
     margin-bottom: 5px;
     font-weight: bold;
+}
+
+a.tb_menubtn:link, a.tb_menubtn:visited {
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+}
+
+a.tb_menubtn:hover, a.tb_menubtn:active {
+  color: white;
 }
 
 a.logoutbtn:link, a.logoutbtn:visited {
@@ -172,13 +186,19 @@ width: 300px;
 .board_space {
     display: flex;
     justify-content: space-evenly;
-    inline-size: max-content;
-    overflow: auto;
-    white-space: nowrap;
-    }
+    inline-size: min-content;
+}
 
 .taskblock {
     margin: 12px;
     padding: 5px;
     border-style: outset;
+}
+.kanban_col {
+    min-width: 250px;
+}
+
+.textblock {
+    box-sizing: border-box;
+    width: 100%;
 }
