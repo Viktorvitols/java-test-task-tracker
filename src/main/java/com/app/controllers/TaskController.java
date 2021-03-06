@@ -37,7 +37,7 @@ public class TaskController {
     public String getTaskById(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
         model.addAttribute("task", taskService.getTaskById(id));
         model.addAttribute("username", session.getAttribute("username"));
-
+        model.addAttribute("commentList", taskService.getTaskCommentList(id));
         return "task";
     }
 
@@ -66,6 +66,7 @@ public class TaskController {
     public String getInvalidForm() {
         return "invalid";
     }
+
 
 
     @PostMapping("/taskform")

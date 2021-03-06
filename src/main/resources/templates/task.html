@@ -44,6 +44,8 @@
         </div>
         <div class="cell"><p>Description: </p>
             <p name="description" class="descr" th:text="${task.description}"></p></div>
+        <div class="cell"><p>Comment: </p>
+            <p name="Comment" class="comment" th:text="${comments}"></p></div>
     </div>
     <div>
         <a th:href="'/edittask/' + ${task.id}">

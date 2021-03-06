@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class TaskDao {
 
     public List<Task> getTaskList() {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT id, project_name, status, summary, assignee_name, description FROM tickets ORDER BY id", rowMapper);
+        return jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
     }
 
     public List<Task> getDetailedTaskList() {
@@ -90,6 +91,10 @@ public class TaskDao {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
     }
 
+    public List<Comment> getTaskCommentList(int id) {
+        return null;
+    }
+
 
     private Task mapTask(ResultSet resultSet) throws SQLException {
         Task task = new Task();
@@ -102,7 +107,7 @@ public class TaskDao {
 //        task.setReporter(resultSet.getString("reporter"));
         task.setAssigneeName(resultSet.getString("assignee_name"));
         task.setDescription(resultSet.getString("description"));
-//        task.setAttachmentId(resultSet.getInt("attachment_id"));
+        task.setCommentId(resultSet.getInt("comment_id"));
         return task;
     }
 

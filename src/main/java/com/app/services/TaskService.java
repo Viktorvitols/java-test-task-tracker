@@ -3,6 +3,7 @@ package com.app.services;
 import com.app.controllers.TaskController;
 import com.app.dao.TaskDao;
 import com.app.dao.UserDao;
+import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,5 +96,9 @@ public class TaskService {
     public void removeStatus(String oldStatus) {
         oldStatus = oldStatus.toUpperCase();
         taskDao.removeStatus(oldStatus);
+    }
+
+    public List<Comment> getTaskCommentList(int id) {
+        return taskDao.getTaskCommentList(id);
     }
 }

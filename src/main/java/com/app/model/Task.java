@@ -14,6 +14,7 @@ public class Task {
     private String description;
     private Integer attachmentId;
     private String assigneeName;
+    private Integer commentId;
 
     public Task(Integer id) {
         this.id = id;
@@ -101,5 +102,13 @@ public class Task {
 
     public void setAttachmentId(Integer attachmentId) {
         this.attachmentId = attachmentId;
+    }
+
+    public Integer getCommentId() {
+        return commentId;
+    }
+
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 }
