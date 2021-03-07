@@ -19,6 +19,10 @@ public class Comment {
         this.userId = userId;
     }
 
+    public Comment(int taskId) {
+        this.taskId = taskId;
+    }
+
     public int getId() {
         return id;
     }
@@ -35,9 +39,16 @@ public class Comment {
         return comment;
     }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getUserId() {
         return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public int getAttachmentId() {
