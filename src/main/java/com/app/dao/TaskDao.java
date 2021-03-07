@@ -91,12 +91,6 @@ public class TaskDao {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
     }
 
-    public List<Comment> getTaskCommentList(int id) {
-        RowMapper<Comment> rowMapper = (resultSet, rowNumber) -> mapGetComment(resultSet);
-        return jdbcTemplate.query("SELECT * FROM comments WHERE task_id = ?", rowMapper, id);
-    }
-
-
     private Task mapTask(ResultSet resultSet) throws SQLException {
         Task task = new Task();
 
@@ -116,17 +110,5 @@ public class TaskDao {
         Status status = new Status();
         status.setStatus(resultSet.getString("status"));
         return status;
-    }
-
-    private Comment mapGetComment(ResultSet resultSet) throws SQLException {
-        Comment comment = new Comment(resultSet.getInt("ticket_id"));
-        comment.setComment();
-        comment.setUserId();
-        comment.setId();
-        comment.setCreated();
-        comment.setModified();
-
-        return comment;
-
     }
 }

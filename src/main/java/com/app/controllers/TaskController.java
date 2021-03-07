@@ -54,6 +54,7 @@ public class TaskController {
         }
         model.addAttribute("statuses", statusList);
         model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("commentList", taskService.getTaskCommentList(id));
         return "edittask";
     }
 
@@ -67,7 +68,7 @@ public class TaskController {
         return "invalid";
     }
 
-
+/////////////////////////////////////POST/////////////////////////////////////
 
     @PostMapping("/taskform")
     public String submitNewTask(@ModelAttribute Task task, Model model) {

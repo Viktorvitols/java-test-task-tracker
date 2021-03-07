@@ -1,6 +1,7 @@
 package com.app.services;
 
 import com.app.controllers.TaskController;
+import com.app.dao.CommentsDao;
 import com.app.dao.TaskDao;
 import com.app.dao.UserDao;
 import com.app.model.Comment;
@@ -23,6 +24,9 @@ public class TaskService {
 
     @Autowired
     private TaskController taskController;
+
+    @Autowired
+    private CommentsDao commentsDao;
 
     public boolean validateTaskData(Task task) {
 
@@ -99,6 +103,6 @@ public class TaskService {
     }
 
     public List<Comment> getTaskCommentList(int id) {
-        return taskDao.getTaskCommentList(id);
+        return commentsDao.getTaskCommentList(id);
     }
 }

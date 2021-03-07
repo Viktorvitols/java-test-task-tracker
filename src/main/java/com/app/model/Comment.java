@@ -7,16 +7,16 @@ public class Comment {
     private int id;
     private int taskId;
     private String comment;
-    private int userId;
+    private String user;
     private int attachmentId;
     private Date created;
     private Date modified;
     private String modified_by;
 
-    public Comment(int taskId, String comment, int userId) {
+    public Comment(int taskId, String comment, String user) {
         this.taskId = taskId;
         this.comment = comment;
-        this.userId = userId;
+        this.user = user;
     }
 
     public Comment(int taskId) {
@@ -43,12 +43,12 @@ public class Comment {
         this.comment = comment;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public int getAttachmentId() {

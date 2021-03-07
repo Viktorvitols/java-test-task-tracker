@@ -44,9 +44,23 @@
         </div>
         <div class="cell"><p>Description: </p>
             <p name="description" class="descr" th:text="${task.description}"></p></div>
-        <div class="cell"><p>Comment: </p>
-            <p name="Comment" class="comment" th:text="${comments}"></p></div>
+
+        <div class="cell"><p>Comments: </p>
+            <p name="Comment" class="comment" th:text="${comments}"></p>
+            <div class="taskComments">
+                <th:block th:each="comment : ${commentList}">
+                    <div class="commentBlock cell">
+                        <p>Written by: </p><div th:text="${comment.user}"></div>
+                        <p>Comment: </p><div th:text="${comment.comment}"></div>
+                        <p>Created: </p><div th:text="${comment.created}"></div>
+                        <p>Modified: </p><div th:text="${comment.modified}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
     </div>
+
+
     <div>
         <a th:href="'/edittask/' + ${task.id}">
             <button class="submitBtn">Edit</button>
