@@ -29,20 +29,18 @@
 </div>
 
 <div class="board_space row">
-    <div class="kanban_col" th:each="status : ${statuslist}">
-        <div>
-            <div class="header" th:text="${status.status}"></div>
-            <div th:block th:each="statusWithTasks : ${tasksByStatus.values()}">
-                <div th:each="task : ${statusWithTasks}">
-                    <div class="taskblock" th:if="${status.status} == ${task.status}">
-                        <div class="textblock" th:text="${task.id}"></div>
-                        <div class="textblock" th:text="${task.project}"></div>
-                        <div class="textblock" th:text="${task.summary}"></div>
-<!--                        <div class="textblock" th:text="${task.status}"></div>-->
-                    </div>
+    <th:block th:each="status : ${statuslist}">
+        <div class="kanban_col">
+           <div class="header" th:text="${status.status}"></div>
+            <th:block th:each="task : ${tasksByStatus.get(status.status)}">
+                <div class="taskblock">
+                    <div class="textblock" th:text="${task.id}"></div>
+                    <div class="textblock" th:text="${task.project}"></div>
+                    <div class="textblock" th:text="${task.summary}"></div>
+                    <div class="textblock" th:text="${task.status}"></div>
                 </div>
-            </div>
+            </th:block>
         </div>
-    </div>
+    </th:block>
 </div>
 </body>
