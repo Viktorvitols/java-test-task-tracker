@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class kanbanBoardController {
+public class KanbanBoardController {
 
     @Autowired
     private TaskService taskService;
