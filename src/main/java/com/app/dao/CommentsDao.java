@@ -21,11 +21,16 @@ public class CommentsDao {
         RowMapper<Comment> rowMapper = (resultSet, rowNumber) -> mapGetComment(resultSet);
         return jdbcTemplate.query("SELECT comments.ticket_id, comments.id, comments.text, " +
                 "comments.user_id AS user_id, comments.created, " +
-                "comments.modified,  users.name AS user, users.email, " +
+                "comments.is_modified, users.name AS user, users.email, " +
                 "(SELECT name FROM users WHERE users.id = comments.modified_by) AS mod_by " +
+//                ???????????????????????????????
                 "FROM comments " +
                 "INNER JOIN users ON comments.user_id = users.id " +
                 "WHERE ticket_id =?", rowMapper, id);
+    }
+
+    public void addNewComment (String comment) {
+        jdbcTemplate.update("INSERT INTO comments (ticket_id, text, user_id, ) VALUES ");
     }
 
     private Comment mapGetComment(ResultSet resultSet) throws SQLException {
@@ -34,7 +39,7 @@ public class CommentsDao {
         comment.setComment(resultSet.getString("text"));
         comment.setUser(resultSet.getString("user"));
         comment.setCreated(resultSet.getDate("created"));
-        comment.setModified(resultSet.getDate("modified"));
+        comment.setModified(resultSet.getBoolean("is_modified"));
         comment.setModified_by(resultSet.getString("mod_by"));
         return comment;
     }

@@ -58,6 +58,12 @@ public class TaskController {
         return "edittask";
     }
 
+    @GetMapping("/newComment/{taskId}")
+    public String newComment(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        return "newComment";
+    }
+
     @GetMapping("/success")
     public String getSuccessForm() {
         return "success";
@@ -87,6 +93,12 @@ public class TaskController {
             return "redirect:/success";
         }
         return "redirect:/invalid";
+    }
+
+    @PostMapping("/newComment/{taskId}")
+    public String addComment(@ModelAttribute String comment, Model model) throws SQLException {
+        taskService.addNewComment(comment);
+        return "redirect:/task/{taskId}";
     }
 
     @PostMapping("/setAssignee")

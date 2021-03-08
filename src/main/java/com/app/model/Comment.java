@@ -10,7 +10,7 @@ public class Comment {
     private String user;
     private int attachmentId;
     private Date created;
-    private Date modified;
+    private boolean modified;
     private String modified_by;
 
     public Comment(int taskId, String comment, String user) {
@@ -67,11 +67,11 @@ public class Comment {
         this.created = created;
     }
 
-    public Date getModified() {
+    public boolean isModified() {
         return modified;
     }
 
-    public void setModified(Date modified) {
+    public void setModified(boolean modified) {
         this.modified = modified;
     }
 
