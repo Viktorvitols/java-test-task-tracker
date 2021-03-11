@@ -59,19 +59,6 @@
 
                 <p>Description: </p><textarea name="description" class="descr"
                                               th:inline="text">[[${task.description}]]</textarea>
-                <fieldset>
-                    <legend>Comments: </legend>
-                    <p name="comment" class="comment" th:text="${comments}"></p>
-                    <div class="taskComments">
-                        <th:block th:each="comment : ${commentList}">
-                            <div class="commentBlock cell">
-                                <p>Written by: </p><div th:text="${comment.user}"></div>
-                                <p>Comment: </p><div th:text="${comment.comment}"></div>
-                                <p>Created: </p><div th:text="${comment.created}"></div>
-<!--                                <p>Modified: </p><div th:text="${comment.modified}"></div>-->
-                            </div>
-                        </th:block>
-                </fieldset>
             </div>
             <div>
                 <span><input class="submitBtn" type="submit" value="Save"/></span>

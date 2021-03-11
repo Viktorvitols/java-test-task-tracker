@@ -106,7 +106,7 @@ public class TaskService {
         return commentsDao.getTaskCommentList(id);
     }
 
-    public void addNewComment(String comment) {
-        commentsDao.addNewComment(comment);
+    public void addNewComment(int taskId, String comment, int userId) {
+        commentsDao.addNewComment(taskId, comment, userId);
     }
 }

@@ -6,6 +6,7 @@
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/js/main.js" defer></script>
 </head>
 <body>
 <div class="toolbar_tb">
@@ -51,10 +52,9 @@
             <div class="taskComments">
                 <th:block th:each="comment : ${commentList}">
                     <div class="commentBlock cell">
-                        <p>Written by: </p><div th:text="${comment.user}"></div>
+                        <p>Written by: </p><div th:text="${comment.username}"></div>
                         <p>Comment: </p><div th:text="${comment.comment}"></div>
                         <p>Created: </p><div th:text="${comment.created}"></div>
-<!--                        <p>Modified: </p><div th:text="${comment.modified}"></div>-->
                     </div>
                 </th:block>
             </div>
@@ -66,14 +66,11 @@
         </fieldset>
     </div>
 
-
     <div>
         <a th:href="'/edittask/' + ${task.id}">
             <button class="submitBtn">Edit</button>
         </a>
     </div>
 </div>
-
-<script src="/js/main.js"></script>
 </body>
 </html>

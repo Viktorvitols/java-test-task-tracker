@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
 import com.app.services.TaskService;
@@ -54,13 +55,16 @@ public class TaskController {
         }
         model.addAttribute("statuses", statusList);
         model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("commentList", taskService.getTaskCommentList(id));
         return "edittask";
     }
 
     @GetMapping("/newComment/{taskId}")
-    public String newComment(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) {
-        model.addAttribute("username", session.getAttribute("username"));
+    public String newComment(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
+        model.addAttribute("task", taskService.getTaskById(id));
+        String username = session.getAttribute("username").toString();
+        Integer userId = userService.getUserByUsername(username).getId();
+        model.addAttribute("userId", userId);
+        model.addAttribute("comment", new Comment(id, userId));
         return "newComment";
     }
 
@@ -95,12 +99,6 @@ public class TaskController {
         return "redirect:/invalid";
     }
 
-    @PostMapping("/newComment/{taskId}")
-    public String addComment(@ModelAttribute String comment, Model model) throws SQLException {
-        taskService.addNewComment(comment);
-        return "redirect:/task/{taskId}";
-    }
-
     @PostMapping("/setAssignee")
     public String changeAssignee(int taskId, int userId) {
         taskService.changeAssignee(taskId, userId);
@@ -113,4 +111,9 @@ public class TaskController {
         return "redirect:/tasklist";
     }
 
+    @PostMapping("/newComment")
+    public String addComment(int taskId, String comment, int userId) throws SQLException {
+        taskService.addNewComment(taskId, comment, userId);
+        return "redirect:/task/" + taskId;
+    }
 }

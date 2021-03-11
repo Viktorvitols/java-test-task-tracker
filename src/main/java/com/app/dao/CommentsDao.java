@@ -1,7 +1,6 @@
 package com.app.dao;
 
 import com.app.model.Comment;
-import com.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -23,32 +22,24 @@ public class CommentsDao {
                 "comments.user_id AS user_id, comments.created, " +
                 "comments.is_modified, users.name AS user, users.email, " +
                 "(SELECT name FROM users WHERE users.id = comments.modified_by) AS mod_by " +
-//                ???????????????????????????????
                 "FROM comments " +
                 "INNER JOIN users ON comments.user_id = users.id " +
-                "WHERE ticket_id =?", rowMapper, id);
+                "WHERE ticket_id =? " +
+                "ORDER BY created", rowMapper, id);
     }
 
-    public void addNewComment (String comment) {
-        jdbcTemplate.update("INSERT INTO comments (ticket_id, text, user_id, ) VALUES ");
+    public void addNewComment(int taskId, String comment, int userId) {
+        jdbcTemplate.update("INSERT INTO comments (ticket_id, text, user_id) VALUES (?, ?, ?)", taskId, comment, userId);
     }
 
     private Comment mapGetComment(ResultSet resultSet) throws SQLException {
-        Comment comment = new Comment(resultSet.getInt("ticket_id"));
+        Comment comment = new Comment(resultSet.getInt("ticket_id"), resultSet.getInt("user_id"));
         comment.setId(resultSet.getInt("id"));
         comment.setComment(resultSet.getString("text"));
-        comment.setUser(resultSet.getString("user"));
-        comment.setCreated(resultSet.getDate("created"));
+        comment.setUsername(resultSet.getString("user"));
+        comment.setCreatedTS(resultSet.getTimestamp("created"));
         comment.setModified(resultSet.getBoolean("is_modified"));
         comment.setModified_by(resultSet.getString("mod_by"));
         return comment;
     }
-
-//    private User mapUser(ResultSet resultSet) throws SQLException {
-//        User user = new User();
-//        user.setId(resultSet.getInt("id"));
-//        user.setName(resultSet.getString("name"));
-//        user.setEmail(resultSet.getString("email"));
-//        return user;
-//    }
 }

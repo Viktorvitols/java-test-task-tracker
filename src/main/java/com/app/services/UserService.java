@@ -45,4 +45,8 @@ public class UserService {
     public User loginUser(Login login) {
         return userDao.loginUser(login).get(0);
     }
+
+    public User getUserByUsername(String username) {
+        return userDao.getUserByUsername(username).get(0);
+    }
 }

@@ -25,8 +25,11 @@
     </div>
 </div>
 
-<form th:action="@{'/newComment/' + ${task.id}}" th:object="${comment}" method="post">
-    <textarea name="comment"></textarea>
-</div>
+<form th:action="@{/newComment}" th:object="${comment}" method="post">
+    <textarea th:value="${comment.comment}" name="comment"></textarea>
+    <input name="taskId" th:value="${comment.taskId}" hidden>
+    <input name="userId" th:value="${comment.userId}" hidden>
+    <input type="submit">
+</form>
 </body>
 </html>
