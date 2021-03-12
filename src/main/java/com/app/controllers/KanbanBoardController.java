@@ -25,4 +25,5 @@ public class KanbanBoardController {
         model.addAttribute("tasksByStatus", kanbanBoardService.getTasksByStatus());
         return "kanban-board";
     }
+
 }
