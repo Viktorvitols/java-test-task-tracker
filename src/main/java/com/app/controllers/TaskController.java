@@ -115,5 +115,6 @@ public class TaskController {
     public String addComment(int taskId, String comment, int userId) throws SQLException {
         taskService.addNewComment(taskId, comment, userId);
         return "redirect:/task/" + taskId;
+
     }
 }
