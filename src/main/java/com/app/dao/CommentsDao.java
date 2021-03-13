@@ -20,7 +20,7 @@ public class CommentsDao {
         RowMapper<Comment> rowMapper = (resultSet, rowNumber) -> mapGetComment(resultSet);
         return jdbcTemplate.query("SELECT comments.ticket_id, comments.id, comments.text, " +
                 "comments.user_id AS user_id, comments.created, " +
-                "comments.is_modified, users.name AS user, users.email, " +
+                "comments.is_modified, comments.last_modified, users.name AS user, users.email, " +
                 "(SELECT name FROM users WHERE users.id = comments.modified_by) AS mod_by " +
                 "FROM comments " +
                 "INNER JOIN users ON comments.user_id = users.id " +
@@ -32,6 +32,28 @@ public class CommentsDao {
         jdbcTemplate.update("INSERT INTO comments (ticket_id, text, user_id) VALUES (?, ?, ?)", taskId, comment, userId);
     }
 
+    public List<Comment> getCommentListById(int commentId) {
+        RowMapper<Comment> rowMapper = (resultSet, rowNumber) -> mapGetCommentById(resultSet);
+        return jdbcTemplate.query("SELECT * FROM comments WHERE id=?", rowMapper, commentId);
+    }
+
+    public void editComment(int commentId, String comment, int userId) {
+        jdbcTemplate.update("UPDATE comments SET text=?, modified_by=?, is_modified=true , last_modified=CURRENT_TIMESTAMP WHERE id=?", comment, userId, commentId);
+    }
+
+    private Comment mapGetCommentById(ResultSet resultSet) throws SQLException {
+        Comment comment = new Comment(resultSet.getInt("id"));
+        comment.setId(resultSet.getInt("id"));
+        comment.setTaskId(resultSet.getInt("ticket_id"));
+        comment.setComment(resultSet.getString("text"));
+        comment.setAttachmentId(resultSet.getInt("attachment_id"));
+        comment.setCreatedTS(resultSet.getTimestamp("created"));
+        comment.setModified_by(resultSet.getInt("modified_by"));
+        comment.setModified(resultSet.getBoolean("is_modified"));
+        comment.setLastModifiedTS(resultSet.getTimestamp("last_modified"));
+        return comment;
+    }
+
     private Comment mapGetComment(ResultSet resultSet) throws SQLException {
         Comment comment = new Comment(resultSet.getInt("ticket_id"), resultSet.getInt("user_id"));
         comment.setId(resultSet.getInt("id"));
@@ -39,7 +61,8 @@ public class CommentsDao {
         comment.setUsername(resultSet.getString("user"));
         comment.setCreatedTS(resultSet.getTimestamp("created"));
         comment.setModified(resultSet.getBoolean("is_modified"));
-        comment.setModified_by(resultSet.getString("mod_by"));
+        comment.setMod_by(resultSet.getString("mod_by"));
+        comment.setLastModifiedTS(resultSet.getTimestamp("last_modified"));
         return comment;
     }
 }

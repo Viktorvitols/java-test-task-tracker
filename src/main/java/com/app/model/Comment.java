@@ -14,7 +14,10 @@ public class Comment {
     private Timestamp createdTS;
     private String created;
     private boolean modified;
-    private String modified_by;
+    private int modified_by;
+    private String mod_by;
+    private Timestamp lastModifiedTS;
+    private String lastModified;
 
     public Comment(int taskId, String comment, int userId) {
         this.taskId = taskId;
@@ -27,6 +30,10 @@ public class Comment {
         this.userId = userId;
     }
 
+    public Comment(int id) {
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -37,6 +44,10 @@ public class Comment {
 
     public int getTaskId() {
         return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public String getComment() {
@@ -93,11 +104,33 @@ public class Comment {
         this.modified = modified;
     }
 
-    public String getModified_by() {
+    public Integer getModified_by() {
         return modified_by;
     }
 
-    public void setModified_by(String modified_by) {
+    public void setModified_by(Integer modified_by) {
         this.modified_by = modified_by;
+    }
+
+    public String getMod_by() {
+        return mod_by;
+    }
+
+    public void setMod_by(String mod_by) {
+        this.mod_by = mod_by;
+    }
+
+    public void setLastModifiedTS(Timestamp lastModifiedTS) {
+        this.lastModifiedTS = lastModifiedTS;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.lastModified = formatter.format(lastModifiedTS);
+    }
+
+    public String getLastModified() {
+        return lastModified;
+    }
+
+    public Timestamp getLastModifiedTS() {
+        return lastModifiedTS;
     }
 }

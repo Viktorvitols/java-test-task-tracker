@@ -47,14 +47,32 @@
             <p name="description" class="descr" th:text="${task.description}"></p></div>
 
         <fieldset>
-            <legend>Comments: </legend>
+            <legend>Comments:</legend>
             <p name="comment" class="comment" th:text="${comments}"></p>
             <div class="taskComments">
                 <th:block th:each="comment : ${commentList}">
-                    <div class="commentBlock cell">
-                        <p>Written by: </p><div th:text="${comment.username}"></div>
-                        <p>Comment: </p><div th:text="${comment.comment}"></div>
-                        <p>Created: </p><div th:text="${comment.created}"></div>
+                    <div class="cell">
+                        <div class="commentInfoBlock">
+                            <div>
+                                <p class="label">Written by: </p>
+                                <div th:text="${comment.username}"></div>
+                                <p class="label">Created: </p>
+                                <div th:text="${comment.created}"></div>
+                            </div>
+                            <div th:if="${comment.modified == true}">
+                                <p class="label">Modified by: </p>
+                                <div th:text="${comment.mod_by}"></div>
+                                <p class="label">Modified at: </p>
+                                <div th:text="${comment.lastModified}"></div>
+                            </div>
+                            <a th:href="'/editComment/' + ${comment.id}">
+                                <img class="editicon" src="/img/edit-icon.png">
+                            </a>
+                        </div>
+                        <div>
+                            <p class="label">Comment: </p>
+                            <div th:text="${comment.comment}"></div>
+                        </div>
                     </div>
                 </th:block>
             </div>

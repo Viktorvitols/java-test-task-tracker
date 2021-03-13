@@ -140,9 +140,9 @@ padding-left: 5px;
 }
 
 .editicon {
-height: 18px;
-margin: 5px;
-cursor: pointer;
+    height: 18px;
+    margin: 5px;
+    cursor: pointer;
 }
 
 .taskID {
@@ -208,4 +208,16 @@ width: 300px;
 .textblock {
     box-sizing: border-box;
     width: 100%;
+}
+
+.label {
+    font-size: 85%;
+    font-style: italic;
+    color: grey;
+}
+
+.commentInfoBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

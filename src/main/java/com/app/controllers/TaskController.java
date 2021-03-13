@@ -60,12 +60,23 @@ public class TaskController {
 
     @GetMapping("/newComment/{taskId}")
     public String newComment(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
+        model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("task", taskService.getTaskById(id));
         String username = session.getAttribute("username").toString();
         Integer userId = userService.getUserByUsername(username).getId();
         model.addAttribute("userId", userId);
         model.addAttribute("comment", new Comment(id, userId));
         return "newComment";
+    }
+
+    @GetMapping("/editComment/{commentId}")
+    public String editComment(@PathVariable(value = "commentId") Integer id, Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        String username = session.getAttribute("username").toString();
+        Integer userId = userService.getUserByUsername(username).getId();
+        model.addAttribute("userId", userId);
+        model.addAttribute("comment", taskService.getCommentById(id));
+        return "editComment";
     }
 
     @GetMapping("/success")
@@ -114,6 +125,13 @@ public class TaskController {
     @PostMapping("/newComment")
     public String addComment(int taskId, String comment, int userId) throws SQLException {
         taskService.addNewComment(taskId, comment, userId);
+        return "redirect:/task/" + taskId;
+    }
+
+    @PostMapping("/editComment")
+    public String editComment(int commentId, String comment, int userId) throws SQLException {
+        taskService.editComment(commentId, comment, userId);
+        int taskId = taskService.getCommentById(commentId).getTaskId();
         return "redirect:/task/" + taskId;
     }
 }
