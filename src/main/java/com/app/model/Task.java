@@ -15,6 +15,7 @@ public class Task {
     private Integer attachmentId;
     private String assigneeName;
     private Integer commentId;
+    private Integer commentCount;
 
     public Task(Integer id) {
         this.id = id;
@@ -110,5 +111,13 @@ public class Task {
 
     public void setCommentId(Integer commentId) {
         this.commentId = commentId;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
     }
 }

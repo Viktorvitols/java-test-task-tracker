@@ -1,7 +1,6 @@
 package com.app.dao;
 
 import com.app.model.Comment;
-import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -47,10 +46,11 @@ public class CommentsDao {
     public List<Integer> getCommentCount(int taskId) {
         RowMapper<Integer> rowMapper = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         return jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper, taskId);
-        }
+    }
 
     private Comment mapGetCommentById(ResultSet resultSet) throws SQLException {
-        Comment comment = new Comment(resultSet.getInt("id"));
+        Comment comment = new Comment();
+        comment.setId(resultSet.getInt("id"));
         comment.setId(resultSet.getInt("id"));
         comment.setTaskId(resultSet.getInt("ticket_id"));
         comment.setComment(resultSet.getString("text"));
@@ -63,7 +63,9 @@ public class CommentsDao {
     }
 
     private Comment mapGetComment(ResultSet resultSet) throws SQLException {
-        Comment comment = new Comment(resultSet.getInt("ticket_id"), resultSet.getInt("user_id"));
+        Comment comment = new Comment();
+        comment.setTaskId(resultSet.getInt("ticket_id"));
+        comment.setUserId(resultSet.getInt("user_id"));
         comment.setId(resultSet.getInt("id"));
         comment.setComment(resultSet.getString("text"));
         comment.setUsername(resultSet.getString("user"));

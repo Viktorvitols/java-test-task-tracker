@@ -54,6 +54,7 @@
                 <div class="cell summary" th:text="${task.summary}"></div>
                 <div class="cell assignee" th:text="${task.assigneeName}"></div>
                 <div class="cell description" th:text="${task.description}"></div>
+                <div th:text="'Comments: ' + ${commentCount}"></div>
             </div>
         </th:block>
 

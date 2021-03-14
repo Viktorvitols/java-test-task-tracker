@@ -19,19 +19,12 @@ public class Comment {
     private Timestamp lastModifiedTS;
     private String lastModified;
 
-    public Comment(int taskId, String comment, int userId) {
-        this.taskId = taskId;
-        this.comment = comment;
-        this.userId = userId;
-    }
-
     public Comment(int taskId, int userId) {
         this.taskId = taskId;
         this.userId = userId;
     }
 
-    public Comment(int id) {
-        this.id = id;
+    public Comment() {
     }
 
     public int getId() {
