@@ -102,7 +102,6 @@ public class TaskDao {
 //        task.setReporter(resultSet.getString("reporter"));
         task.setAssigneeName(resultSet.getString("assignee_name"));
         task.setDescription(resultSet.getString("description"));
-        task.setCommentId(resultSet.getInt("comment_id"));
         return task;
     }
 

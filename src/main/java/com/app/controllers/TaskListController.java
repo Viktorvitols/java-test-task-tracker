@@ -2,6 +2,7 @@ package com.app.controllers;
 
 import com.app.model.Task;
 import com.app.services.TaskListService;
+import com.app.services.TaskService;
 import com.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +24,18 @@ public class TaskListController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TaskService taskService;
+
     @GetMapping("/tasklist")
     public String tasklist(@ModelAttribute Task task, Model model, HttpSession session) {
         List<Task> taskList = taskListService.getTaskList();
         model.addAttribute("tasklist", taskList);
         model.addAttribute("username", session.getAttribute("username"));
-
+        for (Task task1 : taskList) {
+            Integer taskId = task1.getId();
+            model.addAttribute("commentCount", taskService.getCommentCount(taskId));
+        }
         return "tasklist";
     }
 

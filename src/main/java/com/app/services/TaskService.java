@@ -117,4 +117,8 @@ public class TaskService {
     public void editComment(int commentId, String comment, int userId) {
         commentsDao.editComment(commentId, comment, userId);
     }
+
+    public Integer getCommentCount(int taskId) {
+        return commentsDao.getCommentCount(taskId).get(0);
+    }
 }
