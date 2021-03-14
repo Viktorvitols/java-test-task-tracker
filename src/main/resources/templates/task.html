@@ -47,7 +47,7 @@
             <p name="description" class="descr" th:text="${task.description}"></p></div>
 
         <fieldset>
-            <legend>Comments:</legend>
+            <legend>Comments: ([[${commentCount}]])</legend>
             <p name="comment" class="comment" th:text="${comments}"></p>
             <div class="taskComments">
                 <th:block th:each="comment : ${commentList}">

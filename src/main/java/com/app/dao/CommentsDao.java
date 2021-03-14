@@ -1,6 +1,7 @@
 package com.app.dao;
 
 import com.app.model.Comment;
+import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -38,8 +39,15 @@ public class CommentsDao {
     }
 
     public void editComment(int commentId, String comment, int userId) {
-        jdbcTemplate.update("UPDATE comments SET text=?, modified_by=?, is_modified=true , last_modified=CURRENT_TIMESTAMP WHERE id=?", comment, userId, commentId);
+        jdbcTemplate.update("UPDATE comments SET text=?, modified_by=?, is_modified=true, " +
+                "last_modified=CURRENT_TIMESTAMP WHERE id=?", comment, userId, commentId);
     }
+
+
+    public List<Integer> getCommentCount(int taskId) {
+        RowMapper<Integer> rowMapper = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
+        return jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper, taskId);
+        }
 
     private Comment mapGetCommentById(ResultSet resultSet) throws SQLException {
         Comment comment = new Comment(resultSet.getInt("id"));
@@ -64,5 +72,10 @@ public class CommentsDao {
         comment.setMod_by(resultSet.getString("mod_by"));
         comment.setLastModifiedTS(resultSet.getTimestamp("last_modified"));
         return comment;
+    }
+
+    private Integer mapGetCommentCount(ResultSet resultSet) throws SQLException {
+        Integer count = resultSet.getInt("count");
+        return count;
     }
 }

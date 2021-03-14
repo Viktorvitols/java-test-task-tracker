@@ -3,9 +3,12 @@ package com.app.controllers;
 import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
+import com.app.security.CustomUserDetails;
 import com.app.services.TaskService;
 import com.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +42,7 @@ public class TaskController {
         model.addAttribute("task", taskService.getTaskById(id));
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("commentList", taskService.getTaskCommentList(id));
+        model.addAttribute("commentCount", taskService.getCommentCount(id));
         return "task";
     }
 
@@ -129,7 +133,11 @@ public class TaskController {
     }
 
     @PostMapping("/editComment")
-    public String editComment(int commentId, String comment, int userId) throws SQLException {
+    public String editComment(int commentId, String comment, HttpSession session) throws SQLException {
+        session.getAttribute("username");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+        Integer userId = customUser.getUser().getId();
         taskService.editComment(commentId, comment, userId);
         int taskId = taskService.getCommentById(commentId).getTaskId();
         return "redirect:/task/" + taskId;
