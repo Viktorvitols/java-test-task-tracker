@@ -72,7 +72,14 @@ public class TaskDao {
 
     public List<Task> getTaskList() {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
+        RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
+        for (int i = 0; i < taskList.size(); i++) {
+            Integer taskId = taskList.get(i).getId();
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            taskList.get(i).setCommentCount(commentCount);
+        }
+        return taskList;
     }
 
     public List<Task> getDetailedTaskList() {
@@ -109,5 +116,10 @@ public class TaskDao {
         Status status = new Status();
         status.setStatus(resultSet.getString("status"));
         return status;
+    }
+
+    private Integer mapGetCommentCount(ResultSet resultSet) throws SQLException {
+        Integer count = resultSet.getInt("count");
+        return count;
     }
 }

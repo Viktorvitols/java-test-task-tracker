@@ -32,13 +32,8 @@ public class TaskListController {
         List<Task> taskList = taskListService.getTaskList();
         model.addAttribute("tasklist", taskList);
         model.addAttribute("username", session.getAttribute("username"));
-        for (Task task1 : taskList) {
-            Integer taskId = task1.getId();
-            model.addAttribute("commentCount", taskService.getCommentCount(taskId));
-        }
         return "tasklist";
     }
-
 
     @RequestMapping("/tasklist")
     public String searchTask(@RequestBody String searchText, Model model, HttpSession session) {
