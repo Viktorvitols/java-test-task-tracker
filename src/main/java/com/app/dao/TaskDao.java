@@ -19,13 +19,13 @@ public class TaskDao {
 
 
     public void storeTask(Task task) throws NullPointerException {
-        jdbcTemplate.update("INSERT INTO tickets (project_name, status, summary, assignee_name, description) VALUES (?, ?, ?, ?, ?)",
-                task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription());
+        jdbcTemplate.update("INSERT INTO tickets (project_name, summary, assignee, description) VALUES (?, ?, ?, ?)",
+                task.getProject(), task.getSummary(), task.getAssignee(), task.getDescription());
     }
 
     public void updateTask(Task task) throws NullPointerException {
         jdbcTemplate.
-                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee_name = ?, description = ? WHERE id = ?",
+                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ? WHERE id = ?",
                         task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
@@ -125,9 +125,9 @@ public class TaskDao {
         task.setProject(resultSet.getString("project_name"));
         task.setStatus(resultSet.getString("status"));
         task.setSummary(resultSet.getString("summary"));
-//        task.setCreated(resultSet.getDate("created"));
-//        task.setReporter(resultSet.getString("reporter"));
-        task.setAssigneeName(resultSet.getString("assignee_name"));
+        task.setCreated(resultSet.getDate("created"));
+        task.setReporter(resultSet.getInt("reporter"));
+        task.setAssignee(resultSet.getInt("assignee"));
         task.setDescription(resultSet.getString("description"));
         return task;
     }

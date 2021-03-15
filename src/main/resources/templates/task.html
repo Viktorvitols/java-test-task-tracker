@@ -40,9 +40,9 @@
         <div class="cell"><p>Summary: </p>
             <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
         <div class="cell"><p>Assignee: </p>
-
-            <p name="assignee" type="text" th:text="${task.assigneeName}"/>
-        </div>
+            <th:block th:each="user : ${users}" th:value="${user.id}">
+                <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
+            </th:block>        </div>
         <div class="cell"><p>Description: </p>
             <p name="description" class="descr" th:text="${task.description}"></p></div>
 

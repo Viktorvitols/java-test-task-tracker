@@ -8,9 +8,9 @@ public class Task {
     private String project;
     private String summary;
     private Date created;
-    private String reporter;
+    private int reporter;
     private String status;
-    private String assignee;
+    private int assignee;
     private String description;
     private Integer attachmentId;
     private String assigneeName;
@@ -57,11 +57,11 @@ public class Task {
         this.created = created;
     }
 
-    public String getReporter() {
+    public int getReporter() {
         return reporter;
     }
 
-    public void setReporter(String reporter) {
+    public void setReporter(int reporter) {
         this.reporter = reporter;
     }
 
@@ -73,11 +73,11 @@ public class Task {
         this.status = status;
     }
 
-    public String getAssignee() {
+    public int getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(String assignee) {
+    public void setAssignee(int assignee) {
         this.assignee = assignee;
     }
 

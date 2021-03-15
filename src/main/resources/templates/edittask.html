@@ -50,7 +50,7 @@
                 <form th:action="@{/setAssignee}" th:object="${task}" method="post">
                     <select name="userId" id="userId">
                         <option class="user" th:block th:each="user : ${users}" th:value="${user.id}"
-                                th:selected="${user.name==task.assigneeName}">[[${user.name}]]
+                                th:selected="${user.id==task.assignee}">[[${user.name}]]
                         </option>
                     </select>
                     <input name="taskId" th:value="${task.id}" hidden>

@@ -34,6 +34,7 @@ public class TaskController {
     public String getTaskForm(Model model, HttpSession session) {
         model.addAttribute("taskform", new Task());
         model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("users", userService.getUserList());
         return "taskform";
     }
 
@@ -43,6 +44,7 @@ public class TaskController {
         model.addAttribute("username", session.getAttribute("username"));
         model.addAttribute("commentList", taskService.getTaskCommentList(id));
         model.addAttribute("commentCount", taskService.getCommentCount(id));
+        model.addAttribute("users", userService.getUserList());
         return "task";
     }
 
@@ -96,9 +98,14 @@ public class TaskController {
 /////////////////////////////////////POST/////////////////////////////////////
 
     @PostMapping("/taskform")
-    public String submitNewTask(@ModelAttribute Task task, Model model) {
+    public String submitNewTask(@ModelAttribute Task task, Model model, HttpSession session) {
         model.addAttribute("taskform", task);
         if (taskService.validateTaskData(task) == true) {
+            session.getAttribute("username");
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            CustomUserDetails customUser = (CustomUserDetails) authentication.getPrincipal();
+            Integer userId = customUser.getUser().getId();
+            task.setReporter(userId);
             taskService.storeTask(task);
             return "redirect:/success";
         }

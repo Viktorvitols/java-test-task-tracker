@@ -52,7 +52,11 @@
                 <div class="cell project" th:text="${task.project}"></div>
                 <div class="cell status" th:text="${task.status}"></div>
                 <div class="cell summary" th:text="${task.summary}"></div>
-                <div class="cell assignee" th:text="${task.assigneeName}"></div>
+                <div class="cell assignee">
+                    <th:block th:each="user : ${users}" th:value="${user.id}">
+                        <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
+                    </th:block>
+                </div>
                 <div class="cell description" th:text="${task.description}"></div>
                 <div th:text="'Comments: ' + ${task.commentCount}"></div>
             </div>

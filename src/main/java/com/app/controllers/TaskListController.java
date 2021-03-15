@@ -32,6 +32,7 @@ public class TaskListController {
         List<Task> taskList = taskListService.getTaskList();
         model.addAttribute("tasklist", taskList);
         model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("users", userService.getUserList());
         return "tasklist";
     }
 
