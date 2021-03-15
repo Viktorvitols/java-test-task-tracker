@@ -1,6 +1,5 @@
 package com.app.dao;
 
-import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +108,7 @@ public class TaskDao {
     public List<Task> searchTaskByText(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
-        List<Task> taskList =  jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
         RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         for (int i = 0; i < taskList.size(); i++) {
             Integer taskId = taskList.get(i).getId();

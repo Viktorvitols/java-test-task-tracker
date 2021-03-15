@@ -31,14 +31,14 @@
 <div class="board_space row">
     <th:block th:each="status : ${statuslist}">
         <div class="kanban_col">
-           <div class="header" th:text="${status.status}"></div>
+            <div class="header" th:text="${status.status}"></div>
             <th:block th:each="task : ${tasksByStatus.get(status.status)}">
                 <div class="taskblock">
                     <div class="textblock" th:text="${task.id}"></div>
                     <div class="textblock" th:text="${task.project}"></div>
                     <div class="textblock" th:text="${task.summary}"></div>
                     <div class="textblock" th:text="${task.status}"></div>
-                    <div class="textblock" th:text="${task.commentsCount}"></div>
+                    <div class="textblock" th:text="'Comments: ' + ${task.commentCount}"></div>
                 </div>
             </th:block>
         </div>
