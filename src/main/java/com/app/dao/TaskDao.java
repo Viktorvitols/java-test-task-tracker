@@ -84,18 +84,39 @@ public class TaskDao {
 
     public List<Task> getDetailedTaskList() {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets ORDER BY id", rowMapper);
+        RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
+        for (int i = 0; i < taskList.size(); i++) {
+            Integer taskId = taskList.get(i).getId();
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            taskList.get(i).setCommentCount(commentCount);
+        }
+        return taskList;
     }
 
     public List<Task> getFilteredTaskList(String project) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
+        RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
+        for (int i = 0; i < taskList.size(); i++) {
+            Integer taskId = taskList.get(i).getId();
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            taskList.get(i).setCommentCount(commentCount);
+        }
+        return taskList;
     }
 
     public List<Task> searchTaskByText(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
-        return jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
+        List<Task> taskList =  jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
+        RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
+        for (int i = 0; i < taskList.size(); i++) {
+            Integer taskId = taskList.get(i).getId();
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            taskList.get(i).setCommentCount(commentCount);
+        }
+        return taskList;
     }
 
     private Task mapTask(ResultSet resultSet) throws SQLException {
