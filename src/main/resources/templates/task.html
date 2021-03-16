@@ -37,12 +37,18 @@
             <p name="project" type="text" th:text="${task.project}"/></div>
         <div class="cell"><p>Status: </p>
             <p name="status" type="text" th:text="${task.status}"/></div>
+        <div class="cell"><p>Reporter: </p>
+            <th:block th:each="user : ${users}" th:value="${user.id}">
+                <th:block th:if="${user.id==task.reporter}">[[${user.name}]]</th:block>
+            </th:block>
+        </div>
         <div class="cell"><p>Summary: </p>
             <p name="summary" class="summary" type="text" th:text="${task.summary}"/></div>
         <div class="cell"><p>Assignee: </p>
             <th:block th:each="user : ${users}" th:value="${user.id}">
                 <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
-            </th:block>        </div>
+            </th:block>
+        </div>
         <div class="cell"><p>Description: </p>
             <p name="description" class="descr" th:text="${task.description}"></p></div>
 

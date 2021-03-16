@@ -13,7 +13,6 @@ public class Task {
     private int assignee;
     private String description;
     private Integer attachmentId;
-    private String assigneeName;
     private Integer commentId;
     private Integer commentCount;
 
@@ -87,14 +86,6 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAssigneeName() {
-        return assigneeName;
-    }
-
-    public void setAssigneeName(String assigneeName) {
-        this.assigneeName = assigneeName;
     }
 
     public Integer getAttachmentId() {

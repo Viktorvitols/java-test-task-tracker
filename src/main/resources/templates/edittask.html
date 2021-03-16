@@ -51,8 +51,6 @@
                             th:selected="${user.id==task.assignee}">[[${user.name}]]
                     </option>
                 </select>
-                <input name="taskId" th:value="${task.id}" hidden>
-                <input type="submit" value="Change">
                 <p>Description: </p><textarea name="description" class="descr"
                                               th:inline="text">[[${task.description}]]</textarea>
             </div>
