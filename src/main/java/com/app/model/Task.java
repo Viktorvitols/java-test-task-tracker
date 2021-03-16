@@ -1,5 +1,6 @@
 package com.app.model;
 
+import java.sql.Array;
 import java.sql.Date;
 
 public class Task {
@@ -12,7 +13,7 @@ public class Task {
     private String status;
     private int assignee;
     private String description;
-    private Integer attachmentId;
+    private Array attachmentId;
     private Integer commentId;
     private Integer commentCount;
 
@@ -88,11 +89,11 @@ public class Task {
         this.description = description;
     }
 
-    public Integer getAttachmentId() {
+    public Array getAttachmentId() {
         return attachmentId;
     }
 
-    public void setAttachmentId(Integer attachmentId) {
+    public void setAttachmentId(Array attachmentId) {
         this.attachmentId = attachmentId;
     }
 

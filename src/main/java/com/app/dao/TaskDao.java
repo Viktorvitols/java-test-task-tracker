@@ -25,8 +25,10 @@ public class TaskDao {
 
     public void updateTask(Task task) throws NullPointerException {
         jdbcTemplate.
-                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ? WHERE id = ?",
-                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
+                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee = ?," +
+                                " description = ?, attachment_id = ? WHERE id = ?",
+                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(),
+                        task.getAttachmentId(), task.getId());
     }
 
     public void changeAssignee(int taskId, int userId) throws NullPointerException {
@@ -128,6 +130,7 @@ public class TaskDao {
         task.setReporter(resultSet.getInt("reporter"));
         task.setAssignee(resultSet.getInt("assignee"));
         task.setDescription(resultSet.getString("description"));
+        task.setAttachmentId(resultSet.getArray("attachment_id"));
         return task;
     }
 
