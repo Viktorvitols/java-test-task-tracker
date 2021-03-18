@@ -57,7 +57,6 @@
                         <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
                     </th:block>
                 </div>
-                <div class="cell description" th:text="${task.description}"></div>
                 <div th:text="'Comments: ' + ${task.commentCount}"></div>
             </div>
         </th:block>
