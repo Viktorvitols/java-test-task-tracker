@@ -66,6 +66,10 @@ public class TaskService {
         taskDao.updateTask(task);
     }
 
+    public void updateTaskHistory(Task task, String jsonOld, String jsonNew) throws SQLException {
+        taskDao.updateTaskHistory(task, jsonOld, jsonNew);
+    }
+
     public Task getTaskById(Integer id) throws SQLException {
         return taskDao.getTaskById(id);
     }

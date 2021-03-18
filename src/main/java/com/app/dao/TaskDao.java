@@ -2,13 +2,13 @@ package com.app.dao;
 
 import com.app.model.Status;
 import com.app.model.Task;
+import org.postgresql.util.PGobject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 @Repository
@@ -16,6 +16,8 @@ public class TaskDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    Connection con = DriverManager.getConnection("jdbc:postgres:thin:@localhost:8090","web","web");
 
 
     public void storeTask(Task task) throws NullPointerException {
@@ -27,6 +29,20 @@ public class TaskDao {
         jdbcTemplate.
                 update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ? WHERE id = ?",
                         task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
+    }
+
+    public void updateTaskHistory(Task task, String jsonOld, String jsonNew) throws SQLException {
+        PGobject jsonObject  = new PGobject();
+
+        jsonObject.setType("json");
+        jsonObject.setValue(jsonOld);
+        jsonObject.setValue(jsonNew);
+        PreparedStatement stmt = con.prepareStatement("INSERT INTO ticket_history (ticket_id, previous_data, updated_data) " +
+                "VALUES (?, ?::json, ?::json)");
+        stmt.setInt(1, task.getId());
+        stmt.setObject(2, jsonOld);
+        stmt.setObject(3, jsonNew);
+
     }
 
     public void changeAssignee(int taskId, int userId) throws NullPointerException {

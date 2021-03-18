@@ -6,6 +6,7 @@ import com.app.model.Task;
 import com.app.security.CustomUserDetails;
 import com.app.services.TaskService;
 import com.app.services.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -116,6 +117,12 @@ public class TaskController {
     public String updateTask(@ModelAttribute Task task) throws SQLException {
         if (taskService.validateTaskData(task)) {
             taskService.updateTask(task);
+
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonOld = null;
+            mapper.writeValue(jsonOld, task);
+
+            taskService.updateTaskHistory(task, jsonOld, jsonNew);
             return "redirect:/success";
         }
         return "redirect:/invalid";
