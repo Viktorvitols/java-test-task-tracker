@@ -2,6 +2,7 @@ package com.app.dao;
 
 import com.app.model.Status;
 import com.app.model.Task;
+import com.app.model.TaskChangeableData;
 import com.app.model.TaskHistory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +32,41 @@ public class TaskDao {
                         task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
+    private TaskHistory mapTaskHistory(ResultSet resultSet) throws SQLException {
+        TaskHistory taskHistory = new TaskHistory();
+        taskHistory.setId(resultSet.getInt("id"));
+        taskHistory.setTaskId(resultSet.getInt("ticket_id"));
+        taskHistory.setPreviousData(resultSet.getString("previous_data"));
+        taskHistory.setUpdatedData(resultSet.getString("updated_data"));
+        taskHistory.setCreated(resultSet.getTimestamp("created"));
+        return taskHistory;
+    }
+
+    public List<TaskHistory> getTaskHistory(int taskId) {
+        RowMapper<TaskHistory> rowMapper = (resultSet, rowNumber) -> mapTaskHistory(resultSet);
+        return jdbcTemplate.query("SELECT * FROM ticket_history WHERE ticket_id = ?", rowMapper, taskId);
+    }
+
+    private TaskChangeableData setHistoryUpdatedData(Task task) {
+        TaskChangeableData updatedData = new TaskChangeableData();
+        updatedData.setTaskId(task.getId());
+        updatedData.setProject(task.getProject());
+        updatedData.setAssignee(task.getAssignee());
+        updatedData.setSummary(task.getSummary());
+        updatedData.setDescription(task.getDescription());
+        return updatedData;
+    }
+
+    private TaskChangeableData setHistoryPreviousData(Task task) {
+        TaskChangeableData previousData = new TaskChangeableData();
+        previousData.setTaskId(task.getId());
+        previousData.setProject(task.getProject());
+        previousData.setAssignee(task.getAssignee());
+        previousData.setSummary(task.getSummary());
+        previousData.setDescription(task.getDescription());
+        return previousData;
+    }
+
     public void updateTaskHistory(Task task) throws SQLException, JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -47,6 +83,13 @@ public class TaskDao {
                         "SELECT id FROM users WHERE id = ? AND is_active = true), " +
                         "WHERE id = ?",
                 userId, userId, taskId);
+    }
+
+
+    private Status mapStatus(ResultSet resultSet) throws SQLException {
+        Status status = new Status();
+        status.setStatus(resultSet.getString("status"));
+        return status;
     }
 
     public List<Status> getTaskStatuses() {
@@ -74,6 +117,21 @@ public class TaskDao {
         jdbcTemplate.execute(DROP_FROM_STATUS);
     }
 
+
+    private Task mapTask(ResultSet resultSet) throws SQLException {
+        Task task = new Task();
+
+        task.setId(resultSet.getInt("id"));
+        task.setProject(resultSet.getString("project_name"));
+        task.setStatus(resultSet.getString("status"));
+        task.setSummary(resultSet.getString("summary"));
+        task.setCreated(resultSet.getDate("created"));
+        task.setReporter(resultSet.getInt("reporter"));
+        task.setAssignee(resultSet.getInt("assignee"));
+        task.setDescription(resultSet.getString("description"));
+        task.setAttachmentId(resultSet.getArray("attachment_id"));
+        return task;
+    }
 
     public Task getTaskById(Integer id) throws SQLException {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
@@ -116,6 +174,11 @@ public class TaskDao {
         return taskList;
     }
 
+    private Integer mapGetCommentCount(ResultSet resultSet) throws SQLException {
+        Integer count = resultSet.getInt("count");
+        return count;
+    }
+
     public List<Task> searchTaskByText(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
@@ -127,51 +190,5 @@ public class TaskDao {
             taskList.get(i).setCommentCount(commentCount);
         }
         return taskList;
-    }
-
-    private Task mapTask(ResultSet resultSet) throws SQLException {
-        Task task = new Task();
-
-        task.setId(resultSet.getInt("id"));
-        task.setProject(resultSet.getString("project_name"));
-        task.setStatus(resultSet.getString("status"));
-        task.setSummary(resultSet.getString("summary"));
-        task.setCreated(resultSet.getDate("created"));
-        task.setReporter(resultSet.getInt("reporter"));
-        task.setAssignee(resultSet.getInt("assignee"));
-        task.setDescription(resultSet.getString("description"));
-        task.setAttachmentId(resultSet.getArray("attachment_id"));
-        return task;
-    }
-
-    private Status mapStatus(ResultSet resultSet) throws SQLException {
-        Status status = new Status();
-        status.setStatus(resultSet.getString("status"));
-        return status;
-    }
-
-    private Integer mapGetCommentCount(ResultSet resultSet) throws SQLException {
-        Integer count = resultSet.getInt("count");
-        return count;
-    }
-
-    private TaskHistory setHistoryUpdatedData(Task task) {
-        TaskHistory updatedData = new TaskHistory();
-        updatedData.setTaskId(task.getId());
-        updatedData.setProject(task.getProject());
-        updatedData.setAssignee(task.getAssignee());
-        updatedData.setSummary(task.getSummary());
-        updatedData.setDescription(task.getDescription());
-        return updatedData;
-    }
-
-    private TaskHistory setHistoryPreviousData(Task task) {
-        TaskHistory previousData = new TaskHistory();
-        previousData.setTaskId(task.getId());
-        previousData.setProject(task.getProject());
-        previousData.setAssignee(task.getAssignee());
-        previousData.setSummary(task.getSummary());
-        previousData.setDescription(task.getDescription());
-        return previousData;
     }
 }

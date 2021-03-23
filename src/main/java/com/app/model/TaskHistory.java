@@ -1,12 +1,21 @@
 package com.app.model;
 
-public class TaskHistory {
+import java.sql.Timestamp;
 
+public class TaskHistory {
+    private int id;
     private int taskId;
-    private String project;
-    private String summary;
-    private int assignee;
-    private String description;
+    private String previousData;
+    private String updatedData;
+    private Timestamp created;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getTaskId() {
         return taskId;
@@ -16,35 +25,27 @@ public class TaskHistory {
         this.taskId = taskId;
     }
 
-    public String getProject() {
-        return project;
+    public String getPreviousData() {
+        return previousData;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setPreviousData(String previousData) {
+        this.previousData = previousData;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getUpdatedData() {
+        return updatedData;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setUpdatedData(String updatedData) {
+        this.updatedData = updatedData;
     }
 
-    public int getAssignee() {
-        return assignee;
+    public Timestamp getCreated() {
+        return created;
     }
 
-    public void setAssignee(int assignee) {
-        this.assignee = assignee;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCreated(Timestamp created) {
+        this.created = created;
     }
 }

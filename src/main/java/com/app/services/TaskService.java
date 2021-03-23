@@ -7,6 +7,7 @@ import com.app.dao.UserDao;
 import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
+import com.app.model.TaskHistory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,5 +126,9 @@ public class TaskService {
 
     public Integer getCommentCount(int taskId) {
         return commentsDao.getCommentCount(taskId).get(0);
+    }
+
+    public List<TaskHistory> getTaskHistory(int taskId) {
+        return taskDao.getTaskHistory(taskId);
     }
 }

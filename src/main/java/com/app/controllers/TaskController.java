@@ -86,6 +86,13 @@ public class TaskController {
         return "editComment";
     }
 
+    @GetMapping("/task-history/{taskId}")
+    public String taskHistory(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("taskHistory", taskService.getTaskHistory(id));
+        return "task-history";
+    }
+
     @GetMapping("/success")
     public String getSuccessForm() {
         return "success";
