@@ -2,13 +2,16 @@ package com.app.dao;
 
 import com.app.model.Status;
 import com.app.model.Task;
-import org.postgresql.util.PGobject;
+import com.app.model.TaskHistory;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -16,9 +19,6 @@ public class TaskDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-//    Connection con = DriverManager.getConnection("jdbc:postgres:thin:@localhost:8090","web","web");
-
 
     public void storeTask(Task task) throws NullPointerException {
         jdbcTemplate.update("INSERT INTO tickets (project_name, summary, reporter, assignee, description) VALUES (?, ?, ?, ?, ?)",
@@ -31,8 +31,11 @@ public class TaskDao {
                         task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
     }
 
-    public void updateTaskHistory(Task task, String jsonOld, String jsonNew) throws SQLException {
+    public void updateTaskHistory(Task task) throws SQLException, JsonProcessingException {
 
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonOld = mapper.writeValueAsString(setHistoryPreviousData(getTaskById(task.getId())));
+        String jsonNew = mapper.writeValueAsString(setHistoryUpdatedData(task));
 
         jdbcTemplate.update("INSERT INTO ticket_history (ticket_id, previous_data, updated_data) " +
                 "VALUES (?, ?::json, ?::json)", task.getId(), jsonOld, jsonNew);
@@ -150,5 +153,25 @@ public class TaskDao {
     private Integer mapGetCommentCount(ResultSet resultSet) throws SQLException {
         Integer count = resultSet.getInt("count");
         return count;
+    }
+
+    private TaskHistory setHistoryUpdatedData(Task task) {
+        TaskHistory updatedData = new TaskHistory();
+        updatedData.setTaskId(task.getId());
+        updatedData.setProject(task.getProject());
+        updatedData.setAssignee(task.getAssignee());
+        updatedData.setSummary(task.getSummary());
+        updatedData.setDescription(task.getDescription());
+        return updatedData;
+    }
+
+    private TaskHistory setHistoryPreviousData(Task task) {
+        TaskHistory previousData = new TaskHistory();
+        previousData.setTaskId(task.getId());
+        previousData.setProject(task.getProject());
+        previousData.setAssignee(task.getAssignee());
+        previousData.setSummary(task.getSummary());
+        previousData.setDescription(task.getDescription());
+        return previousData;
     }
 }

@@ -7,6 +7,7 @@ import com.app.dao.UserDao;
 import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,8 +67,8 @@ public class TaskService {
         taskDao.updateTask(task);
     }
 
-    public void updateTaskHistory(Task task, String jsonOld ,String jsonNew) throws SQLException {
-        taskDao.updateTaskHistory(task, jsonOld, jsonNew);
+    public void updateTaskHistory(Task task) throws SQLException, JsonProcessingException {
+        taskDao.updateTaskHistory(task);
     }
 
     public Task getTaskById(Integer id) throws SQLException {
