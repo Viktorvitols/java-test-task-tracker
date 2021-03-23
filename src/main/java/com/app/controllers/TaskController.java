@@ -3,9 +3,11 @@ package com.app.controllers;
 import com.app.model.Comment;
 import com.app.model.Status;
 import com.app.model.Task;
+import com.app.model.TaskHistory;
 import com.app.security.CustomUserDetails;
 import com.app.services.TaskService;
 import com.app.services.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -114,19 +116,27 @@ public class TaskController {
     }
 
     @PostMapping("/edittask/{taskId}")
-    public String updateTask(@ModelAttribute Task task) throws SQLException {
-        if (taskService.validateTaskData(task)) {
-            taskService.updateTask(task);
+    public String updateTask(@ModelAttribute Task task) throws SQLException, JsonProcessingException {
 
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonOld = null;
-            mapper.writeValue(jsonOld, task);
-
-            taskService.updateTaskHistory(task, jsonOld, jsonNew);
-            return "redirect:/success";
+        if (!taskService.validateTaskData(task)) {
+            return "redirect:/invalid";
         }
-        return "redirect:/invalid";
+        TaskHistory taskHistory = new TaskHistory();
+        taskHistory.setTaskId(task.getId());
+        taskHistory.setProject(task.getProject());
+        taskHistory.setAssignee(task.getAssignee());
+        taskHistory.setSummary(task.getSummary());
+        taskHistory.setDescription(task.getDescription());
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonNew = mapper.writeValueAsString(taskHistory);
+        String jsonOld = mapper.writeValueAsString(taskService.getTaskById(task.getId()));
+
+        taskService.updateTask(task);
+        taskService.updateTaskHistory(task, jsonOld, jsonNew);
+        return "redirect:/success";
     }
+
 
     @PostMapping("/setAssignee")
     public String changeAssignee(int taskId, int userId) {

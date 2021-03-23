@@ -17,7 +17,7 @@ public class TaskDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    Connection con = DriverManager.getConnection("jdbc:postgres:thin:@localhost:8090","web","web");
+//    Connection con = DriverManager.getConnection("jdbc:postgres:thin:@localhost:8090","web","web");
 
 
     public void storeTask(Task task) throws NullPointerException {
@@ -32,17 +32,10 @@ public class TaskDao {
     }
 
     public void updateTaskHistory(Task task, String jsonOld, String jsonNew) throws SQLException {
-        PGobject jsonObject  = new PGobject();
 
-        jsonObject.setType("json");
-        jsonObject.setValue(jsonOld);
-        jsonObject.setValue(jsonNew);
-        PreparedStatement stmt = con.prepareStatement("INSERT INTO ticket_history (ticket_id, previous_data, updated_data) " +
-                "VALUES (?, ?::json, ?::json)");
-        stmt.setInt(1, task.getId());
-        stmt.setObject(2, jsonOld);
-        stmt.setObject(3, jsonNew);
 
+        jdbcTemplate.update("INSERT INTO ticket_history (ticket_id, previous_data, updated_data) " +
+                "VALUES (?, ?::json, ?::json)", task.getId(), jsonOld, jsonNew);
     }
 
     public void changeAssignee(int taskId, int userId) throws NullPointerException {
