@@ -44,17 +44,7 @@ public class TaskDao {
 
     public List<TaskHistory> getTaskHistory(int taskId) {
         RowMapper<TaskHistory> rowMapper = (resultSet, rowNumber) -> mapTaskHistory(resultSet);
-        return jdbcTemplate.query("SELECT * FROM ticket_history WHERE ticket_id = ?", rowMapper, taskId);
-    }
-
-    private TaskChangeableData setHistoryUpdatedData(Task task) {
-        TaskChangeableData updatedData = new TaskChangeableData();
-        updatedData.setTaskId(task.getId());
-        updatedData.setProject(task.getProject());
-        updatedData.setAssignee(task.getAssignee());
-        updatedData.setSummary(task.getSummary());
-        updatedData.setDescription(task.getDescription());
-        return updatedData;
+        return jdbcTemplate.query("SELECT * FROM ticket_history WHERE ticket_id = ? ORDER BY created DESC", rowMapper, taskId);
     }
 
     private TaskChangeableData setHistoryPreviousData(Task task) {
@@ -65,6 +55,16 @@ public class TaskDao {
         previousData.setSummary(task.getSummary());
         previousData.setDescription(task.getDescription());
         return previousData;
+    }
+
+    private TaskChangeableData setHistoryUpdatedData(Task task) {
+        TaskChangeableData updatedData = new TaskChangeableData();
+        updatedData.setTaskId(task.getId());
+        updatedData.setProject(task.getProject());
+        updatedData.setAssignee(task.getAssignee());
+        updatedData.setSummary(task.getSummary());
+        updatedData.setDescription(task.getDescription());
+        return updatedData;
     }
 
     public void updateTaskHistory(Task task) throws SQLException, JsonProcessingException {

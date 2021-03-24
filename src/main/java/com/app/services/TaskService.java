@@ -128,7 +128,7 @@ public class TaskService {
         return commentsDao.getCommentCount(taskId).get(0);
     }
 
-    public List<TaskHistory> getTaskHistory(int taskId) {
+    public List<TaskHistory> getTaskHistoryList(int taskId) {
         return taskDao.getTaskHistory(taskId);
     }
 }

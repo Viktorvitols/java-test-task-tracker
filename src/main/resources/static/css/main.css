@@ -221,3 +221,13 @@ width: 300px;
     flex-direction: row;
     justify-content: space-between;
 }
+
+.historyPage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.historyColumn{
+    width: 30%;
+}

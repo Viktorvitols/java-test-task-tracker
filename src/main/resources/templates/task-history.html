@@ -28,11 +28,29 @@
     </div>
 </div>
 
-<div>
-    <div class="row">
-
+<div class="historyPage">
+    <!--        <th:block th:each="created : ${createdList}">[[${created}]]-->
+    <div class="historyColumn"><h2>Previous Data</h2>
+        <th:block th:each="record : ${previousData}">
+            <div class="cell">
+                <div th:text="${record.project}"></div>
+                <div th:text="${record.summary}"></div>
+                <div th:text="${record.assignee}"></div>
+                <div th:text="${record.description}"></div>
+            </div>
+        </th:block>
     </div>
-
+    <div class="historyColumn"><h2>Updated Data</h2>
+        <th:block th:each="record : ${updatedData}">
+            <div class="cell">
+                <div th:text="${record.project}"></div>
+                <div th:text="${record.summary}"></div>
+                <div th:text="${record.assignee}"></div>
+                <div th:text="${record.description}"></div>
+            </div>
+        </th:block>
+    </div>
+    <!--        </th:block>-->
 </div>
 </body>
 </html>

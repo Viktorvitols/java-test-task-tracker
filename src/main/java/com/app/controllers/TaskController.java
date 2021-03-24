@@ -1,12 +1,11 @@
 package com.app.controllers;
 
-import com.app.model.Comment;
-import com.app.model.Status;
-import com.app.model.Task;
+import com.app.model.*;
 import com.app.security.CustomUserDetails;
 import com.app.services.TaskService;
 import com.app.services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,9 +87,24 @@ public class TaskController {
     }
 
     @GetMapping("/task-history/{taskId}")
-    public String taskHistory(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException {
+    public String taskHistory(@PathVariable(value = "taskId") Integer id, Model model, HttpSession session) throws SQLException, JsonProcessingException {
         model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("taskHistory", taskService.getTaskHistory(id));
+        List<TaskHistory> taskHistoryList = taskService.getTaskHistoryList(id);
+        List<TaskHistoryData> previousDataList = new ArrayList<>();
+        List<TaskHistoryData> updatedDataList = new ArrayList<>();
+        List<Timestamp> createdList = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        for (int i = 0; i < taskHistoryList.size(); i++) {
+            TaskHistoryData previousData = mapper.readValue(taskHistoryList.get(i).getPreviousData(), TaskHistoryData.class);
+            TaskHistoryData updatedData = mapper.readValue(taskHistoryList.get(i).getUpdatedData(), TaskHistoryData.class);
+            previousDataList.add(previousData);
+            updatedDataList.add(updatedData);
+            createdList.add(taskHistoryList.get(i).getCreated());
+        }
+        model.addAttribute("previousData", previousDataList);
+        model.addAttribute("updatedData", updatedDataList);
+        model.addAttribute("createdList", createdList);
         return "task-history";
     }
 
