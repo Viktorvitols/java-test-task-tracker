@@ -179,6 +179,16 @@ width: 300px;
 
 .searchbar{
   margin: 25px;
+  display: flex;
+  flex-direction: row;
+}
+
+.statusFilterBar {
+    margin-left: 40px;
+}
+
+.statusSelector {
+    margin: 6px;
 }
 
 .header {
@@ -230,4 +240,8 @@ width: 300px;
 
 .historyColumn{
     width: 30%;
+}
+
+.hidden {
+    display: none;
 }

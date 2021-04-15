@@ -1,16 +1,20 @@
-var modal = document.getElementById("createTask");
-var btn = document.getElementById("taskBtn");
-var span = document.getElementsByClassName("close")[0];
-var edittask = document.getElementById("edittaskform");
+$(document).ready(function(){
+    $("select.statusSelector").change(function(){
+        var selectedStatus = $(this).children("option:selected").val();
+        tasklist.forEach(function(task) {
+            var taskRow = document.getElementById("taskId" + task.id)
+            taskRow.classList.remove('hidden');
+            }
+        );
+        tasklist.forEach(function(task) {
+        		var taskRow = document.getElementById("taskId" + task.id)
+        		if( !(task.status == selectedStatus)){
+        			taskRow.classList.add('hidden');
+        		}
+        });
+    });
+});
 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-edittask.onclick = function() {
-  modal.style.display = "block";
-}
+$('#reloadBtn').click(function() {
+    location.reload();
+});

@@ -5,6 +5,11 @@
     <title>Task list</title>
     <link href="/css/main.css" rel="stylesheet" type="text/css"/>
     <meta name="viewport" content="width=device-width">
+    <script th:inline="javascript">
+        var tasklist = [[${tasklist}]];
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script defer src="/js/main.js"></script>
 </head>
 <body>
@@ -33,6 +38,21 @@
                 <input class="searchbox" type="search" name="q" placeholder="Find by text..">
                 <button class="searchbtn" type="submit">Find</button>
             </form>
+
+            <form class="statusFilterBar">
+                <span>Status: </span>
+                <select id="statusSelector" class="statusSelector">
+                    <option name="status" value="OPEN">OPEN</option>
+                    <option name="status" value="INVESTIGATION">INVESTIGATION</option>
+                    <option name="status" value="REOPENED">REOPENED</option>
+                    <option name="status" value="IN_PROGRESS">IN PROGRESS</option>
+                    <option name="status" value="DONE">DONE</option>
+                    <option name="status" value="TESTING">TESTING</option>
+                    <option name="status" value="CLOSED">CLOSED</option>
+                    <option name="status" value="DECLINED">DECLINED</option>
+                </select>
+                <button id="reloadBtn" class="searchbtn" type="submit">Reload</button>
+            </form>
         </div>
     </div>
     <div>
@@ -42,22 +62,21 @@
             <div class="colname status">Status</div>
             <div class="colname summary">Summary</div>
             <div class="colname assignee">Assignee</div>
-            <div class="colname description">Description</div>
         </div>
         <th:block th:each="task : ${tasklist}">
-            <div class="row">
+            <div id="taskId" class="row" th:id="'taskId' + ${task.id}">
                 <a th:href="'/task/' + ${task.id}">
                     <div class="taskID" th:text="${task.id}"></div>
                 </a>
-                <div class="cell project" th:text="${task.project}"></div>
-                <div class="cell status" th:text="${task.status}"></div>
-                <div class="cell summary" th:text="${task.summary}"></div>
-                <div class="cell assignee">
+                <div id="project" class="cell project" th:text="${task.project}"></div>
+                <div id="status" class="cell status" th:text="${task.status}"></div>
+                <div id="summary" class="cell summary" th:text="${task.summary}"></div>
+                <div id="assignee" class="cell assignee">
                     <th:block th:each="user : ${users}" th:value="${user.id}">
                         <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
                     </th:block>
                 </div>
-                <div th:text="'Comments: ' + ${task.commentCount}"></div>
+                <div id="commentCount" th:text="'Comments: ' + ${task.commentCount}"></div>
             </div>
         </th:block>
 
