@@ -44,6 +44,8 @@
                     <input name="taskId" th:value="${task.id}" hidden>
                     <input type="submit" value="Change">
                 </form>
+                <p>Start date</p><input type="date" name="startDate" th:value="${task.startDate}">
+                <p>Due date</p><input type="date" name="dueDate" th:value="${task.dueDate}">
                 <p>Summary: </p><input name="summary" class="summary" type="text" th:value="${task.summary}"/>
                 <p>Assignee: </p>
                 <select name="assignee" id="userId">

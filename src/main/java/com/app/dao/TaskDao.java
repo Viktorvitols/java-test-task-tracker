@@ -28,8 +28,10 @@ public class TaskDao {
 
     public void updateTask(Task task) throws NullPointerException {
         jdbcTemplate.
-                update("UPDATE tickets SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ? WHERE id = ?",
-                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getId());
+                update("UPDATE tickets " +
+                                "SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ?, start_date = ?, due_date = ?" +
+                                "WHERE id = ?",
+                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getId());
     }
 
     private TaskHistory mapTaskHistory(ResultSet resultSet) throws SQLException {
@@ -54,6 +56,8 @@ public class TaskDao {
         previousData.setAssignee(task.getAssignee());
         previousData.setSummary(task.getSummary());
         previousData.setDescription(task.getDescription());
+        previousData.setStartDate(task.getStartDate());
+        previousData.setDueDate(task.getDueDate());
         return previousData;
     }
 
@@ -64,6 +68,8 @@ public class TaskDao {
         updatedData.setAssignee(task.getAssignee());
         updatedData.setSummary(task.getSummary());
         updatedData.setDescription(task.getDescription());
+        updatedData.setStartDate(task.getStartDate());
+        updatedData.setDueDate(task.getDueDate());
         return updatedData;
     }
 
@@ -126,6 +132,8 @@ public class TaskDao {
         task.setStatus(resultSet.getString("status"));
         task.setSummary(resultSet.getString("summary"));
         task.setCreated(resultSet.getDate("created"));
+        task.setStartDate(resultSet.getDate("start_date"));
+        task.setDueDate(resultSet.getDate("due_date"));
         task.setReporter(resultSet.getInt("reporter"));
         task.setAssignee(resultSet.getInt("assignee"));
         task.setDescription(resultSet.getString("description"));

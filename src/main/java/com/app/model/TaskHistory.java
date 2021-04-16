@@ -1,5 +1,6 @@
 package com.app.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class TaskHistory {
@@ -8,6 +9,8 @@ public class TaskHistory {
     private String previousData;
     private String updatedData;
     private Timestamp created;
+    private Date startDate;
+    private Date dueDate;
 
     public int getId() {
         return id;
@@ -47,5 +50,21 @@ public class TaskHistory {
 
     public void setCreated(Timestamp created) {
         this.created = created;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

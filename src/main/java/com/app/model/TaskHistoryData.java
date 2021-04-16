@@ -2,6 +2,8 @@ package com.app.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.sql.Date;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskHistoryData {
 
@@ -10,6 +12,8 @@ public class TaskHistoryData {
     private String summary;
     private int assignee;
     private String description;
+    private Date startDate;
+    private Date dueDate;
 
     public int getTaskId() {
         return taskId;
@@ -49,5 +53,21 @@ public class TaskHistoryData {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 }

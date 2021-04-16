@@ -3,6 +3,10 @@
     flex-direction: row;
 }
 
+.right_200 {
+    margin-right: 200px;
+}
+
 .toolbar_tb {
     display: flex;
     justify-content: space-between;
@@ -224,6 +228,7 @@ width: 300px;
     font-size: 85%;
     font-style: italic;
     color: grey;
+    margin-right: 10px;
 }
 
 .commentInfoBlock {

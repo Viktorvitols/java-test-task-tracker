@@ -9,6 +9,8 @@ public class Task {
     private String project;
     private String summary;
     private Date created;
+    private Date startDate;
+    private Date dueDate;
     private int reporter;
     private String status;
     private int assignee;
@@ -55,6 +57,22 @@ public class Task {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
     }
 
     public int getReporter() {
