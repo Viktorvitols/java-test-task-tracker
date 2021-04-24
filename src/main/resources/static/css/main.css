@@ -250,3 +250,17 @@ width: 300px;
 .hidden {
     display: none;
 }
+
+.sprint_menu {
+    display: flex;
+}
+
+.sprintMenuItem {
+    margin: 20px;
+}
+
+.sprintSelector {
+    width: 300px;
+    font-size: larger;
+    margin: 20px;
+    }
