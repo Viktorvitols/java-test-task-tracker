@@ -138,6 +138,7 @@ public class TaskDao {
         task.setAssignee(resultSet.getInt("assignee"));
         task.setDescription(resultSet.getString("description"));
         task.setAttachmentId(resultSet.getArray("attachment_id"));
+        task.setSprintId(resultSet.getInt("sprint_id"));
         return task;
     }
 

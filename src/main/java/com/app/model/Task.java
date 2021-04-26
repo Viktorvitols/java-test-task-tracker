@@ -18,6 +18,7 @@ public class Task {
     private Array attachmentId;
     private Integer commentId;
     private Integer commentCount;
+    private Integer sprintId;
 
     public Task(Integer id) {
         this.id = id;
@@ -129,5 +130,13 @@ public class Task {
 
     public void setCommentCount(Integer commentCount) {
         this.commentCount = commentCount;
+    }
+
+    public Integer getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(Integer sprintId) {
+        this.sprintId = sprintId;
     }
 }

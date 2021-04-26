@@ -37,21 +37,38 @@ public class SprintController {
         return "sprint";
     }
 
+    @GetMapping("/sprint/new")
+    private String newSprint(@ModelAttribute Sprint sprint, Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("tasklist", taskService.getTaskList());
+        model.addAttribute("sprint", sprint);
+        return "sprint";
+    }
+
     @GetMapping("/sprint/{sprintId}")
     private String sprint(@PathVariable(value = "sprintId") Integer sprintId,
                           Model model,
                           HttpSession session) throws SQLException {
         model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("sprintList", sprintService.getSprintList());
         Sprint sprint = sprintService.getSprintById(sprintId);
         model.addAttribute("sprint", sprint);
-        List<Integer> taskIdList = sprint.getTasklist();
-        List<Task> taskList = new ArrayList<>();
-        for (int id : taskIdList) {
-            taskList.add(taskService.getTaskById(id));
-        }
-        model.addAttribute("tasklist", taskList);
+        model.addAttribute("sprintTasklist", sprintService.getTasksInSprint(sprintId));
         return "sprint";
     }
 
+    @PostMapping("/sprint/new")
+    private String createNewSprint(@ModelAttribute Sprint sprint) {
+        sprintService.createNewSprint(sprint);
+        return "redirect:/success";
+    }
 
+    @PostMapping("/sprint/{sprintId}")
+    private String deleteSprint(@PathVariable Integer sprintId) {
+        if (sprintService.deleteSprint(sprintId)) {
+            return "redirect:/sprint";
+        } else {
+            return "redirect:/tasklist";
+        }
+    }
 }

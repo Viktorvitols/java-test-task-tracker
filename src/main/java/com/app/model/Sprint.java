@@ -10,7 +10,6 @@ public class Sprint {
     private Date startDate;
     private Date endDate;
     private String description;
-    private List<Integer> tasklist;
     private String status;
 
     public int getId() {
@@ -51,14 +50,6 @@ public class Sprint {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<Integer> getTasklist() {
-        return tasklist;
-    }
-
-    public void setTasklist(List<Integer> tasklist) {
-        this.tasklist = tasklist;
     }
 
     public String getStatus() {
