@@ -51,29 +51,33 @@ public class SprintDao {
                 sprint.getName(), sprint.getStartDate(), sprint.getEndDate(), sprint.getDescription());
     }
 
+    public void addTaskToSprint(Integer sprintId, Integer taskId) {
+        jdbcTemplate.update("UPDATE tickets SET sprint_id = ? WHERE id = ?", sprintId, taskId);
+    }
+
     public void deleteSprint(Integer sprint_id) {
         jdbcTemplate.update("DELETE FROM sprints WHERE id = ?", sprint_id);
     }
 
     public Boolean isTaskInSprint(Integer sprint_id) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapSprintTasks(resultSet);
-        return !jdbcTemplate.query("SELECT id, sprint_id from tickets WHERE sprint_id = ?", rowMapper, sprint_id).isEmpty();
+        return !jdbcTemplate.query("SELECT * FROM tickets WHERE sprint_id = ?", rowMapper, sprint_id).isEmpty();
     }
 
     private Task mapSprintTasks(ResultSet resultSet) throws SQLException {
         Task task = new Task();
 
         task.setId(resultSet.getInt("id"));
-        task.setProject(resultSet.getString("project_name"));
+//        task.setProject(resultSet.getString("project_name"));
         task.setStatus(resultSet.getString("status"));
         task.setSummary(resultSet.getString("summary"));
         task.setCreated(resultSet.getDate("created"));
         task.setStartDate(resultSet.getDate("start_date"));
         task.setDueDate(resultSet.getDate("due_date"));
-        task.setReporter(resultSet.getInt("reporter"));
+//        task.setReporter(resultSet.getInt("reporter"));
         task.setAssignee(resultSet.getInt("assignee"));
-        task.setDescription(resultSet.getString("description"));
-        task.setAttachmentId(resultSet.getArray("attachment_id"));
+//        task.setDescription(resultSet.getString("description"));
+//        task.setAttachmentId(resultSet.getArray("attachment_id"));
         task.setSprintId(resultSet.getInt("sprint_id"));
         return task;
     }

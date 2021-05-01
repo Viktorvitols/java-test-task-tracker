@@ -7,83 +7,64 @@
     <meta name="viewport" content="width=device-width">
     <script th:inline="javascript">
         var tasklist = [[${tasklist}]];
-
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script defer src="/js/main.js"></script>
 </head>
 <body>
+<div th:replace="toolbar :: toolbar"></div>
+
 <div>
-    <div class="toolbar_tb">
-        <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
-        <div>
-            <a class="tb_menubtn" href="/menu">
-                <p class="p10">Menu</p>
+    <div class="searchbar">
+        <form th:object="${searchList}" th:method="post">
+            <input class="searchbox" type="search" name="q" placeholder="Find by text..">
+            <button class="searchbtn" type="submit">Find</button>
+        </form>
+
+        <form class="statusFilterBar">
+            <span>Status: </span>
+            <select id="statusSelector" class="statusSelector">
+                <option name="status" value="OPEN">OPEN</option>
+                <option name="status" value="INVESTIGATION">INVESTIGATION</option>
+                <option name="status" value="REOPENED">REOPENED</option>
+                <option name="status" value="IN_PROGRESS">IN PROGRESS</option>
+                <option name="status" value="DONE">DONE</option>
+                <option name="status" value="TESTING">TESTING</option>
+                <option name="status" value="CLOSED">CLOSED</option>
+                <option name="status" value="DECLINED">DECLINED</option>
+            </select>
+            <button id="reloadBtn" class="searchbtn" type="submit">Reload</button>
+        </form>
+    </div>
+</div>
+<div>
+    <div class="row">
+        <div class="taskID">ID</div>
+        <div class="colname project">Project</div>
+        <div class="colname status">Status</div>
+        <div class="colname summary">Summary</div>
+        <div class="colname assignee">Assignee</div>
+    </div>
+    <th:block th:each="task : ${tasklist}">
+        <div id="taskId" class="row" th:id="'taskId' + ${task.id}">
+            <a th:href="'/task/' + ${task.id}">
+                <div class="taskID" th:text="${task.id}"></div>
             </a>
-        </div>
-        <div class="tb_user row">
-            <div class="tb_userinfo">
-                <p class="p10" name="email" type="text" th:text="${username}"></p>
+            <div id="project" class="cell project" th:text="${task.project}"></div>
+            <div id="status" class="cell status" th:text="${task.status}"></div>
+            <div id="summary" class="cell summary" th:text="${task.summary}"></div>
+            <div id="assignee" class="cell assignee">
+                <th:block th:each="user : ${users}" th:value="${user.id}">
+                    <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
+                </th:block>
             </div>
-            <div class="tb_logout">
-                <a class="logoutbtn" href="/logout">
-                    <p class="p10">Logout</p>
-                </a>
-            </div>
+            <div id="commentCount" th:text="'Comments: ' + ${task.commentCount}"></div>
         </div>
-    </div>
-    <div>
-        <div class="searchbar">
-            <form th:object="${searchList}" th:method="post">
-                <input class="searchbox" type="search" name="q" placeholder="Find by text..">
-                <button class="searchbtn" type="submit">Find</button>
-            </form>
+    </th:block>
 
-            <form class="statusFilterBar">
-                <span>Status: </span>
-                <select id="statusSelector" class="statusSelector">
-                    <option name="status" value="OPEN">OPEN</option>
-                    <option name="status" value="INVESTIGATION">INVESTIGATION</option>
-                    <option name="status" value="REOPENED">REOPENED</option>
-                    <option name="status" value="IN_PROGRESS">IN PROGRESS</option>
-                    <option name="status" value="DONE">DONE</option>
-                    <option name="status" value="TESTING">TESTING</option>
-                    <option name="status" value="CLOSED">CLOSED</option>
-                    <option name="status" value="DECLINED">DECLINED</option>
-                </select>
-                <button id="reloadBtn" class="searchbtn" type="submit">Reload</button>
-            </form>
-        </div>
-    </div>
-    <div>
-        <div class="row">
-            <div class="taskID">ID</div>
-            <div class="colname project">Project</div>
-            <div class="colname status">Status</div>
-            <div class="colname summary">Summary</div>
-            <div class="colname assignee">Assignee</div>
-        </div>
-        <th:block th:each="task : ${tasklist}">
-            <div id="taskId" class="row" th:id="'taskId' + ${task.id}">
-                <a th:href="'/task/' + ${task.id}">
-                    <div class="taskID" th:text="${task.id}"></div>
-                </a>
-                <div id="project" class="cell project" th:text="${task.project}"></div>
-                <div id="status" class="cell status" th:text="${task.status}"></div>
-                <div id="summary" class="cell summary" th:text="${task.summary}"></div>
-                <div id="assignee" class="cell assignee">
-                    <th:block th:each="user : ${users}" th:value="${user.id}">
-                        <th:block th:if="${user.id==task.assignee}">[[${user.name}]]</th:block>
-                    </th:block>
-                </div>
-                <div id="commentCount" th:text="'Comments: ' + ${task.commentCount}"></div>
-            </div>
-        </th:block>
-
-        <a href="/menu">
-            <button class="submitBtn">Go home</button>
-        </a>
-    </div>
+    <a href="/menu">
+        <button class="submitBtn">Go home</button>
+    </a>
 </div>
 </body>
 </html>

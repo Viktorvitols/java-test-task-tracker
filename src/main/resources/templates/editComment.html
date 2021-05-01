@@ -9,24 +9,7 @@
     <script src="/js/main.js" defer></script>
 </head>
 <body>
-<div class="toolbar_tb">
-    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
-    <div>
-        <a class="tb_menubtn" href="/menu">
-            <p class="p10">Menu</p>
-        </a>
-    </div>
-    <div class="tb_user row">
-        <div class="tb_userinfo">
-            <p class="p10" name="email" type="text" th:text="${username}"></p>
-        </div>
-        <div class="tb_logout">
-            <a class="logoutbtn" href="/logout">
-                <p class="p10">Logout</p>
-            </a>
-        </div>
-    </div>
-</div>
+<div th:replace="toolbar :: toolbar"></div>
 
 <form th:action="@{/editComment}" th:object="${comment}" method="post">
     <textarea th:value="${comment.comment}" th:text="${comment.comment}" name="comment"></textarea>
@@ -34,7 +17,5 @@
     <input name="userId" th:value="${comment.modified_by}" hidden>
     <input type="submit">
 </form>
-
-
 </body>
 </html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/sprintPage.js" defer></script>
+</head>
+<body>
+<div th:replace="toolbar :: toolbar"></div>
+<div class="createSprint" id="createNewSprint">
+    <form th:action="@{/sprint/new}" method="post">
+        <div>
+            <div>
+                <h2>Create sprint</h2>
+            </div>
+            <div>
+                <p>Name: </p><input type="text" name="name" th:value="${sprint.name}">
+                <p>Start date</p><input type="date" name="startDate" th:value="${sprint.startDate}">
+                <p>End date</p><input type="date" name="endDate" th:value="${sprint.endDate}">
+                <p>Description: </p><textarea name="description" class="descr"
+                                              th:inline="text">[[${sprint.description}]]</textarea>
+            </div>
+            <div>
+                <span><input class="submitBtn" type="submit" value="Save"/></span>
+            </div>
+        </div>
+    </form>
+</div>
+</body>

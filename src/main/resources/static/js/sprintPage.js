@@ -1,41 +1,32 @@
 var createNewSprint = document.getElementById("createNewSprint");
-var sprintBoard = document.getElementById("sprintBoard");
 var deleteSprint = document.getElementById("deleteSprint");
 
-var selectedSprint = $(":selected").val();
+$( document ).ready(function() {
+if (selectedSprint = 0) {
+    alert("hide that shit");
+    sprintBoard.style.display = "none";
+    }
+});
+
 $('#showSprintBtn').click(function(){
-    deleteSprint.classList.remove('hidden');
-    if (!createNewSprint.classList.contains('hidden')){
-        createNewSprint.classList.add('hidden');
-        }
-    if(selectedSprint != 0) {
-        createNewSprint.classList.add('hidden');
+    var selectedSprint = $(":selected").val();
+    alert("selected sprint: " + selectedSprint);
+    if (selectedSprint != 0) {
         window.location.href = "http://localhost:8090/sprint/" + selectedSprint;
-        }
-    })
+    } else {
+        window.location.href = "http://localhost:8090/sprint/";
+    }
+});
 
 $("select.sprintSelector").change(function() {
     selectedSprint = $(this).children("option:selected").val();
-})
+});
 
-$('#newSprintBtn').click(function() {
-    window.location.href = "http://localhost:8090/sprint/new";
-    createNewSprint.classList.remove('hidden');
-    if (!sprintBoard.classList.contains('hidden')) {
-        sprintBoard.classList.add('hidden');
-        }
-    })
-
-
-
-$('#deleteSprintBtn').click(function() {
-    $('#delDialog').dialog({
-        'buttons': {
-            'My Button': function(event) {
-                // here is the modification of the button
-                // opacity set to 25%, all events unbound
-                $(event.target).css({opacity: 0.25}).unbind();
-            }
-        }
-    })
-})
+function show_hide() {
+  var sprintBoard = document.getElementById("sprintBoard");
+  if (sprintBoard.style.display === "none") {
+    sprintBoard.style.display = "block";
+  } else {
+    sprintBoard.style.display = "none";
+  }
+}

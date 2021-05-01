@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,9 +39,9 @@ public class SprintController {
     @GetMapping("/sprint/new")
     private String newSprint(@ModelAttribute Sprint sprint, Model model, HttpSession session) {
         model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("tasklist", taskService.getTaskList());
         model.addAttribute("sprint", sprint);
-        return "sprint";
+        model.addAttribute("sprintList", sprintService.getSprintList());
+        return "create-sprint";
     }
 
     @GetMapping("/sprint/{sprintId}")
@@ -54,6 +53,7 @@ public class SprintController {
         Sprint sprint = sprintService.getSprintById(sprintId);
         model.addAttribute("sprint", sprint);
         model.addAttribute("sprintTasklist", sprintService.getTasksInSprint(sprintId));
+        model.addAttribute("tasklist", taskService.getTaskList());
         return "sprint";
     }
 
@@ -68,7 +68,13 @@ public class SprintController {
         if (sprintService.deleteSprint(sprintId)) {
             return "redirect:/sprint";
         } else {
-            return "redirect:/tasklist";
+            return "redirect:/invalid";
         }
+    }
+
+    @PostMapping("/sprint/{sprintId}/add_task")
+    private String addTaskToSprint(@PathVariable Integer sprintId, Integer taskId) {
+        sprintService.addTaskToSprint(sprintId, taskId);
+        return "redirect:/sprint/{sprintId}";
     }
 }

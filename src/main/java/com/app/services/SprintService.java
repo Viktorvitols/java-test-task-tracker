@@ -30,11 +30,17 @@ public class SprintService {
         sprintDao.createNewSprint(sprint);
     }
 
+    public void addTaskToSprint(Integer sprintId, Integer taskId) {
+        sprintDao.addTaskToSprint(sprintId, taskId);
+    }
+
     public boolean deleteSprint(Integer id) {
         if (!sprintDao.isTaskInSprint(id)) {
             sprintDao.deleteSprint(id);
+            return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public List<Task> getTasksInSprint(Integer sprintId) {

@@ -10,24 +10,7 @@
     <script src="/js/sprintPage.js" defer></script>
 </head>
 <body>
-<div class="toolbar_tb" id="toolbar_tb">
-    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
-    <div>
-        <a class="tb_menubtn" href="/menu">
-            <p class="p10">Menu</p>
-        </a>
-    </div>
-    <div class="tb_user row">
-        <div class="tb_userinfo">
-            <p class="p10" name="email" type="text" th:text="${username}"></p>
-        </div>
-        <div class="tb_logout">
-            <a class="logoutbtn" href="/logout">
-                <p class="p10">Logout</p>
-            </a>
-        </div>
-    </div>
-</div>
+<div th:replace="toolbar :: toolbar"></div>
 
 <div class="sprint_menu">
     <p class="sprintMenuItem">Sprint: </p>
@@ -39,25 +22,25 @@
         </option>
     </select>
     <input type="submit" id="showSprintBtn" value="Show">
-    <button id="newSprintBtn" class="sprintMenuItem">New sprint</button>
+    <a href="/sprint/new">
+        <button id="newSprintBtn" class="sprintMenuItem">New sprint</button>
+    </a>
+    <div onclick="show_hide()">Bljadj!</div>
 </div>
 
 <div class="sprintBoard" id="sprintBoard">
-    <div name="sprint_info row">
-        <div class="textblock hidden" th:text="${sprint.id}"></div>
-        <div class="textblock" th:text="${sprint.name}"></div>
-        <div class="textblock" th:text="${sprint.startDate}"></div>
-        <div class="textblock" th:text="${sprint.endDate}"></div>
-        <div class="textblock" th:text="${sprint.description}"></div>
-        <div class="textblock" th:text="${sprint.status}"></div>
-    </div>
-    <div class="deleteBtn hidden" id="deleteSprint">
-        <input type="submit" id="deleteSprintBtn" value="Delete sprint">
-        <div id="delDialog" title="Delete sprint">
-            <p>Are you sure you want to delete the sprint</p>
+    <div class="sprint_info">
+        <div class="row">
+            <div class="textblock hidden" th:text="${sprint.id}"></div>
+            <div class="textblock" th:text="${sprint.name}"></div>
+            <div class="textblock" th:text="'Start date: ' + ${sprint.startDate}"></div>
+            <div class="textblock" th:text="'End date: ' + ${sprint.endDate}"></div>
+            <div class="textblock" th:text="'Status: ' + ${sprint.status}"></div>
+        </div>
+        <div class="cell">
+            <div class="textblock" th:text="${sprint.description}"></div>
         </div>
     </div>
-
 
     <div name="sprint_tasks">
         <th:block th:each="task : ${sprintTasklist}">
@@ -68,37 +51,26 @@
                 <div class="textblock" th:text="${task.status}"></div>
             </div>
         </th:block>
+        <form th:action="@{'/sprint/' + ${sprint.id} + '/add_task/'}" method="post">
+            <p>Add tasks: </p>
+            <select name="taskId" id="sprintTasklist">
+                <option class="taskSelector" th:value="0">none</option>
+                <option class="taskSelector" th:block th:each="task : ${tasklist}" th:value="${task.id}">
+                    [[${task.summary}]]
+                </option>
+            </select>
+            <input type="submit" id="addTaskBtn" value="Add task">
+        </form>
     </div>
-</div>
 
-<div class="createSprint hidden" id="createNewSprint">
-    <div name="new_sprint">
-        <form th:action="@{/sprint/new}" th:object="${sprint}" method="post">
-            <div>
-                <div>
-                    <h2>Create sprint</h2>
-                </div>
-                <div>
-                    <p>Name: </p><input type="text" name="name" th:value="${sprint.name}">
-                    <p>Start date</p><input type="date" name="startDate" th:value="${sprint.startDate}">
-                    <p>End date</p><input type="date" name="endDate" th:value="${sprint.endDate}">
-                    <p>Description: </p><textarea name="description" class="descr"
-                                                  th:inline="text">[[${sprint.description}]]</textarea>
-                    <p>Tasks: </p><select name="sprintTasklist" id="sprintTasklist" multiple>
-                        <option class="taskSelector" th:block th:each="task : ${tasklist}" th:value="${task.id}">
-                            [[${task.summary}]]
-                        </option>
-                    </select>
-
-                </div>
-                <div>
-                    <span><input class="submitBtn" type="submit" value="Save"/></span>
-                </div>
+    <div class="deleteBtn" id="deleteSprint">
+        <p>Are you sure you want to delete the sprint?</p>
+        <form th:action="@{'/sprint/' + ${sprint.id}}" th:object="${sprint.id}" method="post">
+            <input type="submit" id="deleteSprintBtn" value="Delete sprint">
+            <div id="delDialog" title="Delete sprint">
             </div>
         </form>
     </div>
 </div>
-
-
 </body>
 </html>

@@ -109,7 +109,8 @@ public class TaskController {
     }
 
     @GetMapping("/success")
-    public String getSuccessForm() {
+    public String getSuccessForm(Model model, HttpSession session) {
+        model.addAttribute("username", session.getAttribute("username"));
         return "success";
     }
 

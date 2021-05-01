@@ -10,24 +10,7 @@
     <script src="/js/jquery.validate.js"></script>
 </head>
 <body>
-<div class="toolbar_tb">
-    <div class="tb_logo"><p class="p10">#Hacker_tracker</p></div>
-    <div>
-        <a class="tb_menubtn" href="/menu">
-            <p class="p10">Menu</p>
-        </a>
-    </div>
-    <div class="tb_user row">
-        <div class="tb_userinfo">
-            <p class="p10" name="email" type="text" th:text="${username}"></p>
-        </div>
-        <div class="tb_logout">
-            <a class="logoutbtn" href="/logout">
-                <p class="p10">Logout</p>
-            </a>
-        </div>
-    </div>
-</div>
+<div th:replace="toolbar :: toolbar"></div>
 
 <div>
     <form th:action="@{/taskform}" th:object="${taskform}" method="post" id="taskform">
