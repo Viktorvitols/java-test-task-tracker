@@ -68,16 +68,12 @@ public class SprintDao {
         Task task = new Task();
 
         task.setId(resultSet.getInt("id"));
-//        task.setProject(resultSet.getString("project_name"));
         task.setStatus(resultSet.getString("status"));
         task.setSummary(resultSet.getString("summary"));
         task.setCreated(resultSet.getDate("created"));
         task.setStartDate(resultSet.getDate("start_date"));
         task.setDueDate(resultSet.getDate("due_date"));
-//        task.setReporter(resultSet.getInt("reporter"));
         task.setAssignee(resultSet.getInt("assignee"));
-//        task.setDescription(resultSet.getString("description"));
-//        task.setAttachmentId(resultSet.getArray("attachment_id"));
         task.setSprintId(resultSet.getInt("sprint_id"));
         return task;
     }

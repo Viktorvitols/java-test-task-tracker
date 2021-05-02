@@ -1,7 +1,6 @@
 package com.app.controllers;
 
 import com.app.model.Sprint;
-import com.app.model.Task;
 import com.app.services.SprintService;
 import com.app.services.TaskService;
 import com.app.services.UserService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
-import java.util.List;
 
 @Controller
 public class SprintController {
@@ -54,7 +52,7 @@ public class SprintController {
         model.addAttribute("sprint", sprint);
         model.addAttribute("sprintTasklist", sprintService.getTasksInSprint(sprintId));
         model.addAttribute("tasklist", taskService.getTaskList());
-        return "sprint";
+        return "show-sprint";
     }
 
     @PostMapping("/sprint/new")

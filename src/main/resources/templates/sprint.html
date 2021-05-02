@@ -21,56 +21,10 @@
             [[${sprint.name}]]
         </option>
     </select>
-    <input type="submit" id="showSprintBtn" value="Show">
+    <input type="submit" id="showSprintBtn" value="Show" onclick="show_sprint()">
     <a href="/sprint/new">
         <button id="newSprintBtn" class="sprintMenuItem">New sprint</button>
     </a>
-    <div onclick="show_hide()">Bljadj!</div>
-</div>
-
-<div class="sprintBoard" id="sprintBoard">
-    <div class="sprint_info">
-        <div class="row">
-            <div class="textblock hidden" th:text="${sprint.id}"></div>
-            <div class="textblock" th:text="${sprint.name}"></div>
-            <div class="textblock" th:text="'Start date: ' + ${sprint.startDate}"></div>
-            <div class="textblock" th:text="'End date: ' + ${sprint.endDate}"></div>
-            <div class="textblock" th:text="'Status: ' + ${sprint.status}"></div>
-        </div>
-        <div class="cell">
-            <div class="textblock" th:text="${sprint.description}"></div>
-        </div>
-    </div>
-
-    <div name="sprint_tasks">
-        <th:block th:each="task : ${sprintTasklist}">
-            <div class="taskblock">
-                <div class="textblock" th:text="${task.id}"></div>
-                <div class="textblock" th:text="${task.project}"></div>
-                <div class="textblock" th:text="${task.summary}"></div>
-                <div class="textblock" th:text="${task.status}"></div>
-            </div>
-        </th:block>
-        <form th:action="@{'/sprint/' + ${sprint.id} + '/add_task/'}" method="post">
-            <p>Add tasks: </p>
-            <select name="taskId" id="sprintTasklist">
-                <option class="taskSelector" th:value="0">none</option>
-                <option class="taskSelector" th:block th:each="task : ${tasklist}" th:value="${task.id}">
-                    [[${task.summary}]]
-                </option>
-            </select>
-            <input type="submit" id="addTaskBtn" value="Add task">
-        </form>
-    </div>
-
-    <div class="deleteBtn" id="deleteSprint">
-        <p>Are you sure you want to delete the sprint?</p>
-        <form th:action="@{'/sprint/' + ${sprint.id}}" th:object="${sprint.id}" method="post">
-            <input type="submit" id="deleteSprintBtn" value="Delete sprint">
-            <div id="delDialog" title="Delete sprint">
-            </div>
-        </form>
-    </div>
 </div>
 </body>
 </html>

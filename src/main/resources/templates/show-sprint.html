@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/js/main.js" defer></script>
+    <script src="/js/sprintPage.js" defer></script>
+</head>
+<body>
+<div th:replace="toolbar :: toolbar"></div>
+
+<div class="sprint_menu">
+    <p class="sprintMenuItem">Sprint: </p>
+    <select class="sprintMenuItem sprintSelector" name="sprint" id="sprintId">
+        <option value="0" th:selected="selected">-</option>
+        <option th:block th:each="sprint : ${sprintList}"
+                th:value="${sprint.id}">
+            [[${sprint.name}]]
+        </option>
+    </select>
+    <input type="submit" id="showSprintBtn" value="Show" onclick="show_sprint()">
+    <a href="/sprint/new">
+        <button id="newSprintBtn" class="sprintMenuItem">New sprint</button>
+    </a>
+</div>
+
+<div class="sprintBoard" id="sprintBoard">
+    <div class="sprint_info">
+        <div class="row">
+            <div class="textblock hidden" th:text="${sprint.id}"></div>
+            <div class="textblock" th:text="${sprint.name}"></div>
+            <div class="textblock" th:text="'Start date: ' + ${sprint.startDate}"></div>
+            <div class="textblock" th:text="'End date: ' + ${sprint.endDate}"></div>
+            <div class="textblock" th:text="'Status: ' + ${sprint.status}"></div>
+        </div>
+        <div class="cell">
+            <div class="textblock" th:text="${sprint.description}"></div>
+        </div>
+    </div>
+
+    <div name="sprint_tasks">
+        <th:block th:each="task : ${sprintTasklist}">
+            <div class="taskblock">
+                <div class="textblock" th:text="${task.id}"></div>
+                <div class="textblock" th:text="${task.project}"></div>
+                <div class="textblock" th:text="${task.summary}"></div>
+                <div class="textblock" th:text="${task.status}"></div>
+            </div>
+        </th:block>
+        <form th:action="@{'/sprint/' + ${sprint.id} + '/add_task/'}" method="post">
+            <p>Add tasks: </p>
+            <select name="taskId" id="sprintTasklist">
+                <option class="taskSelector" th:value="0">none</option>
+                <option class="taskSelector" th:block th:each="task : ${tasklist}" th:value="${task.id}">
+                    [[${task.summary}]]
+                </option>
+            </select>
+            <input type="submit" id="addTaskBtn" value="Add task">
+        </form>
+    </div>
+
+    <div class="deleteBtn" id="deleteSprint">
+        <p>You can delete the sprint if only there are no tasks in it.</p>
+        <form th:action="@{'/sprint/' + ${sprint.id}}" th:object="${sprint.id}" method="post">
+            <input type="submit" id="deleteSprintBtn" value="Delete sprint">
+            <div id="delDialog" title="Delete sprint">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
