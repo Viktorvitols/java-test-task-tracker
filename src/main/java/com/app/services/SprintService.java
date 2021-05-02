@@ -46,4 +46,8 @@ public class SprintService {
     public List<Task> getTasksInSprint(Integer sprintId) {
         return sprintDao.getTasksInSprint(sprintId);
     }
+
+    public List<Task> getTasksByStartDate(Sprint sprint) {
+        return sprintDao.getTasksByStartDate(sprint);
+    }
 }

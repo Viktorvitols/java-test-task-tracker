@@ -28,33 +28,16 @@
     </div>
 
     <div name="sprint_tasks">
-        <th:block th:each="task : ${sprintTasklist}">
+        <th:block th:each="task : ${tasklist}">
             <div class="taskblock">
-                <div class="textblock" th:text="${task.id}"></div>
+                <div class="textblock" th:text="${task.startDate}"></div>
+                <div class="textblock" th:text="${task.dueDate}"></div>
                 <div class="textblock" th:text="${task.project}"></div>
                 <div class="textblock" th:text="${task.summary}"></div>
                 <div class="textblock" th:text="${task.status}"></div>
             </div>
         </th:block>
-        <form th:action="@{'/sprint/' + ${sprint.id} + '/add_task/'}" method="post">
-            <p>Add tasks: </p>
-            <select name="taskId" id="sprintTasklist">
-                <option class="taskSelector" th:value="0">none</option>
-                <option class="taskSelector" th:block th:each="task : ${tasklist}" th:value="${task.id}">
-                    [[${task.summary}]]
-                </option>
-            </select>
-            <input type="submit" id="addTaskBtn" value="Add task">
-        </form>
-    </div>
-
-    <div class="deleteBtn" id="deleteSprint">
-        <p>You can delete the sprint if only there are no tasks in it.</p>
-        <form th:action="@{'/sprint/' + ${sprint.id}}" th:object="${sprint.id}" method="post">
-            <input type="submit" id="deleteSprintBtn" value="Delete sprint">
-            <div id="delDialog" title="Delete sprint">
-            </div>
-        </form>
     </div>
 </div>
 </body>
+</html>

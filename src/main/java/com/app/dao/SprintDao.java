@@ -32,6 +32,13 @@ public class SprintDao {
         return jdbcTemplate.query("SELECT * FROM tickets WHERE sprint_id = ?", rowMapper, sprintId);
     }
 
+    public List<Task> getTasksByStartDate(Sprint sprint) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapSprintTasks(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE start_date >= ? AND due_date <= ?",
+                rowMapper, sprint.getStartDate(), sprint.getEndDate());
+    }
+
+
     private Sprint mapSprint(ResultSet resultSet) throws SQLException {
         Sprint sprint = new Sprint();
 
@@ -77,5 +84,4 @@ public class SprintDao {
         task.setSprintId(resultSet.getInt("sprint_id"));
         return task;
     }
-
 }

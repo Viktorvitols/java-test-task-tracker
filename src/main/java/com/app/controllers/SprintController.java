@@ -55,6 +55,18 @@ public class SprintController {
         return "show-sprint";
     }
 
+    @GetMapping("/sprint/{sprintId}/by-date")
+    private String sprintByDate(@PathVariable(value = "sprintId") Integer sprintId,
+                                Model model,
+                                HttpSession session) throws SQLException {
+        model.addAttribute("username", session.getAttribute("username"));
+        model.addAttribute("sprintList", sprintService.getSprintList());
+        Sprint sprint = sprintService.getSprintById(sprintId);
+        model.addAttribute("sprint", sprint);
+        model.addAttribute("tasklist", sprintService.getTasksByStartDate(sprint));
+        return "sprint-dt";
+    }
+
     @PostMapping("/sprint/new")
     private String createNewSprint(@ModelAttribute Sprint sprint) {
         sprintService.createNewSprint(sprint);

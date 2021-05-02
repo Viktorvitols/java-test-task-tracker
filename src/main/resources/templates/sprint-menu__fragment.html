@@ -1,0 +1,15 @@
+<div class="sprint_menu" th:fragment="sprint-menu">
+    <p class="sprintMenuItem">Sprint: </p>
+    <select class="sprintMenuItem sprintSelector" name="sprint" id="sprintId">
+        <option value="0" th:selected="selected">-</option>
+        <option th:block th:each="sprint : ${sprintList}"
+                th:value="${sprint.id}">
+            [[${sprint.name}]]
+        </option>
+    </select>
+    <input type="submit" id="showSprintBtn" value="Show by id" onclick="show_sprint()">
+    <input type="submit" id="showSprintByDtBtn" value="Show by date" onclick="show_sprint_by_date()">
+    <a href="/sprint/new">
+        <button id="newSprintBtn" class="sprintMenuItem">New sprint</button>
+    </a>
+</div>
