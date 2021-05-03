@@ -62,13 +62,24 @@ public class SprintDao {
         jdbcTemplate.update("UPDATE tickets SET sprint_id = ? WHERE id = ?", sprintId, taskId);
     }
 
+    public void closeSprint(Integer sprintId) {
+        jdbcTemplate.update("UPDATE sprints SET status = 'DONE' WHERE id = ?", sprintId);
+    }
+
     public void deleteSprint(Integer sprint_id) {
         jdbcTemplate.update("DELETE FROM sprints WHERE id = ?", sprint_id);
     }
 
     public Boolean isTaskInSprint(Integer sprint_id) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapSprintTasks(resultSet);
-        return !jdbcTemplate.query("SELECT * FROM tickets WHERE sprint_id = ?", rowMapper, sprint_id).isEmpty();
+        return !jdbcTemplate.query("SELECT * FROM tickets WHERE sprint_id = ?",
+                rowMapper, sprint_id).isEmpty();
+    }
+
+    public Boolean isLastTaskClosed(Integer sprintId) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapSprintTasks(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE sprint_id = ? AND (status != 'CLOSED' AND status != 'DECLINED')",
+                rowMapper, sprintId).isEmpty();
     }
 
     private Task mapSprintTasks(ResultSet resultSet) throws SQLException {

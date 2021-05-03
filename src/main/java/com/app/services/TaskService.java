@@ -30,6 +30,9 @@ public class TaskService {
     @Autowired
     private CommentsDao commentsDao;
 
+    @Autowired
+    private SprintService sprintService;
+
     public boolean validateTaskData(Task task) {
 
         boolean isValid = true;
@@ -66,6 +69,12 @@ public class TaskService {
 
     public void updateTask(Task task) throws SQLException {
         taskDao.updateTask(task);
+        if (task.getStatus().equals("CLOSED") || task.getStatus().equals("DECLINED")) {
+            Integer sprintId = taskDao.getSprintId(task.getId());
+            if (sprintService.isLastTaskClosed(sprintId)) {
+                sprintService.closeSprint(sprintId);
+            }
+        }
     }
 
     public void updateTaskHistory(Task task) throws SQLException, JsonProcessingException {
@@ -101,6 +110,12 @@ public class TaskService {
 
     public void changeStatus(int taskId, String status) {
         taskDao.changeStatus(taskId, status);
+        if (status == "CLOSED") {
+            Integer sprintId = taskDao.getSprintId(taskId);
+            if (sprintService.isLastTaskClosed(sprintId)) {
+                sprintService.closeSprint(sprintId);
+            }
+        }
     }
 
     public void removeStatus(String oldStatus) {

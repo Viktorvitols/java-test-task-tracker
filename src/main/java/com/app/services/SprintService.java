@@ -50,4 +50,12 @@ public class SprintService {
     public List<Task> getTasksByStartDate(Sprint sprint) {
         return sprintDao.getTasksByStartDate(sprint);
     }
+
+    public Boolean isLastTaskClosed(Integer sprintId) {
+        return sprintDao.isLastTaskClosed(sprintId);
+    }
+
+    public void closeSprint(Integer sprintId) {
+        sprintDao.closeSprint(sprintId);
+    }
 }

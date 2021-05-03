@@ -200,4 +200,10 @@ public class TaskDao {
         }
         return taskList;
     }
+
+    public Integer getSprintId(Integer taskId) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?",
+                rowMapper, taskId).get(0).getSprintId();
+    }
 }
