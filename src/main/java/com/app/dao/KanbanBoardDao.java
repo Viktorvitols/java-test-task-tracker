@@ -15,7 +15,7 @@ import java.util.List;
 public class KanbanBoardDao {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public List<Task> getTasksByStatus(String status) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);

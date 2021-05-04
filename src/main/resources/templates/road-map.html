@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Task hacker</title>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <meta name="viewport" content="width=device-width">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="/js/roadMap.js"></script>
+</head>
+<body>
+<div th:replace="toolbar :: toolbar"></div>
+<h2 class="rm_title">Road map</h2>
+<div th:replace="road-map-nav__fragment :: road-map-nav"></div>
+
+<div class="rm_board">
+    <th:block th:each="month : ${tasksByStartDate.keySet()}">
+        <div class="rm_month_block">
+            <div class="header" th:text="${month}">
+                <th:block th:each="task : ${tasksByStartDate.get(month)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </th:block>
+</div>
+
+</body>
+</html>

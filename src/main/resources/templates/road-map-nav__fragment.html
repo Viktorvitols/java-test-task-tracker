@@ -1,0 +1,5 @@
+<div class="rm_nav row" th:fragment="road-map-nav">
+    <div class="rm_yyyy_back" id="rm_yyyy_back" onclick="year_back()"><</div>
+    <div class="rm_yyyy_val" id="rm_year" th:value="*{year_to_show}" th:text="${year_to_show}"></div>
+    <div class="rm_yyyy_forth" id="rm_yyyy_forth" onclick="year_forth()">></div>
+</div>

@@ -15,7 +15,7 @@ import java.util.List;
 public class SprintDao {
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     public List<Sprint> getSprintList() {
         RowMapper<Sprint> rowMapper = (resultSet, rowNumber) -> mapSprint(resultSet);
