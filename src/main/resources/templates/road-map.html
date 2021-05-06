@@ -16,8 +16,8 @@
 <div class="rm_board">
     <th:block th:each="month : ${tasksByStartDate.keySet()}">
         <div class="rm_month_block">
-            <div class="header" th:text="${month}">
-                <th:block th:each="task : ${tasksByStartDate.get(month)}">
+            <div class="header" th:text="${month}"> <!--Как отсортировать месяца по порядку??????-->
+                <th:block th:each="task : ${tasksByStartDate.get(month)}"> <!--Почему не отображаются таски??????-->
                     <div class="taskblock">
                         <div class="textblock" th:text="${task.id}"></div>
                         <div class="textblock" th:text="${task.project}"></div>
