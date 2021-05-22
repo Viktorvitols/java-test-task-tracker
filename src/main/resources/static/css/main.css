@@ -268,3 +268,17 @@ width: 300px;
 .sprint_info {
     margin: 20px;
 }
+
+.rm_header {
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+    border: ridge;
+    padding: 5px;
+    }
+
+.rm_no_date_tasks {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

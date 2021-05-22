@@ -22,6 +22,12 @@ public class RoadMapDao {
                 "AND EXTRACT (YEAR FROM start_date) = ? ORDER BY start_date", rowMapper, month, year);
     }
 
+    public List<Task> getTaskNoData() {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
+        return jdbcTemplate.query("SELECT * FROM tickets WHERE start_date ISNULL" +
+                " ORDER BY created DESC", rowMapper);
+    }
+
     private Task mapTask(ResultSet resultSet) throws SQLException {
         Task task = new Task();
 

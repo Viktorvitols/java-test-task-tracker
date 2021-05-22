@@ -14,10 +14,11 @@
 <div th:replace="road-map-nav__fragment :: road-map-nav"></div>
 
 <div class="rm_board">
-    <th:block th:each="month : ${tasksByStartDate.keySet()}">
+    <div class="rm_by_date">
         <div class="rm_month_block">
-            <div class="header" th:text="${month}"> <!--Как отсортировать месяца по порядку??????-->
-                <th:block th:each="task : ${tasksByStartDate.get(month)}"> <!--Почему не отображаются таски??????-->
+            <div class="header">January</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(0)}">
                     <div class="taskblock">
                         <div class="textblock" th:text="${task.id}"></div>
                         <div class="textblock" th:text="${task.project}"></div>
@@ -27,7 +28,163 @@
                 </th:block>
             </div>
         </div>
-    </th:block>
+        <div class="rm_month_block">
+            <div class="header">February</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(1)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">March</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(2)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">April</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(3)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">May</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(4)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">June</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(5)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">July</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(6)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">August</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(7)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">September</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(8)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">October</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(9)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">November</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(10)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="rm_month_block">
+            <div class="header">December</div>
+            <div class="row">
+                <th:block th:each="task : ${tasksByStartDate.get(11)}">
+                    <div class="taskblock">
+                        <div class="textblock" th:text="${task.id}"></div>
+                        <div class="textblock" th:text="${task.project}"></div>
+                        <div class="textblock" th:text="${task.summary}"></div>
+                        <div class="textblock" th:text="${task.status}"></div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+    <div class="rm_no_date">
+        <div class="rm_header">No date</div>
+        <div class="rm_no_date_tasks">
+            <th:block th:each="task : ${tasksNoDate}">
+                <div class="taskblock">
+                    <div class="textblock" th:text="${task.id}"></div>
+                    <div class="textblock" th:text="${task.project}"></div>
+                    <div class="textblock" th:text="${task.summary}"></div>
+                    <div class="textblock" th:text="${task.status}"></div>
+                </div>
+            </th:block>
+        </div>
+    </div>
 </div>
 
 </body>

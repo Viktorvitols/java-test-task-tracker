@@ -9,24 +9,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 public class RoadMapController {
     @Autowired
     private RoadMapService roadMapService;
 
-    private List<Integer> years = new ArrayList<Integer>();
-    private final List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July",
-            "August", "September", "October", "November", "December");
-
     @GetMapping("/road-map")
     public String roadMap(HttpSession session, Model model) {
         model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("tasksByStartDate", roadMapService.getTaskByMonth(LocalDateTime.now().getYear(), months));
+        model.addAttribute("tasksByStartDate", roadMapService.getTaskByMonth(LocalDateTime.now().getYear()));
         model.addAttribute("year_to_show", LocalDateTime.now().getYear());
+        model.addAttribute("tasksNoDate", roadMapService.getTaskNoData());
         return "road-map";
     }
 
@@ -35,7 +29,7 @@ public class RoadMapController {
                              HttpSession session,
                              Model model) {
         model.addAttribute("username", session.getAttribute("username"));
-        model.addAttribute("tasksByStartDate", roadMapService.getTaskByMonth(year, months));
+        model.addAttribute("tasksByStartDate", roadMapService.getTaskByMonth(year));
         model.addAttribute("year_to_show", year);
         return "road-map";
     }
