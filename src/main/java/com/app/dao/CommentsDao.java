@@ -30,6 +30,7 @@ public class CommentsDao {
 
     public void addNewComment(int taskId, String comment, int userId) {
         jdbcTemplate.update("INSERT INTO comments (ticket_id, text, user_id) VALUES (?, ?, ?)", taskId, comment, userId);
+        jdbcTemplate.update("UPDATE tickets SET modified_at = current_timestamp WHERE id = ?", taskId);
     }
 
     public List<Comment> getCommentListById(int commentId) {

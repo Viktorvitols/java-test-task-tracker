@@ -2,6 +2,7 @@ package com.app.model;
 
 import java.sql.Array;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Task {
 
@@ -9,6 +10,7 @@ public class Task {
     private String project;
     private String summary;
     private Date created;
+    private Timestamp modified_at;
     private Date startDate;
     private Date dueDate;
     private int reporter;
@@ -58,6 +60,14 @@ public class Task {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public Timestamp getModified_at() {
+        return modified_at;
+    }
+
+    public void setModified_at(Timestamp modified_at) {
+        this.modified_at = modified_at;
     }
 
     public Date getStartDate() {

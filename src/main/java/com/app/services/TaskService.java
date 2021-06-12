@@ -146,4 +146,8 @@ public class TaskService {
     public List<TaskHistory> getTaskHistoryList(int taskId) {
         return taskDao.getTaskHistory(taskId);
     }
+
+    public List<Task> getRecentlyUpdatedTasks(Integer userId) {
+        return taskDao.getRecentlyUpdatedTasks(userId);
+    }
 }

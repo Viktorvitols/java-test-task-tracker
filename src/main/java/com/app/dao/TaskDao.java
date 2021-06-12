@@ -22,16 +22,19 @@ public class TaskDao {
     private JdbcTemplate jdbcTemplate;
 
     public void storeTask(Task task) throws NullPointerException {
-        jdbcTemplate.update("INSERT INTO tickets (project_name, summary, reporter, assignee, description) VALUES (?, ?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO tickets (project_name, summary, reporter, assignee, description, modified_at) " +
+                        "VALUES (?, ?, ?, ?, ?, current_timestamp)",
                 task.getProject(), task.getSummary(), task.getReporter(), task.getAssignee(), task.getDescription());
     }
 
     public void updateTask(Task task) throws NullPointerException {
         jdbcTemplate.
                 update("UPDATE tickets " +
-                                "SET project_name = ?, status = ?::status, summary = ?, assignee = ?, description = ?, start_date = ?, due_date = ?" +
+                                "SET project_name = ?, status = ?::status, summary = ?, assignee = ?, " +
+                                "description = ?, start_date = ?, due_date = ?, modified_at = current_timestamp " +
                                 "WHERE id = ?",
-                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getId());
+                        task.getProject(), task.getStatus(), task.getSummary(), task.getAssignee(),
+                        task.getDescription(), task.getStartDate(), task.getDueDate(), task.getId());
     }
 
     private TaskHistory mapTaskHistory(ResultSet resultSet) throws SQLException {
@@ -46,7 +49,8 @@ public class TaskDao {
 
     public List<TaskHistory> getTaskHistory(int taskId) {
         RowMapper<TaskHistory> rowMapper = (resultSet, rowNumber) -> mapTaskHistory(resultSet);
-        return jdbcTemplate.query("SELECT * FROM ticket_history WHERE ticket_id = ? ORDER BY created DESC", rowMapper, taskId);
+        return jdbcTemplate.query("SELECT * FROM ticket_history WHERE ticket_id = ? ORDER BY created DESC",
+                rowMapper, taskId);
     }
 
     private TaskChangeableData setHistoryPreviousData(Task task) {
@@ -87,6 +91,7 @@ public class TaskDao {
         jdbcTemplate.update("UPDATE tickets " +
                         "SET assignee = (" +
                         "SELECT id FROM users WHERE id = ? AND is_active = true), " +
+                        "modified_at = current_timestamp" +
                         "WHERE id = ?",
                 userId, userId, taskId);
     }
@@ -104,7 +109,8 @@ public class TaskDao {
     }
 
     public void changeStatus(int taskId, String status) throws NullPointerException {
-        jdbcTemplate.update("UPDATE tickets SET status = ? WHERE id = ?", status, taskId);
+        jdbcTemplate.update("UPDATE tickets SET status = ?, modified_at = current_timestamp " +
+                "WHERE id = ?", status, taskId);
     }
 
     public void addNewAfterStatus(String newStatus, String afterStatus) {
@@ -139,6 +145,7 @@ public class TaskDao {
         task.setDescription(resultSet.getString("description"));
         task.setAttachmentId(resultSet.getArray("attachment_id"));
         task.setSprintId(resultSet.getInt("sprint_id"));
+        task.setModified_at(resultSet.getTimestamp("modified_at"));
         return task;
     }
 
@@ -153,7 +160,8 @@ public class TaskDao {
         RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         for (int i = 0; i < taskList.size(); i++) {
             Integer taskId = taskList.get(i).getId();
-            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?",
+                    rowMapper1, taskId).get(0);
             taskList.get(i).setCommentCount(commentCount);
         }
         return taskList;
@@ -165,7 +173,8 @@ public class TaskDao {
         RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         for (int i = 0; i < taskList.size(); i++) {
             Integer taskId = taskList.get(i).getId();
-            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?",
+                    rowMapper1, taskId).get(0);
             taskList.get(i).setCommentCount(commentCount);
         }
         return taskList;
@@ -173,11 +182,13 @@ public class TaskDao {
 
     public List<Task> getFilteredTaskList(String project) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
-        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id", rowMapper, project);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE project_name = ? ORDER BY id",
+                rowMapper, project);
         RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         for (int i = 0; i < taskList.size(); i++) {
             Integer taskId = taskList.get(i).getId();
-            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?",
+                    rowMapper1, taskId).get(0);
             taskList.get(i).setCommentCount(commentCount);
         }
         return taskList;
@@ -191,11 +202,13 @@ public class TaskDao {
     public List<Task> searchTaskByText(String varSummary) {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         String likeSummary = "%" + varSummary.substring(2).toUpperCase() + "%";
-        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
+        List<Task> taskList = jdbcTemplate.query("SELECT * FROM tickets WHERE UPPER(summary) LIKE ? " +
+                "OR UPPER(description) LIKE ?", rowMapper, likeSummary, likeSummary);
         RowMapper<Integer> rowMapper1 = (resultSet, rowNumber) -> mapGetCommentCount(resultSet);
         for (int i = 0; i < taskList.size(); i++) {
             Integer taskId = taskList.get(i).getId();
-            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?", rowMapper1, taskId).get(0);
+            Integer commentCount = jdbcTemplate.query("SELECT COUNT(*) FROM comments WHERE ticket_id = ?",
+                    rowMapper1, taskId).get(0);
             taskList.get(i).setCommentCount(commentCount);
         }
         return taskList;
@@ -205,5 +218,23 @@ public class TaskDao {
         RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapTask(resultSet);
         return jdbcTemplate.query("SELECT * FROM tickets WHERE id = ?",
                 rowMapper, taskId).get(0).getSprintId();
+    }
+
+    public List<Task> getRecentlyUpdatedTasks(Integer userId) {
+        RowMapper<Task> rowMapper = (resultSet, rowNumber) -> mapNotification(resultSet);
+        return jdbcTemplate.query("SELECT DISTINCT id, project_name, summary, modified_at FROM tickets " +
+                        "WHERE (assignee = ? OR reporter = ?) AND modified_at > CURRENT_TIMESTAMP - interval '3 days' " +
+                        "ORDER BY modified_at DESC",
+                rowMapper, userId, userId);
+    }
+
+    private Task mapNotification(ResultSet resultSet) throws SQLException {
+        Task task = new Task();
+
+        task.setId(resultSet.getInt("id"));
+        task.setProject(resultSet.getString("project_name"));
+        task.setSummary(resultSet.getString("summary"));
+        task.setModified_at(resultSet.getTimestamp("modified_at"));
+        return task;
     }
 }

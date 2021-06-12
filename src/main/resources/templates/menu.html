@@ -6,65 +6,94 @@
     <meta name="viewport" content="width=device-width">
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="/js/main.js" defer></script>
-<!--    <script>-->
-<!--        function setCookie(name, value) {-->
-<!--            document.cookie = name + "=" + value;-->
-<!--        }-->
+    <!--    <script>-->
+    <!--        function setCookie(name, value) {-->
+    <!--            document.cookie = name + "=" + value;-->
+    <!--        }-->
 
-<!--        function getCookie(name) {-->
-<!--            var allCookies = document.cookie;-->
-<!--            cookiesArr = allCookies.split(';');-->
+    <!--        function getCookie(name) {-->
+    <!--            var allCookies = document.cookie;-->
+    <!--            cookiesArr = allCookies.split(';');-->
 
-<!--            for (var i = 0; i < cookiesArr.length; i++) {-->
-<!--                if (cookiesArr[i].split('=')[0] == name) {-->
-<!--                document.write("Value for the key: " + name + "is " + cookiesArr[i].split('=')[1]);-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
+    <!--            for (var i = 0; i < cookiesArr.length; i++) {-->
+    <!--                if (cookiesArr[i].split('=')[0] == name) {-->
+    <!--                document.write("Value for the key: " + name + "is " + cookiesArr[i].split('=')[1]);-->
+    <!--                }-->
+    <!--            }-->
+    <!--        }-->
 
-<!--        setCookie("name", "NoName");-->
-<!--        getCookie("name");-->
-<!--        setCookie("name", "");-->
-<!--    </script>-->
+    <!--        setCookie("name", "NoName");-->
+    <!--        getCookie("name");-->
+    <!--        setCookie("name", "");-->
+    <!--    </script>-->
 </head>
 <body>
 <div th:replace="toolbar :: toolbar"></div>
+<div class="row">
+    <div class="menu">
+        <div id="taskBtn">
+            <a href="/taskform">
+                <button class="bigbtn">NEW TASK</button>
+            </a>
+        </div>
 
-<div class="menu row">
-    <div id="taskBtn">
-        <a href="/taskform">
-            <button class="bigbtn">NEW TASK</button>
-        </a>
+        <div id="tasklistBtn">
+            <a href="/tasklist">
+                <button class="bigbtn">TASKLIST</button>
+            </a>
+        </div>
+
+        <div id="statusManagerBtn">
+            <a href="/status-manager">
+                <button class="bigbtn">Status manager</button>
+            </a>
+        </div>
+
+        <div id="kanbanBoardBtn">
+            <a href="/kanban-board">
+                <button class="bigbtn">Kanban board</button>
+            </a>
+        </div>
+
+        <div id="sprintManagerBtn">
+            <a href="/sprint">
+                <button class="bigbtn">Sprints</button>
+            </a>
+        </div>
+
+        <div id="roadMapBtn">
+            <a href="/road-map">
+                <button class="bigbtn">Road map</button>
+            </a>
+        </div>
     </div>
-
-    <div id="tasklistBtn">
-        <a href="/tasklist">
-            <button class="bigbtn">TASKLIST</button>
-        </a>
-    </div>
-
-    <div id="statusManagerBtn">
-        <a href="/status-manager">
-            <button class="bigbtn">Status manager</button>
-        </a>
-    </div>
-
-    <div id="kanbanBoardBtn">
-        <a href="/kanban-board">
-            <button class="bigbtn">Kanban board</button>
-        </a>
-    </div>
-
-    <div id="sprintManagerBtn">
-        <a href="/sprint">
-            <button class="bigbtn">Sprints</button>
-        </a>
-    </div>
-
-    <div id="roadMapBtn">
-        <a href="/road-map">
-            <button class="bigbtn">Road map</button>
-        </a>
+    <div class="dashboard">
+        <div class="notifications">
+            <div class="notifText">Recently updated: </div>
+            <th:block th:each="task : ${notifications}">
+                <div id="taskId" class="row cell" th:id="'taskId' + ${task.id}">
+                    <a th:href="'/task/' + ${task.id}">
+                        <div class="taskID" th:text="${task.id}"></div>
+                        <div id="project" class="project" th:text="${task.project}"></div>
+                        <div id="summary" class="summary" th:text="${task.summary}"></div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+        <div class="userinfo">
+            <div>
+                <p class="label">User ID: </p>
+                <div name="id" th:text="${user.id}"></div>
+            </div>
+            <div>
+                <p class="label">Username: </p>
+                <div name="username" th:text="${user.name}"></div>
+            </div>
+            <div>
+                <p class="label">Email: </p>
+                <div name="email" th:text="${user.email}"></div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
